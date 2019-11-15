@@ -24,7 +24,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $results = $this->product->all();
+        $results = $this->product
+            ->join('catalogs','products.cid','=','catalogs.id')
+            ->select('products.*','catalogs.name as cname')
+            ->groupBy('name')
+            ->get();
         return view('backend.product.index',['results' => $results]);
     }
 
