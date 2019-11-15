@@ -2,11 +2,21 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Model\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
+    private $product;
+    public function __construct(
+        Product $product
+    )
+    {
+        $this->middleware('auth:admin');
+        $this->product = $product;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +24,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('backend.product.index');
+        $results = $this->product->all();
+        return view('backend.product.index',['results' => $results]);
     }
 
     /**
