@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Model\Sender;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class SenderController extends Controller
 {
+    private $sender;
+    public function __construct(
+        Sender $sender
+    ) {
+        $this->middleware('auth:admin');
+        $this->sender = $sender;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +22,8 @@ class SenderController extends Controller
      */
     public function index()
     {
-        //
+        $results = $this->sender->all();
+        return view('backend.sender.index', ['results' => $results]);
     }
 
     /**
