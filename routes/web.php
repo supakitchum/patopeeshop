@@ -10,7 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::name('backend.')->prefix('backend')->group(function () {
+    Route::get('login', 'Auth\AdminLoginController@showLoginForm');
+    Route::post('login', ['as'=>'admin-login','uses'=>'Auth\AdminLoginController@login']);
     Route::get('/', function () {
         return view('backend.dashboard');
     })->name('dashboard');
@@ -24,3 +27,7 @@ Route::name('backend.')->prefix('backend')->group(function () {
     Route::resource('senders','Backend\SenderController');
     Route::resource('sizes','Backend\SizeController');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

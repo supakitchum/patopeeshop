@@ -19,7 +19,7 @@ class AdminSeeder extends Seeder
                 'fname' => $faker->firstName,
                 'lname' => $faker->lastName,
                 'email' => $faker->email,
-                'password' => $faker->password(4, 10)
+                'password' => bcrypt('1234')
             ]);
         }
     }

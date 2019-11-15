@@ -21,7 +21,7 @@ class ProductSeeder extends Seeder
                 'cid'  => $faker->randomElement([1, 2, 3, 4, 5]),
                 'color' =>  $faker->randomElement([1, 2, 3, 4, 5]),
                 'size' =>  $faker->randomElement([1, 2, 3, 4, 5, 6]),
-                'quality' => $faker->$faker->randomNumber(3),
+                'quality' => $faker->randomNumber(3),
             ]);
         }
     }

@@ -19,7 +19,7 @@ class AdminLoginController extends Controller
      * @var string
      */
 
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/backend';
 
 
     /**
@@ -37,7 +37,7 @@ class AdminLoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('auth.adminLogin');
+        return view('auth.admin.login');
     }
 
 

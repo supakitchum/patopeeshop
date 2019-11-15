@@ -1,6 +1,6 @@
 @extends('backend.layouts.main')
 @section('title','จัดการสินค้า')
-@section('page_name','จัดการสินค้า')
+@section('page_name','จัดการ0สินค้า')
 @section('sub_page_name','')
 @section('content')
     <!-- Main content -->

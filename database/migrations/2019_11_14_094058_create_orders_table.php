@@ -16,6 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->string('mid');
             $table->float('pid');
+            $table->timestamps();
         });
     }
 

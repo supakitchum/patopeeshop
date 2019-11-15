@@ -20,7 +20,7 @@ class ReportSeeder extends Seeder
                 'email' => $faker->email,
                 'name' => $faker->name,
                 'order_id'  => $faker->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
-                'detail' =>  sentence($nbWords = 9, $variableNbWords = true),
+                'detail' =>  $faker->sentence($nbWords = 9, $variableNbWords = true),
                 'phone' =>  $faker->tollFreePhoneNumber,
             ]);
         }
