@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Model\Order;
+use App\Model\Receipt;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -36,4 +38,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+}
+function order()
+{
+    return $this->belongsTo(Order::class, 'mid', 'id');
+}
+
+function receipt()
+{
+    return $this->belongsTo(Receipt::class, 'uid', 'id');
 }
