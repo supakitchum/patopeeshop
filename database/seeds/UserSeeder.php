@@ -18,7 +18,13 @@ class UserSeeder extends Seeder
             User::create([
                 'name' => $faker->name,
                 'email' => $faker->email,
-                'password' => $faker->password(4, 10)
+                'password' => $faker->password(4, 10),
+                'province' => $faker->citySuffix,
+                'district' => $faker->citySuffix,
+                'zip_code' => $faker->postcode,
+                'address' => $faker->secondaryAddress,
+                'phone' => $faker->tollFreePhoneNumber,
+                'email_verified_at' => $faker->dateTime
             ]);
         }
     }
