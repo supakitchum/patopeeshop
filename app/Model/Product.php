@@ -23,3 +23,8 @@ function size()
 {
     return $this->hasMany(Size::class, 'size', 'id');
 }
+
+function order()
+{
+    return $this->belongsToMany(Order::class, 'pid', 'id');
+}

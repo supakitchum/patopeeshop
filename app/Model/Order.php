@@ -15,14 +15,16 @@ function user()
     return $this->hasOne(User::class, 'mid', 'id');
 }
 
-function catalog()
+function product()
 {
-    return $this->belongsToMany(Catalog::class, 'cid', 'id');
+    return $this->belongsToMany(Product::class, 'pid', 'id');
 }
+
 function payment()
 {
     return $this->belongsTo(Payment::class, 'order_id', 'id');
 }
+
 function receipt()
 {
     return $this->belongsTo(Receipt::class, 'order_id', 'id');
