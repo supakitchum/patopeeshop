@@ -18,18 +18,15 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="../images/user5-128x128.jpg" class="user-image rounded-circle" alt="User Image">
+                        <p>สวัสดี {{ auth()->user()->fname." ".auth()->user()->lname }}</p>
                     </a>
                     <ul class="dropdown-menu scale-up">
                         <!-- User image -->
-                        <li class="user-header">
-                            <img src="../images/user5-128x128.jpg" class="float-left rounded-circle"
-                                 alt="User Image">
-
+                        <li>
                             <p>
-                                Juliya Brus
-                                <small class="mb-5">jb@gmail.com</small>
-                                <a href="#" class="btn btn-danger btn-sm btn-rounded">View Profile</a>
+                                {{ auth()->user()->fname." ".auth()->user()->lname }}
+                                <small class="mb-5">{{ auth()->user()->email }}</small>
+                                {{--<a href="#" class="btn btn-danger btn-sm btn-rounded">View Profile</a>--}}
                             </p>
                         </li>
                         <!-- Menu Body -->
@@ -50,7 +47,7 @@
                                 </div>
                                 <div role="separator" class="divider col-12"></div>
                                 <div class="col-12 text-left">
-                                    <a href="#"><i class="fa fa-power-off"></i> Logout</a>
+                                    <a href="{{ route('backend.logout') }}"><i class="fa fa-power-off"></i> ออกจากระบบ</a>
                                 </div>
                             </div>
                             <!-- /.row -->
