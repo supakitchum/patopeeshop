@@ -38,13 +38,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-}
-function order()
-{
-    return $this->belongsTo(Order::class, 'mid', 'id');
-}
+    function order()
+    {
+        return $this->belongsTo(Order::class, 'mid', 'id');
+    }
 
-function receipt()
-{
-    return $this->belongsTo(Receipt::class, 'uid', 'id');
+    function receipt()
+    {
+        return $this->belongsTo(Receipt::class, 'uid', 'id');
+    }
 }
