@@ -1,6 +1,6 @@
 @extends('backend.layouts.main')
-@section('title','วิธีการจัดส่ง')
-@section('page_name','วิธีการจัดส่ง')
+@section('title','หมวดหมู่สินค้า')
+@section('page_name','หมวดหมู่สินค้า')
 @section('sub_page_name','')
 @section('content')
 <!-- Main content -->
@@ -10,12 +10,12 @@
             <div class="box-header">
                 <div class="row">
                     <div class="col-lg-6 col-sm-12">
-                        <h3 class="box-title">รายการวิธีการจัดส่ง</h3>
+                        <h3 class="box-title">หมวดหมู่สินค้า</h3>
                     </div>
 
                     <div class="col-lg-6 col-sm-12" align="right">
                         <a class="btn btn-rounded text-white" style="background-color: #00be00;"
-                            href="{{ route('backend.senders.create') }}">
+                            href="{{ route('backend.catalogs.create') }}">
                             <i class="fa fa-plus"></i> เพิ่ม
                         </a>
                     </div>
@@ -27,8 +27,7 @@
                 <table id="sender-table" class="table table-bordered table-striped table-responsive">
                     <thead>
                         <th>ลำดับ</th>
-                        <th>ชื่อบริษัทขนส่ง</th>
-                        <th>Link</th>
+                        <th>หมวดหมู่</th>
                         <th>เพิ่มเมื่อ</th>
                         <th>แก้ไขล่าสุดเมื่อ</th>
                         <th>การจัดการ</th>
@@ -39,17 +38,16 @@
                         <tr>
                             <td>{{ $index + 1 }}</th>
                             <td>{{ $result->name }}</th>
-                            <td>{{ $result->link }}</th>
                             <td>{{ $result->created_at }}</th>
                             <td>{{ $result->updated_at }}</th>
                             <td>
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12">
-                                        <a href="{{ route('backend.senders.edit',["id" => $result->id]) }}"
+                                        <a href="{{ route('backend.catalogs.edit',["id" => $result->id]) }}"
                                             class="btn btn-primary btn-rounded w-100"><i class="fa fa-edit"></i></a>
                                     </div>
                                     <div class="col-lg-4 col-md-12">
-                                        <form action="{{ route('backend.senders.destroy',["id" => $result->id]) }}"
+                                        <form action="{{ route('backend.catalogs.destroy',["id" => $result->id]) }}"
                                             method="post">
                                             @csrf
                                             <input type="hidden" name="_method" value="delete">

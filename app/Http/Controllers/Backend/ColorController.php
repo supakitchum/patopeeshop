@@ -2,11 +2,21 @@
 
 namespace App\Http\Controllers\Backend;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Model\Color;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ColorController extends Controller
 {
+    use SoftDeletes;
+    private $color;
+    public function __construct(
+        Color $color
+    ) {
+        $this->middleware('auth:admin');
+        $this->color = $color;
+    }
     /**
      * Display a listing of the resource.
      *
