@@ -14,13 +14,13 @@ class Product extends Model
         return $this->belongsToMany(Catalog::class, 'cid', 'id');
     }
 
-    function color()
+    function colors()
     {
-        return $this->belongsToMany(Color::class, 'color', 'id');
+        return $this->hasMany(Color::class, 'id','color');
     }
-    function size()
+    function sizes()
     {
-        return $this->hasMany(Size::class, 'size', 'id');
+        return $this->hasMany(Size::class, 'id', 'size');
     }
 
     function order()
