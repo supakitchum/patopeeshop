@@ -10,6 +10,7 @@
     <title>{{ get_title() }}</title>
     <!-- Bootstrap v4.0.0-beta -->
     <link rel="stylesheet" href="{{ asset('assets/vendor_components/bootstrap/dist/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 
     <!-- theme style -->
     <link rel="stylesheet" href="{{ asset('css/master_style.css') }}">
@@ -73,6 +74,39 @@
         </section>
 
         <section class="content">
+            <div class="row">
+                @if (session('status'))
+                    <div class="col-lg-12">
+                        <div class="alert alert-{{ session('status')["class"]}} text-center alert-dismissible" role="alert">
+                            <?php
+                            switch (session('status')["class"]){
+                                case "success":
+                                    echo '<i class="icon fa fa-check"></i>';
+                                    break;
+                                case "danger":
+                                    echo '<i class="icon fa fa-ban"></i>';
+                                    break;
+                                case "warning":
+                                    echo '<i class="icon fa fa-warning"></i>';
+                                    break;
+                            }
+                                    ?>
+                            {{ session('status')["message"]}}
+                        </div>
+                    </div>
+                @endif
+                @if ($errors->any())
+                    <div class="col-lg-12">
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                @endif
+            </div>
             @yield('content')
         </section>
     </div>

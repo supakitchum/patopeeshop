@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Model\Product;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
+    use SoftDeletes;
+
     private $product;
     public function __construct(
         Product $product
@@ -26,7 +29,7 @@ class ProductController extends Controller
     {
         $results = $this->product
             ->join('catalogs','products.cid','=','catalogs.id')
-            ->select('products.*','catalogs.name as cname')
+            ->select('products.*','catalogs.name as cname',\DB::raw("SUM(products.quality) as total"))
             ->groupBy('name')
             ->get();
         return view('backend.product.index',['results' => $results]);
@@ -39,7 +42,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.product.form');
     }
 
     /**
@@ -72,7 +75,22 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $results = $this->product
+            ->join('catalogs','products.cid','=','catalogs.id')
+            ->where('products.id',$id)
+            ->select('products.*','catalogs.name as cname',\DB::raw("SUM(products.quality) as total"))
+            ->groupBy('name')
+            ->get();
+        $product = $this->product->find($id);
+        $colors = $product->colors;
+        $sizes = $product->sizes;
+        return view('backend.product.form',
+            [
+                'results' => $results,
+                'colors' => $colors,
+                'sizes' => $sizes
+            ]
+        );
     }
 
     /**
@@ -95,6 +113,15 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $product = $this->product->find($id);
+        $product->delete();
+
+        return redirect()->back()->with([
+            'status' => [
+                'class' => 'success',
+                'message' => 'ลบ '.$product->name.' สำเร็จ'
+            ]
+        ]);
     }
 }
