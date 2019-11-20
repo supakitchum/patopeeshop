@@ -10,30 +10,44 @@
     <title>{{ get_title() }}</title>
     <!-- Bootstrap v4.0.0-beta -->
     <link rel="stylesheet" href="{{ asset('assets/vendor_components/bootstrap/dist/css/bootstrap.css') }}">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
     <!-- theme style -->
     <link rel="stylesheet" href="{{ asset('css/master_style.css') }}">
-
     <!-- mínimo_admin skins. choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ asset('css/skins/_all-skins.css') }}">
-
     <!-- morris chart -->
     <link rel="stylesheet" href="{{ asset('assets/vendor_components/morris.js/morris.css') }}">
-
     <!-- jvectormap -->
     <link rel="stylesheet" href="{{ asset('assets/vendor_components/jvectormap/jquery-jvectormap.css') }}">
-
     <!-- date picker -->
     <link rel="stylesheet"
           href="{{ asset('assets/vendor_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}">
-
     <!-- daterange picker -->
     <link rel="stylesheet" href="{{ asset('assets/vendor_components/bootstrap-daterangepicker/daterangepicker.css') }}">
-
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="{{ asset('assets/vendor_plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.css') }}">
 
+    <link rel="stylesheet" href="{{ mix("assets/stylesheets/styles.css") }}"/>
+    <style>
+        .dm-uploader {
+            border: 0.25rem dashed #A5A5C7;
+            text-align: center;
+        }
+        .dm-uploader.active {
+            border-color: red;
 
+            border-style: solid;
+        }
+        #files {
+            overflow-y: scroll !important;
+            min-height: 320px;
+        }
+        @media (min-width: 768px) {
+            #files {
+                min-height: 0;
+            }
+        }
+    </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -73,6 +87,39 @@
         </section>
 
         <section class="content">
+            <div class="row">
+                @if (session('status'))
+                    <div class="col-lg-12">
+                        <div class="alert alert-{{ session('status')["class"]}} text-center alert-dismissible" role="alert">
+                            <?php
+                            switch (session('status')["class"]){
+                                case "success":
+                                    echo '<i class="icon fa fa-check"></i>';
+                                    break;
+                                case "danger":
+                                    echo '<i class="icon fa fa-ban"></i>';
+                                    break;
+                                case "warning":
+                                    echo '<i class="icon fa fa-warning"></i>';
+                                    break;
+                            }
+                                    ?>
+                            {{ session('status')["message"]}}
+                        </div>
+                    </div>
+                @endif
+                @if ($errors->any())
+                    <div class="col-lg-12">
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                @endif
+            </div>
             @yield('content')
         </section>
     </div>
@@ -137,6 +184,9 @@
 <!-- mínimo_admin for demo purposes -->
 <script src="{{ asset('js/demo.js') }}"></script>
 <script src="{{ asset('assets/vendor_plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="{{ mix("assets/scripts/frontend.js") }}" type="text/javascript"></script>
 @yield('script')
 </body>
 </html>

@@ -31,7 +31,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="../../index.html"><b>mínimo</b>admin</a>
+        <h1>Logo</h1>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
@@ -67,17 +67,7 @@
                 <!-- /.col -->
             </div>
         </form>
-
-        <div class="social-auth-links text-center">
-            <p>- OR -</p>
-            <a href="#" class="btn btn-social-icon btn-circle btn-facebook"><i class="fa fa-facebook"></i></a>
-            <a href="#" class="btn btn-social-icon btn-circle btn-google"><i class="fa fa-google-plus"></i></a>
-        </div>
         <!-- /.social-auth-links -->
-
-        <div class="margin-top-30 text-center">
-            <p>Don't have an account? <a href="register.html" class="text-info m-l-5">Sign Up</a></p>
-        </div>
 
     </div>
     <!-- /.login-box-body -->
