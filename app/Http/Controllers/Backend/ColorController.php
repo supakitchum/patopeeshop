@@ -24,7 +24,8 @@ class ColorController extends Controller
      */
     public function index()
     {
-        //
+        $results = $this->color->all();
+        return view('backend.color.index', ['results' => $results]);
     }
 
     /**
@@ -34,7 +35,7 @@ class ColorController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.color.form');
     }
 
     /**
@@ -45,7 +46,24 @@ class ColorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $create = $this->color->create([
+            'name' => $request->input('name'),
+        ]);
+
+        if ($create) {
+            return redirect(route('backend.colors.index'))->with([
+                'status' => [
+                    'class' => 'success',
+                    'message' => 'แก้ไขสำเร็จ'
+                ]
+            ]);;
+        }
+        return redirect(route('backend.colors.create'))->with([
+            'status' => [
+                'class' => 'warning',
+                'message' => 'แก้ไขไม่สำเร็จ'
+            ]
+        ]);
     }
 
     /**
@@ -67,7 +85,8 @@ class ColorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $catalog = $this->color->find($id);
+        return view('backend.color.form', ['results' => $catalog]);
     }
 
     /**
@@ -79,7 +98,23 @@ class ColorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $color = $this->color->find($id);
+        $color->name = $request->input('name');
+
+        if ($color->save()) {
+            return redirect(route('backend.colors.index'))->with([
+                'status' => [
+                    'class' => 'success',
+                    'message' => 'แก้ไขสำเร็จ'
+                ]
+            ]);;
+        }
+        return redirect(route('backend.colors.edit', ['id' => $color->id]))->with([
+            'status' => [
+                'class' => 'warning',
+                'message' => 'แก้ไขไม่สำเร็จ'
+            ]
+        ]);
     }
 
     /**
@@ -90,6 +125,14 @@ class ColorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $color = $this->color->find($id);
+        $color->delete();
+
+        return redirect()->back()->with([
+            'status' => [
+                'class' => 'success',
+                'message' => 'ลบ ' . $color->name . ' สำเร็จ'
+            ]
+        ]);
     }
 }

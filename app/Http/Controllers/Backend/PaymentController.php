@@ -4,9 +4,17 @@ namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Payment;
 
 class PaymentController extends Controller
 {
+    private $payment;
+    public function __construct(
+        Payment $payment
+    ) {
+        $this->middleware('auth:admin');
+        $this->payment = $payment;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +22,8 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
+        $results = $this->payment->all();
+        return view('backend.payment.index', ['results' => $results]);
     }
 
     /**

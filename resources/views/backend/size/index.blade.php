@@ -1,6 +1,6 @@
 @extends('backend.layouts.main')
-@section('title','สี')
-@section('page_name','สี')
+@section('title','ขนาด')
+@section('page_name','ขนาด')
 @section('sub_page_name','')
 @section('content')
 <!-- Main content -->
@@ -10,12 +10,12 @@
             <div class="box-header">
                 <div class="row">
                     <div class="col-lg-6 col-sm-12">
-                        <h3 class="box-title">สี</h3>
+                        <h3 class="box-title">ขนาด</h3>
                     </div>
 
                     <div class="col-lg-6 col-sm-12" align="right">
                         <a class="btn btn-rounded text-white" style="background-color: #00be00;"
-                            href="{{ route('backend.colors.create') }}">
+                            href="{{ route('backend.sizes.create') }}">
                             <i class="fa fa-plus"></i> เพิ่ม
                         </a>
                     </div>
@@ -24,10 +24,10 @@
             <!-- /.box-header -->
 
             <div class="box-body">
-                <table id="color-table" class="table table-bordered table-striped table-responsive">
+                <table id="sender-table" class="table table-bordered table-striped table-responsive">
                     <thead>
                         <th>ลำดับ</th>
-                        <th>สี</th>
+                        <th>ขนาด</th>
                         <th>เพิ่มเมื่อ</th>
                         <th>แก้ไขล่าสุดเมื่อ</th>
                         <th>การจัดการ</th>
@@ -43,11 +43,11 @@
                             <td>
                                 <div class="row">
                                     <div class="col-lg-4 col-md-12">
-                                        <a href="{{ route('backend.colors.edit',["id" => $result->id]) }}"
+                                        <a href="{{ route('backend.sizes.edit',["id" => $result->id]) }}"
                                             class="btn btn-primary btn-rounded w-100"><i class="fa fa-edit"></i></a>
                                     </div>
                                     <div class="col-lg-4 col-md-12">
-                                        <form action="{{ route('backend.colors.destroy',["id" => $result->id]) }}"
+                                        <form action="{{ route('backend.sizes.destroy',["id" => $result->id]) }}"
                                             method="post">
                                             @csrf
                                             <input type="hidden" name="_method" value="delete">
@@ -73,7 +73,7 @@
 $(function() {
     "use strict";
 
-    $('#color-table').DataTable({
+    $('#sender-table').DataTable({
         "columnDefs": [{
                 "width": "5%",
                 "targets": 0
