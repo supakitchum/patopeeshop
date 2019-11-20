@@ -13,54 +13,9 @@
                     <div class="col-lg-6 col-sm-12">
                         <h3 class="box-title">รายการแจ้งชำระ</h3>
                     </div>
-
-                    <div class="col-lg-6 col-sm-12" align="right">
-                        <a class="btn btn-rounded text-white" style="background-color: #00be00;"
-                            href="{{ route('backend.payments.create') }}">
-                            <i class="fa fa-plus"></i> เพิ่ม
-                        </a>
-                    </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-12">
-                <div class="box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Medium model <code>Click on image</code></h3>
-                    </div>
-                    <div class="box-body">
-                        <!-- sample modal content -->
-                        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title" id="myModalLabel">Medium model</h4>
-                                        <button type="button" class="close" data-dismiss="modal"
-                                            aria-hidden="true">×</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h4>Overflowing text to show scroll behavior</h4>
-                                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus
-                                            sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna,
-                                            vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper
-                                            nulla non metus auctor fringilla.</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-info waves-effect"
-                                            data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                                <!-- /.modal-content -->
-                            </div>
-                            <!-- /.modal-dialog -->
-                        </div>
-                        <!-- /.modal -->
-                        <img src="../../../images/model.png" alt="default" data-toggle="modal" data-target="#myModal"
-                            class="model_img img-fluid" />
-                    </div>
-                </div>
-            </div><!-- /.col -->
+
             <!-- /.box-header -->
             <i class="fa fa-2x fa-clos" style="color: green;"></i>
             <!-- Modal -->
@@ -106,11 +61,11 @@
                             <td>{{ $result->created_at }}</td>
                             <td>
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-12">
+                                    <div class="col-lg-6 col-md-12">
                                         <a href="{{ route('backend.payments.edit',["id" => $result->id]) }}"
                                             class="btn btn-primary btn-rounded w-100"><i class="fa fa-edit"></i></a>
                                     </div>
-                                    <div class="col-lg-4 col-md-12">
+                                    <div class="col-lg-6 col-md-12">
                                         <form action="{{ route('backend.payments.destroy',["id" => $result->id]) }}"
                                             method="post">
                                             @csrf
@@ -142,7 +97,7 @@ $(function() {
                 "targets": 0
             },
             {
-                "width": "10%",
+                "width": "13%",
                 "targets": 1
             },
             {
@@ -158,11 +113,11 @@ $(function() {
                 "targets": 4
             },
             {
-                "width": "15%",
+                "width": "10%",
                 "targets": 5
             },
             {
-                "width": "20%",
+                "width": "15%",
                 "targets": 6
             },
             {
@@ -177,7 +132,7 @@ $(function() {
 <script>
 $(document).on('show.bs.modal', '.modal', function(e) {
     var img = $(e.relatedTarget).data('src');
-    alert(img);
+    // alert(img);
     $(".modal-body #img-zoom-modal").attr('src', img);
 });
 </script>

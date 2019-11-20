@@ -33,7 +33,7 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.payment.form');
     }
 
     /**
