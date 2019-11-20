@@ -6,18 +6,38 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'price', 'cid', 'color', 'size', 'quality'];
+    protected $fillable = ['name', 'recommend','detail'];
 
 
-    function catalog()
+    public function hasCatalog($pid)
     {
-        return $this->belongsToMany(Catalog::class, 'cid', 'id');
+        $catalogs = ProductCatalog::join('catalogs', 'product_catalogs.cid', '=', 'catalogs.id')->where('pid', $pid)->get();
+        return $catalogs;
+    }
+
+    public function details($pid)
+    {
+        $results = ProductDetail::join('products', 'product_details.pid', '=', 'products.id')
+            ->join('colors', 'product_details.color', '=', 'colors.id')
+            ->join('sizes', 'product_details.size', '=', 'sizes.id')
+            ->select('products.*', 'colors.id as color', 'sizes.id as size','product_details.id as detail_id', 'product_details.quality', 'product_details.price', 'products.recommend')
+            ->where('pid', $pid)
+            ->orderBy('product_details.created_at')
+            ->get();
+        return $results;
+    }
+
+    public function images($pid)
+    {
+        $results = ProductImage::where('pid',$pid)->get();
+        return $results;
     }
 
     function colors()
     {
-        return $this->hasMany(Color::class, 'id','color');
+        return $this->hasMany(Color::class, 'id', 'color');
     }
+
     function sizes()
     {
         return $this->hasMany(Size::class, 'id', 'size');

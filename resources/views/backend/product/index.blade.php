@@ -3,6 +3,26 @@
 @section('page_name','จัดการ0สินค้า')
 @section('sub_page_name','')
 @section('content')
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Medium model</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <h4>Overflowing text to show scroll behavior</h4>
+                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
     <!-- Main content -->
     <div class="row">
         <div class="col-12">
@@ -24,9 +44,8 @@
                     <table id="product-table" class="table table-bordered table-striped table-responsive">
                         <thead>
                         <th>ลำดับ</th>
+                        <th>รูปภาพ</th>
                         <th>ชื่อสินค้า</th>
-                        <th>คงเหลือรวม</th>
-                        <th>หมวดหมู่</th>
                         <th>เพิ่มเมื่อ</th>
                         <th>แก้ไขล่าสุดเมื่อ</th>
                         <th>การจัดการ</th>
@@ -35,15 +54,14 @@
                         @foreach($results as $index=>$result)
                             <tr>
                                 <td>{{ $index+1 }}</td>
+                                <td><img src="{{ isset($images->images($result->id)[0]->path) ? asset($images->images($result->id)[0]->path):'' }}" width="100px"></td>
                                 <td>{{ $result->name }}</td>
-                                <td>{{ $result->total }}</td>
-                                <td>{{ $result->cname }}</td>
                                 <td>{{ $result->created_at }}</td>
                                 <td>{{ $result->updated_at }}</td>
                                 <td>
                                     <div class="row">
                                         <div class="col-lg-4 col-md-12">
-                                            <a href="" class="btn btn-info btn-rounded w-100"><i class="fa fa-eye"></i></a>
+                                            <a data-toggle="modal" data-title="{{ $result->name }}" data-target="#myModal" class="btn btn-info btn-rounded w-100"><i class="fa fa-eye"></i></a>
                                         </div>
                                         <div class="col-lg-4 col-md-12">
                                             <a href="{{ route('backend.products.edit',['id' => $result->id]) }}" class="btn btn-warning btn-rounded w-100"><i class="fa fa-edit"></i></a>
@@ -69,20 +87,14 @@
 @stop
 @section('script')
     <script>
+        $(document).on('show.bs.modal', '.modal', function (e) {
+            var title = $(e.relatedTarget).data('title')
+            $('#myModalLabel').html(title);
+        });
+    </script>
+    <script>
         $(function () {
-            "use strict";
-
-            $('#product-table').DataTable({
-                "columns": [
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    { "width": "15%" }
-                ]
-            });
+            $('#product-table').DataTable();
 
         }); // End of use strict
     </script>
