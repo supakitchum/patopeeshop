@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -30,6 +29,7 @@ class AdminLoginController extends Controller
      */
 
     public function __construct()
+
     {
         $this->middleware('guest')->except('logout');
     }
@@ -38,22 +38,14 @@ class AdminLoginController extends Controller
     public function showLoginForm()
     {
         return view('auth.admin.login');
-
     }
 
 
     public function login(Request $request)
     {
         if (auth()->guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect()->route('backend.dashboard');
+            dd(auth()->guard('admin')->user());
         }
         return back()->withErrors(['email' => 'Email or password are wrong.']);
-
-    }
-
-    public function logout()
-    {
-        auth()->guard('admin')->logout();
-        return redirect()->route('backend.login');
     }
 }
