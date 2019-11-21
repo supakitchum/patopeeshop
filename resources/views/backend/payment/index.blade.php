@@ -61,11 +61,16 @@
                             <td>{{ $result->created_at }}</td>
                             <td>
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-12">
+                                    <div class="col-lg-4 col-md-12">
+                                        <a href="{{ route('backend.payments.show',["id" => $result->id]) }}"
+                                            class="btn btn-rounded text-white w-100"
+                                            style="background-color: #00be00;"><i class="fa fa-check"></i></a>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12">
                                         <a href="{{ route('backend.payments.edit',["id" => $result->id]) }}"
                                             class="btn btn-primary btn-rounded w-100"><i class="fa fa-edit"></i></a>
                                     </div>
-                                    <div class="col-lg-6 col-md-12">
+                                    <div class="col-lg-4 col-md-12">
                                         <form action="{{ route('backend.payments.destroy',["id" => $result->id]) }}"
                                             method="post">
                                             @csrf
@@ -117,7 +122,7 @@ $(function() {
                 "targets": 5
             },
             {
-                "width": "15%",
+                "width": "10%",
                 "targets": 6
             },
             {
