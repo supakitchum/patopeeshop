@@ -16,7 +16,12 @@ class ProductSeeder extends Seeder
         $faker = Faker\Factory::create();
         for ($i = 0; $i < 20; $i++) {
             Product::create([
-                'name' => $faker->name
+                'name' => $faker->name,
+                'price' => $faker->randomNumber(3),
+                'cid'  => $faker->randomElement([1, 2, 3, 4, 5]),
+                'color' =>  $faker->randomElement([1, 2, 3, 4, 5]),
+                'size' =>  $faker->randomElement([1, 2, 3, 4, 5, 6]),
+                'quality' => $faker->randomNumber(3),
             ]);
         }
     }

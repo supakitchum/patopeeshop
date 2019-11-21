@@ -11,22 +11,29 @@ const mix = require('laravel-mix');
  |
  */
 mix.styles([
-    'node_modules/bootstrap-fileinput/css/fileinput.css',
-    'node_modules/bootstrap-fileinput/themes/explorer-fas/theme.css',
+    'resources/minimoadmin/css/master_style.css',
+    'resources/minimoadmin/css/extend.css',
+    'resources/minimoadmin/css/skins/_all-skins.css',
 
 ], 'public/assets/stylesheets/styles.css')
     .sourceMaps()
     .version();
 
 mix.scripts([
-    'node_modules/bootstrap-fileinput/js/fileinput.js',
-    'node_modules/bootstrap-fileinput/js/locales/th.js',
-    'node_modules/bootstrap-fileinput/js/plugins/piexif.js',
-    'node_modules/bootstrap-fileinput/js/plugins/purify.js',
-    'node_modules/bootstrap-fileinput/js/plugins/sortable.js',
-    'node_modules/bootstrap-fileinput/themes/fas/theme.js',
-    'node_modules/bootstrap-fileinput/themes/explorer-fas/theme.js',
-
+    'resources/minimoadmin/js/demo.js',
+    'resources/minimoadmin/js/template.js',
+    'resources/minimoadmin/js/advanced-form-element.js',
+    'resources/minimoadmin/js/calendar.js',
+    'resources/minimoadmin/js/dashboard.js',
+    'resources/minimoadmin/js/data-table.js',
+    'resources/minimoadmin/js/editor.js',
+    'resources/minimoadmin/js/mailbox.js',
+    'resources/minimoadmin/js/steps.js',
+    'resources/minimoadmin/js/validation.js',
+    'resources/minimoadmin/js/widget-charts.js',
+    'resources/minimoadmin/js/widget-flot-charts.js',
+    'resources/minimoadmin/js/widget-inline-charts.js',
+    'resources/minimoadmin/js/widget-morris-charts.js',
 ], 'public/assets/scripts/frontend.js')
     .sourceMaps()
     .version();

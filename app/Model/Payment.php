@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    protected $fillable = ['amount', 'slip', 'transfer_at', 'bank', 'order_id', 'confirm'];
-    protected $dates = ["transfer_at"];
+    protected $fillable = ['amount', 'slip', 'transfer_at', 'bank', 'order_id'];
 
     function order()
     {
