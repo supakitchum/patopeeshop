@@ -13,6 +13,7 @@ const mix = require('laravel-mix');
 mix.styles([
     'node_modules/bootstrap-fileinput/css/fileinput.css',
     'node_modules/bootstrap-fileinput/themes/explorer-fas/theme.css',
+    'node_modules/sweetalert2/dist/sweetalert2.css',
 
 ], 'public/assets/stylesheets/styles.css')
     .sourceMaps()
@@ -26,6 +27,7 @@ mix.scripts([
     'node_modules/bootstrap-fileinput/js/plugins/sortable.js',
     'node_modules/bootstrap-fileinput/themes/fas/theme.js',
     'node_modules/bootstrap-fileinput/themes/explorer-fas/theme.js',
+    'node_modules/sweetalert2/dist/sweetalert2.js',
 
 ], 'public/assets/scripts/frontend.js')
     .sourceMaps()

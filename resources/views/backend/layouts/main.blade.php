@@ -156,6 +156,8 @@
 <script src="{{ asset('assets/vendor_plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
 <script src="{{ asset('assets/vendor_plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
 
+<!-- Select2 -->
+<link rel="stylesheet" href="{{ asset('assets/vendor_components/select2/dist/css/select2.min.css') }}">
 <!-- jQuery Knob Chart -->
 <script src="{{ asset('assets/vendor_components/jquery-knob/js/jquery.knob.js') }}"></script>
 
