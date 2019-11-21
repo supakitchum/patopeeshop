@@ -14,6 +14,12 @@ class AdminSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
+        Admin::create([
+            'fname' => $faker->firstName,
+            'lname' => $faker->lastName,
+            'email' => 'admin@test.com',
+            'password' => bcrypt('1234')
+        ]);
         for ($i = 0; $i < 10; $i++) {
             Admin::create([
                 'fname' => $faker->firstName,
