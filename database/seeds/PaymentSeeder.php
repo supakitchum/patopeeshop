@@ -17,7 +17,7 @@ class PaymentSeeder extends Seeder
         for ($i = 0; $i < 10; $i++) {
             Payment::create([
                 'amount' => $faker->randomNumber(3),
-                'slip' => $faker->randomNumber(3),
+                'slip' => '/uploads/slips/72298740_467520780642783_2543306781732372480_n.jpg',
                 'transfer_at'  => $faker->dateTime,
                 'bank' =>  'ธนาคารไทยพาณิชย์ เลขที่บัญชี 586-5654-5642',
                 'order_id' =>  $faker->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
