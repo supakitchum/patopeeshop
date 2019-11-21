@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Model\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
+    private $product;
+    public function __construct(
+        Product $product
+    ){
+        $this->product = $product;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.order.index');
     }
 
     /**
@@ -24,7 +31,8 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $products = $this->product->all();
+        return view('backend.order.form-create')->with(['products'=>$products,'images' => $this->product]);
     }
 
     /**

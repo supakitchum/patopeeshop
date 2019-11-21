@@ -23,6 +23,7 @@
         "vue": "^2.5.17"
     },
     "dependencies": {
-        "bootstrap-fileinput": "^5.0.7"
+        "bootstrap-fileinput": "^5.0.7",
+        "sweetalert2": "^9.3.16"
     }
 }

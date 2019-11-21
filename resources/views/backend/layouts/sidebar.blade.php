@@ -39,7 +39,7 @@
                 </a>
             </li>
             <li class="treeview">
-                <a href="{{ route('backend.orders.index') }}">
+                <a href="#">
                     <i class="fa fa-th"></i>
                     <span>คำสั่งซื้อ</span>
                     <span class="pull-right-container">
@@ -47,8 +47,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ route('backend.orders.create') }}"><i class="fa fa-circle-o"></i>
-                            เพิ่มคำสั่งซื้อ</a></li>
+                    <li><a href="{{ route('backend.orders.index') }}"><i class="fa fa-circle-o"></i> รายการคำสั่งซื้อ</a></li>
+                    <li><a href="{{ route('backend.orders.create') }}"><i class="fa fa-circle-o"></i> เพิ่มคำสั่งซื้อ</a></li>
                 </ul>
             </li>
             <li class="treeview">
