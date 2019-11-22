@@ -26,8 +26,7 @@ class ProductController extends Controller
         Catalog $catalog,
         ProductDetail $product_detail,
         ProductCatalog $product_catalog
-    )
-    {
+    ) {
         $this->middleware('auth:admin');
         $this->product = $product;
         $this->size = $size;
@@ -45,11 +44,19 @@ class ProductController extends Controller
     public function index()
     {
         $results = $this->product->all();
-        return view('backend.product.index',
+        $catalogs = $this->catalog->all();
+        $colors = $this->color->all();
+        $sizes = $this->size->all();
+        return view(
+            'backend.product.index',
             [
                 'results' => $results,
-                'images' => $this->product
-            ]);
+                'images' => $this->product,
+                'catalogs' => $catalogs,
+                'colors' => $colors,
+                'sizes' => $sizes
+            ]
+        );
     }
 
     /**
@@ -67,7 +74,8 @@ class ProductController extends Controller
                 'colors' => $colors,
                 'sizes' => $sizes,
                 'catalogs' => $catalogs
-            ]);
+            ]
+        );
     }
 
     /**
@@ -120,18 +128,18 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-//        $colors = $this->color->all();
-//        $sizes = $this->size->all();
-//        $catalogs = $this->catalog->all();
-//        $results = $this->product->details($id);
-//        return $results;
-//        return view('backend.product.form')->with(
-//            [
-//                'colors' => $colors,
-//                'sizes' => $sizes,
-//                'catalogs' => $catalogs,
-//                'results' => $results
-//            ]);
+        //        $colors = $this->color->all();
+        //        $sizes = $this->size->all();
+        //        $catalogs = $this->catalog->all();
+        //        $results = $this->product->details($id);
+        //        return $results;
+        //        return view('backend.product.form')->with(
+        //            [
+        //                'colors' => $colors,
+        //                'sizes' => $sizes,
+        //                'catalogs' => $catalogs,
+        //                'results' => $results
+        //            ]);
     }
 
     /**
@@ -160,7 +168,8 @@ class ProductController extends Controller
                 'results' => $results,
                 'catalog_results' => $catalog_results,
                 'images' => $this->product->images($id)
-            ]);
+            ]
+        );
     }
 
     /**
@@ -192,7 +201,7 @@ class ProductController extends Controller
         // find count of product attribute.
         $pro_count = $this->product_detail->where('pid', $id)->count();
 
-        if ($pro_count < sizeof($request->input('size'))){
+        if ($pro_count < sizeof($request->input('size'))) {
             // create new product attribute.
             for ($i = $pro_count; $i < sizeof($request->input('size')); $i++) {
                 $this->product_detail->create([
