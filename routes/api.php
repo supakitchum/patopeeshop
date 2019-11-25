@@ -19,3 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('image/add/{pid}','API\UploadController@add');
 Route::post('image/delete/{pid}','API\UploadController@delete');
+Route::get('product/{pid}','API\ProductController@getDetail');
+Route::get('product/{pid}/{size}','API\ProductController@getDetail');
+Route::post('filter/product','API\ProductController@filter');

@@ -15,7 +15,7 @@
                     </span>
                 </a>
             </li>
-            <li class="treeview {{ Request::is('*products') ? 'menu-open':'' }}">
+            <li class="treeview {{ Request::is('*products*') ? 'active':'' }}">
                 <a href="#">
                     <i class="fa fa-product-hunt"></i>
                     <span>สินค้า</span>
@@ -38,7 +38,7 @@
                     </span>
                 </a>
             </li>
-            <li class="treeview">
+            <li class="treeview {{ Request::is('*orders*') ? 'active':'' }}">
                 <a href="#">
                     <i class="fa fa-th"></i>
                     <span>คำสั่งซื้อ</span>
@@ -51,7 +51,7 @@
                     <li><a href="{{ route('backend.orders.create') }}"><i class="fa fa-circle-o"></i> เพิ่มคำสั่งซื้อ</a></li>
                 </ul>
             </li>
-            <li class="treeview">
+            <li class="treeview {{ Request::is('*payments*') ? 'active':'' }}">
                 <a href="{{ route('backend.payments.index') }}">
                     <i class="fa fa-th"></i>
                     <span>รายการแจ้งชำระ</span>
@@ -67,7 +67,7 @@
                 </ul>
 
             </li>
-            <li>
+            <li class="{{ Request::is('*senders') ? 'active':'' }}">
                 <a href="{{ route('backend.senders.index') }}">
                     <i class="fa fa-truck"></i> <span>วิธีการจัดส่ง</span>
                     <span class="pull-right-container">
@@ -220,16 +220,16 @@
             {{--<li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>--}}
         </ul>
     </section>
-    <!-- /.sidebar -->
-    <div class="sidebar-footer">
-        <!-- item-->
-        <a href="" class="link" data-toggle="tooltip" title="" data-original-title="Settings"><i
-                class="fa fa-cog fa-spin"></i></a>
-        <!-- item-->
-        <a href="" class="link" data-toggle="tooltip" title="" data-original-title="Email"><i
-                class="fa fa-envelope"></i></a>
-        <!-- item-->
-        <a href="" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i
-                class="fa fa-power-off"></i></a>
-    </div>
+{{--    <!-- /.sidebar -->--}}
+{{--    <div class="sidebar-footer">--}}
+{{--        <!-- item-->--}}
+{{--        <a href="" class="link" data-toggle="tooltip" title="" data-original-title="Settings"><i--}}
+{{--                class="fa fa-cog fa-spin"></i></a>--}}
+{{--        <!-- item-->--}}
+{{--        <a href="" class="link" data-toggle="tooltip" title="" data-original-title="Email"><i--}}
+{{--                class="fa fa-envelope"></i></a>--}}
+{{--        <!-- item-->--}}
+{{--        <a href="" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i--}}
+{{--                class="fa fa-power-off"></i></a>--}}
+{{--    </div>--}}
 </aside>

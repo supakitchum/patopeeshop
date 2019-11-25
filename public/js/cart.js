@@ -9,10 +9,11 @@ var shoppingCart = (function() {
     cart = [];
 
     // Constructor
-    function Item(name, price, count) {
+    function Item(name, price, count,aid) {
         this.name = name;
         this.price = price;
         this.count = count;
+        this.aid = aid;
     }
 
     // Save cart
@@ -35,23 +36,24 @@ var shoppingCart = (function() {
     var obj = {};
 
     // Add to cart
-    obj.addItemToCart = function(name, price, count) {
+    obj.addItemToCart = function(name, price, count,aid) {
         for(var item in cart) {
-            if(cart[item].name === name) {
+            if(cart[item].aid == name) {
                 cart[item].count ++;
                 saveCart();
                 return;
             }
         }
-        var item = new Item(name, price, count);
+        var item = new Item(name, price, count,aid);
         cart.push(item);
         saveCart();
     }
     // Set count from item
     obj.setCountForItem = function(name, count) {
         for(var i in cart) {
-            if (cart[i].name === name) {
+            if (cart[i].aid == name) {
                 cart[i].count = count;
+                saveCart()
                 break;
             }
         }
@@ -59,7 +61,7 @@ var shoppingCart = (function() {
     // Remove item from cart
     obj.removeItemFromCart = function(name) {
         for(var item in cart) {
-            if(cart[item].name === name) {
+            if(cart[item].aid == name) {
                 cart[item].count --;
                 if(cart[item].count === 0) {
                     cart.splice(item, 1);
@@ -73,7 +75,7 @@ var shoppingCart = (function() {
     // Remove all items from cart
     obj.removeItemFromCartAll = function(name) {
         for(var item in cart) {
-            if(cart[item].name === name) {
+            if(cart[item].aid == name) {
                 cart.splice(item, 1);
                 break;
             }
@@ -142,14 +144,18 @@ var shoppingCart = (function() {
 // Add item
 $('.add-to-cart').click(function(event) {
     event.preventDefault();
-    var name = String($('#name_product').html());
+    var size = $('#size option:selected').text();
+    var color = $('#color option:selected').text();
+    var name = $('#name_product').html();
+    name = `${name} (${color})(${size})`;
     let amount = Number($("#amount").val())
     let price = Number($("#price").val())
+    let aid = $("#aid").val()
     $("#total").html(amount * price)
-    shoppingCart.addItemToCart(name, price, amount);
+    shoppingCart.addItemToCart(name, price, amount,aid);
     Swal.fire(
         'เพิ่มสินค้าสำเร็จ',
-        'เพิ่ม '+$('#name_product').html()+' ลงรถเข็นของคุณเรียบร้อยแล้ว',
+        'เพิ่ม '+ name +' ลงรถเข็นของคุณเรียบร้อยแล้ว',
         'success'
     )
     displayCart();
@@ -167,11 +173,12 @@ function displayCart() {
     var output = "";
     for(var i in cartArray) {
         output += "<tr>"
+            + "<input type='hidden' value='"+cartArray[i].aid+"' name='aid[]' >"
             + "<td>" + cartArray[i].name + "</td>"
             + "<td>" + cartArray[i].price + "</td>"
             + "<td><div class='input-group'>"
-            + "<input type='number' class='item-count form-control' data-name='" + cartArray[i].name + "' value='" + cartArray[i].count + "'>"
-            + "<button class='delete-item btn btn-danger' data-name='" + cartArray[i].name + "'><i class='fa fa-trash'></i></button></div></td>"
+            + "<input type='number' name='amount[]' class='item-count form-control' data-name='" + cartArray[i].aid + "' value='" + cartArray[i].count + "'>"
+            + "<button class='delete-item btn btn-danger' data-name='" + cartArray[i].aid + "'><i class='fa fa-trash'></i></button></div></td>"
             + " = "
             + "<td>" + cartArray[i].total + "</td>"
             +  "</tr>";
@@ -207,6 +214,7 @@ $('.show-cart').on("click", ".plus-item", function(event) {
 $('.show-cart').on("change", ".item-count", function(event) {
     var name = $(this).data('name');
     var count = Number($(this).val());
+    console.log(count);
     shoppingCart.setCountForItem(name, count);
     displayCart();
 });

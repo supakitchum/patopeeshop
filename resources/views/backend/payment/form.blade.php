@@ -71,8 +71,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="name">เลขที่คำสั่งซื้อ: </label>
-                                    <input type="text" class="form-control" id="order_id" name="order_id"
-                                        value="{{ isset($results->order_id)?$results->order_id:''}}">
+                                    <input type="text" class="form-control" id="order_ref" name="order_ref"
+                                        value="{{ isset($results->order_ref)?$results->order_ref:''}}">
                                 </div>
                             </div>
                             <div class="col-md-6">

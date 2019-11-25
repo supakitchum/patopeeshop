@@ -38,11 +38,11 @@
                 <table id="payment-table" class="table table-bordered table-striped table-responsive">
                     <thead>
                         <th>ลำดับ</th>
+                        <th>Order Ref.</th>
                         <th>จำนวนเงิน</th>
                         <th>หลักฐาน</th>
                         <th>วันที่แจ้งชำระ</th>
                         <th>ธนาคารที่ชำระ</th>
-                        <th>Order No.</th>
                         <th>ทำรายการเมื่อ</th>
                         <th>การจัดการ</th>
                     </thead>
@@ -51,13 +51,13 @@
                         @foreach($results as $index=>$result)
                         <tr>
                             <td>{{ $index + 1 }}</td>
+                            <td>{{ $result->order_ref}}</td>
                             <td>{{ $result->amount }}</td>
                             <td><img data-toggle="modal" data-target="#myModal" class="model_img img-fluid"
                                     src="{{ isset($result->slip)?($result->slip):'' }}" height="100" width="100"
                                     data-src="{{ isset($result->slip)?($result->slip):'' }}"></td>
                             <td>{{ $result->transfer_at }}</td>
                             <td>{{ $result->bank }}</td>
-                            <td>{{ $result->order_id }}</td>
                             <td>{{ $result->created_at }}</td>
                             <td>
                                 <div class="row">

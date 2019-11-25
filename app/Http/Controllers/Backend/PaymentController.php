@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Model\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Payment;
@@ -9,12 +10,14 @@ use Carbon\Carbon;
 
 class PaymentController extends Controller
 {
-    private $payment;
+    private $payment,$order;
     public function __construct(
-        Payment $payment
+        Payment $payment,
+        Order $order
     ) {
         $this->middleware('auth:admin');
         $this->payment = $payment;
+        $this->order = $order;
     }
     /**
      * Display a listing of the resource.
@@ -54,7 +57,7 @@ class PaymentController extends Controller
                 $create = $this->payment->create([
                     'amount' => $request->input('amount'),
                     'bank' => $request->input('bank'),
-                    'order_id' => $request->input('order_id'),
+                    'order_ref' => $request->input('order_ref'),
                     'transfer_at' => $request->input('transfer_at'),
                     'slip' => '/uploads/slips/' . $filename,
                 ]);
@@ -81,6 +84,9 @@ class PaymentController extends Controller
     public function show($id)
     {
         $payment = $this->payment->find($id);
+        $order = $this->order->where('reference',$payment->order_ref)->first();
+        $order->status = 3;
+        $order->save();
         // return $payment;
         $payment->confirm = 1;
         $payment->save();

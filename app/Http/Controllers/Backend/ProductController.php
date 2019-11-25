@@ -69,13 +69,18 @@ class ProductController extends Controller
         $colors = $this->color->all();
         $sizes = $this->size->all();
         $catalogs = $this->catalog->all();
+        $id = $this->product->latest('created_at')->first();
+        if (isset($id[0]))
+            $id = $id[0]->id;
+        else
+            $id = 1;
         return view('backend.product.form')->with(
             [
                 'colors' => $colors,
                 'sizes' => $sizes,
-                'catalogs' => $catalogs
-            ]
-        );
+                'catalogs' => $catalogs,
+                'id' => $id
+            ]);
     }
 
     /**
@@ -128,18 +133,18 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //        $colors = $this->color->all();
-        //        $sizes = $this->size->all();
-        //        $catalogs = $this->catalog->all();
-        //        $results = $this->product->details($id);
-        //        return $results;
-        //        return view('backend.product.form')->with(
-        //            [
-        //                'colors' => $colors,
-        //                'sizes' => $sizes,
-        //                'catalogs' => $catalogs,
-        //                'results' => $results
-        //            ]);
+//        $colors = $this->color->all();
+//        $sizes = $this->size->all();
+//        $catalogs = $this->catalog->all();
+//        $results = $this->product->details($id);
+//        return $results;
+//        return view('backend.product.form')->with(
+//            [
+//                'colors' => $colors,
+//                'sizes' => $sizes,
+//                'catalogs' => $catalogs,
+//                'results' => $results
+//            ]);
     }
 
     /**
@@ -201,7 +206,7 @@ class ProductController extends Controller
         // find count of product attribute.
         $pro_count = $this->product_detail->where('pid', $id)->count();
 
-        if ($pro_count < sizeof($request->input('size'))) {
+        if ($pro_count < sizeof($request->input('size'))){
             // create new product attribute.
             for ($i = $pro_count; $i < sizeof($request->input('size')); $i++) {
                 $this->product_detail->create([

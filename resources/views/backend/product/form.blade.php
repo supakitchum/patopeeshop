@@ -184,7 +184,7 @@
                                     <!-- /.box-header -->
                                     <div class="box-body pad">
                                         <textarea name="detail" class="textarea" placeholder="Place some text here"
-                                                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $results[0]->detail ? $results[0]->detail:'' }}</textarea>
+                                                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ isset($results[0]->detail) ? $results[0]->detail:'' }}</textarea>
                                     </div>
                                 </div>
                                 <!-- /.box -->

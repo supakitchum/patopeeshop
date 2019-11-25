@@ -4,10 +4,12 @@ namespace App\Model;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    protected $fillable = ['mid', 'pid'];
+    use SoftDeletes;
+    protected $fillable = ['mid','status','tracking_number','reference','admin_id','total','sender_id'];
 
     function user()
     {
