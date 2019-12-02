@@ -15,7 +15,8 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('mid'); // member id
+            $table->integer('mid')->default(0); // member id
+            $table->integer('admin_id')->default(0);
             $table->integer('status')->default(1); // status 1 = new order
             $table->string('tracking_number')->nullable();
             $table->string('reference',15);

@@ -34,7 +34,7 @@
                             <div class="col-lg-9">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">ชื่อสินค้า</label>
-                                    <input type="text" value="{{ isset($results[0]->name) ? $results[0]->name:'' }}"
+                                    <input type="text" value="{{ isset($product->name) ? $product->name:'' }}"
                                            class="form-control" name="name" required>
                                 </div>
                             </div>
@@ -184,7 +184,7 @@
                                     <!-- /.box-header -->
                                     <div class="box-body pad">
                                         <textarea name="detail" class="textarea" placeholder="Place some text here"
-                                                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ isset($results[0]->detail) ? $results[0]->detail:'' }}</textarea>
+                                                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ isset($product->detail) ? $product->detail:'' }}</textarea>
                                     </div>
                                 </div>
                                 <!-- /.box -->
@@ -195,7 +195,7 @@
                             <div class="col-12" align="right">
                                 <div class="checkbox inline">
                                     <input
-                                        {{ isset($results[0]->recommend) && $results[0]->recommend == 1 ? 'checked':'' }} type="checkbox"
+                                        {{ isset($product->recommend) && $product->recommend == 1 ? 'checked':'' }} type="checkbox"
                                         id="recommend" name="recommend" value="1">
                                     <label for="recommend">สินค้าแนะนำ</label>
                                 </div>
@@ -210,6 +210,51 @@
     </div>
 @stop
 @section('script')
+    <script type="text/html" id="template">
+        <div class="row" id="feature-id">
+            <div class="col-3">
+                <div class="form-group">
+                    <label>ขนาด</label>
+                    <select class="form-control" name="size[]">
+                        @foreach($sizes as $size)
+                            <option value="{{ $size->id }}">{{ $size->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label>สี</label>
+                    <select class="form-control" name="color[]">
+                        @foreach($colors as $color)
+                            <option value="{{ $color->id }}">{{ $color->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label>จำนวน</label>
+                    <input id="feature-id-quality" type="number" name="quality[]"
+                           class="form-control" required placeholder="0">
+                </div>
+            </div>
+            <div class="col-2">
+                <label>ราคา</label>
+                <div class="input-group">
+                    <input id="feature-id-amount" type="number" name="amount[]"
+                           class="form-control" required placeholder="0">
+                    <span class="input-group-addon">บาท</span>
+                </div>
+            </div>
+            <div class="col-1 pt-25">
+                <button class="btn btn-rounded btn-danger" type="button"
+                        onclick="remove()">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    </script>
     <script>
         let id = {{ isset($results) ? sizeof($results):1 }}
 
@@ -221,13 +266,16 @@
         }
 
         function add() {
-            if ($('#feature-' + id + '-amount').val()){
-                $('#feature').append(
-                    '<div class="row" id="feature-' + (id + 1) + '">' + $('#feature-' + id).html().replace('feature-' + id + '-amount', 'feature-' + (id + 1) + '-amount').replace('feature-' + id + '-quality', 'feature-' + (id + 1) + '-quality').replace('detail-'+id,'detail-'+(id+1)).replace('remove(' + id + ')', 'remove(' + (id + 1) + ')') + '</div>'
-                )
+            if ($('#feature-' + id).html() != ''){
+                let template = $('#template').html().replace(/feature-id/g,'feature-' + (id + 1)).replace('remove()',`remove(${id+1},true,null)`);
+                $('#feature').append(template);
                 $('#feature-' + (id + 1) + '-amount').val($('#feature-' + id + '-amount').val())
                 $('#feature-' + (id + 1) + '-quality').val($('#feature-' + id + '-quality').val())
                 $('#detail-' + (id + 1)).html('')
+                id++
+            }else{
+                let template = $('#template').html().replace(/feature-id/g,'feature-' + (id + 1)).replace('remove()',`remove(${id+1},true,null)`);
+                $('#feature').append(template);
                 id++
             }
         }

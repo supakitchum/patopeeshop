@@ -16,8 +16,8 @@ class CreateReportsTable extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->increments('id');
             $table->string('email');
-            $table->string('name')->nullable();
-            $table->integer('order_id');
+            $table->string('title')->nullable();
+            $table->string('order_ref')->nullable();
             $table->string('detail')->nullable();
             $table->string('phone')->nullable();
             $table->timestamps();

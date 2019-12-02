@@ -70,10 +70,10 @@
                                 <table class="table table-bordered table-responsive">
                                     <tr>
                                         <td>ชื่อ</td>
-                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->fname.' '.$user->lname }}</td>
                                     </tr>
                                     <tr>
-                                        <td>อีเมลล์</td>
+                                        <td>อีเมล</td>
                                         <td>{{ $user->email }}</td>
                                     </tr>
                                     <tr>
@@ -101,6 +101,18 @@
                                 @method('put')
                                 @csrf
                                 <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>คำสั่งซื้อจาก</label>
+                                            <select name="platform" class="form-control">
+                                                <option {{ $order->platform == 1 ? 'selected':'' }} value="1">Facebook</option>
+                                                <option {{ $order->platform == 2 ? 'selected':'' }} value="2">Line</option>
+                                                <option {{ $order->platform == 3 ? 'selected':'' }} value="3">WebSite</option>
+                                                <option {{ $order->platform == 4 ? 'selected':'' }} value="4">Store</option>
+                                                <option {{ $order->platform == 5 ? 'selected':'' }} value="5">อื่นๆ</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>สถานะคำสั่งซื้อ</label>

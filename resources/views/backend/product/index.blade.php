@@ -134,15 +134,11 @@
                             result.push(json[i]['created_at']);
                             result.push(json[i]['updated_at']);
                             result.push('<div class="row">\n' +
-                                '                                    <div class="col-lg-4 col-md-12">\n' +
-                                '                                        <a data-toggle="modal" data-title="'+json[i]['name']+'" data-target="#myModal"\n' +
-                                '                                            class="btn btn-info btn-rounded w-100"><i class="fa fa-eye"></i></a>\n' +
-                                '                                    </div>\n' +
-                                '                                    <div class="col-lg-4 col-md-12">\n' +
+                                '                                    <div class="col-lg-6 col-md-12">\n' +
                                 '                                        <a href="/backend/products/'+json[i]['id']+'/edit"\n' +
                                 '                                            class="btn btn-warning btn-rounded w-100"><i class="fa fa-edit"></i></a>\n' +
                                 '                                    </div>\n' +
-                                '                                    <div class="col-lg-4 col-md-12">\n' +
+                                '                                    <div class="col-lg-6 col-md-12">\n' +
                                 '                                        <form action="/backend/products/'+json[i]['id']+'"\n' +
                                 '                                            method="post">\n' +
                                 '                                            @csrf\n' +
@@ -162,7 +158,6 @@
                 function () {
                     productTable.ajax.reload();
                 });
-
         }); // End of use strict
     </script>
 @stop

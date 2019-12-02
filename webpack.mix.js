@@ -20,6 +20,7 @@ mix.styles([
     .version();
 
 mix.scripts([
+    'node_modules/bootstrap/dist/js/bootstrap.bundle.js',
     'node_modules/bootstrap-fileinput/js/fileinput.js',
     'node_modules/bootstrap-fileinput/js/locales/th.js',
     'node_modules/bootstrap-fileinput/js/plugins/piexif.js',

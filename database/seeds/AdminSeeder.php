@@ -20,13 +20,13 @@ class AdminSeeder extends Seeder
             'email' => 'admin@test.com',
             'password' => bcrypt('1234')
         ]);
-        for ($i = 0; $i < 10; $i++) {
-            Admin::create([
-                'fname' => $faker->firstName,
-                'lname' => $faker->lastName,
-                'email' => $faker->email,
-                'password' => bcrypt('1234')
-            ]);
-        }
+//        for ($i = 0; $i < 10; $i++) {
+//            Admin::create([
+//                'fname' => $faker->firstName,
+//                'lname' => $faker->lastName,
+//                'email' => $faker->email,
+//                'password' => bcrypt('1234')
+//            ]);
+//        }
     }
 }

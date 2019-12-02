@@ -50,7 +50,7 @@
             <div class="row">
                 <div class="col-6">
                     <div class="checkbox">
-                        <input type="checkbox" id="basic_checkbox_1" >
+                        <input type="checkbox" id="basic_checkbox_1">
                         <label for="basic_checkbox_1">Remember Me</label>
                     </div>
                 </div>
@@ -60,11 +60,19 @@
                         <a href="javascript:void(0)"><i class="ion ion-locked"></i> Forgot pwd?</a><br>
                     </div>
                 </div>
+                <div class="col-12" style="margin-left: 2%;">
+                    @if(env('GOOGLE_RECAPTCHA_KEY'))
+                        <script src="https://www.google.com/recaptcha/api.js?hl=th"></script>
+                        <div class="g-recaptcha w-100"
+                             data-sitekey="{{env('GOOGLE_RECAPTCHA_KEY')}}">
+                        </div>
+                    @endif
+                </div>
                 <!-- /.col -->
                 <div class="col-12 text-center">
                     <button type="submit" class="btn btn-info btn-block btn-flat margin-top-10">SIGN IN</button>
                 </div>
-                <!-- /.col -->
+            <!-- /.col -->
             </div>
         </form>
         <!-- /.social-auth-links -->

@@ -15,7 +15,6 @@ class PaymentController extends Controller
         Payment $payment,
         Order $order
     ) {
-        $this->middleware('auth:admin');
         $this->payment = $payment;
         $this->order = $order;
     }
@@ -49,6 +48,7 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
+        $createdAt = Carbon::parse($request->input('transfer_at'))->format('Y-m-d H:i:s');
         try {
             $file = $request->file('slip');
             $extension = $file->getClientOriginalExtension(); // getting image extension
@@ -58,12 +58,19 @@ class PaymentController extends Controller
                     'amount' => $request->input('amount'),
                     'bank' => $request->input('bank'),
                     'order_ref' => $request->input('order_ref'),
-                    'transfer_at' => $request->input('transfer_at'),
+                    'transfer_at' => $createdAt,
                     'slip' => '/uploads/slips/' . $filename,
                 ]);
             }
             if ($create) {
                 return redirect()->route('backend.payments.index')->with([
+                    'alert' => [
+                        'status' => 'success',
+                        'messages' => [
+                            'title' => 'สำเร็จ',
+                            'body' => 'เพิ่ม รายการแจ้งชำระ สำเร็จ'
+                        ]
+                    ],
                     'status' => [
                         'class' => 'success',
                         'message' => 'เพิ่ม รายการแจ้งชำระ สำเร็จ'
@@ -91,6 +98,13 @@ class PaymentController extends Controller
         $payment->confirm = 1;
         $payment->save();
         return redirect()->route('backend.payments.index')->with([
+            'alert' => [
+                'status' => 'success',
+                'messages' => [
+                    'title' => 'แก้ไขสำเร็จ',
+                    'body' => 'ยืนยันรายการแจ้งชำระสำเร็จ'
+                ]
+            ],
             'status' => [
                 'class' => 'success',
                 'message' => 'ยืนยันรายการแจ้งชำระสำเร็จ'
@@ -130,7 +144,7 @@ class PaymentController extends Controller
                 $payment = $this->payment->find($id);
                 $payment->amount = $request->input('amount');
                 $payment->bank = $request->input('bank');
-                $payment->order_id = $request->input('order_id');
+                $payment->order_ref = $request->input('order_ref');
                 $payment->transfer_at = $createdAt;
                 if ($request->file('slip')) {
                     $payment->slip = '/uploads/slips/' . $filename;
@@ -141,11 +155,18 @@ class PaymentController extends Controller
             $payment = $this->payment->find($id);
             $payment->amount = $request->input('amount');
             $payment->bank = $request->input('bank');
-            $payment->order_id = $request->input('order_id');
+            $payment->order_ref = $request->input('order_ref');
             $payment->transfer_at = $createdAt;
             $payment->save();
         }
         return redirect()->route('backend.payments.index')->with([
+            'alert' => [
+                'status' => 'success',
+                'messages' => [
+                    'title' => 'แก้ไขสำเร็จ',
+                    'body' => 'แก้ไข รายการแจ้งชำระ สำเร็จ'
+                ]
+            ],
             'status' => [
                 'class' => 'success',
                 'message' => 'แก้ไข รายการแจ้งชำระ สำเร็จ'
@@ -166,6 +187,13 @@ class PaymentController extends Controller
         $payment->delete();
 
         return redirect()->back()->with([
+            'alert' => [
+                'status' => 'success',
+                'messages' => [
+                    'title' => 'แก้ไขสำเร็จ',
+                    'body' => 'ลบ รายการแจ้งชำระ สำเร็จ'
+                ]
+            ],
             'status' => [
                 'class' => 'success',
                 'message' => 'ลบ รายการแจ้งชำระ สำเร็จ'

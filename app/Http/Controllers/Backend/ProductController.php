@@ -9,6 +9,7 @@ use App\Model\ProductDetail;
 use App\Model\ProductImage;
 use App\Model\Size;
 use App\Model\Product;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -70,8 +71,8 @@ class ProductController extends Controller
         $sizes = $this->size->all();
         $catalogs = $this->catalog->all();
         $id = $this->product->latest('created_at')->first();
-        if (isset($id[0]))
-            $id = $id[0]->id;
+        if (isset($id->id))
+            $id = $id->id;
         else
             $id = 1;
         return view('backend.product.form')->with(
@@ -79,7 +80,7 @@ class ProductController extends Controller
                 'colors' => $colors,
                 'sizes' => $sizes,
                 'catalogs' => $catalogs,
-                'id' => $id
+                'id' => $id+1
             ]);
     }
 
@@ -107,11 +108,13 @@ class ProductController extends Controller
                         'quality' => $request->input('quality')[$index]
                     ]);
                 }
-                foreach ($request->input('catalogs') as $catalog) {
-                    $this->product_catalog->create([
-                        'pid' => $new->id,
-                        'cid' => $catalog
-                    ]);
+                if ($request->input('catalogs') && sizeof($request->input('catalogs')) > 0){
+                    foreach ($request->input('catalogs') as $catalog) {
+                        $this->product_catalog->create([
+                            'pid' => $new->id,
+                            'cid' => $catalog
+                        ]);
+                    }
                 }
             }
             return redirect()->route('backend.products.index')->with([
@@ -159,6 +162,7 @@ class ProductController extends Controller
         $sizes = $this->size->all();
         $catalogs = $this->catalog->all();
         $results = $this->product->details($id);
+        $product = $this->product->find($id);
         $catalog_results = [];
         foreach ($this->product_catalog->where('pid', $id)->select('cid')->get() as $catalog) {
             $catalog_results[] = $catalog->cid;
@@ -171,6 +175,7 @@ class ProductController extends Controller
                 'sizes' => $sizes,
                 'catalogs' => $catalogs,
                 'results' => $results,
+                'product' => $product,
                 'catalog_results' => $catalog_results,
                 'images' => $this->product->images($id)
             ]
@@ -194,13 +199,15 @@ class ProductController extends Controller
         }
 
         // update product attribute.
-        foreach ($request->input('detail_id') as $index => $pid) {
-            $product = $this->product_detail->find($pid);
-            $product->price = $request->input('amount')[$index];
-            $product->color = $request->input('color')[$index];
-            $product->size = $request->input('size')[$index];
-            $product->quality = $request->input('quality')[$index];
-            $product->save();
+        if ($request->input('detail_id')){
+            foreach ($request->input('detail_id') as $index => $pid) {
+                $product = $this->product_detail->find($pid);
+                $product->price = $request->input('amount')[$index];
+                $product->color = $request->input('color')[$index];
+                $product->size = $request->input('size')[$index];
+                $product->quality = $request->input('quality')[$index];
+                $product->save();
+            }
         }
 
         // find count of product attribute.
@@ -225,11 +232,13 @@ class ProductController extends Controller
             $this->product_catalog->where('pid', $id)->delete();
 
         // add product catalog.
-        foreach ($request->input('catalogs') as $catalog) {
-            $this->product_catalog->create([
-                'pid' => $id,
-                'cid' => $catalog
-            ]);
+        if ($request->input('catalogs') && sizeof($request->input('catalogs')) > 0){
+            foreach ($request->input('catalogs') as $catalog) {
+                $this->product_catalog->create([
+                    'pid' => $id,
+                    'cid' => $catalog
+                ]);
+            }
         }
 
         // update product details.

@@ -12,9 +12,8 @@
 */
 
 Route::name('backend.')->middleware('auth:admin')->prefix('backend')->group(function () {
-    Route::get('/', function () {
-        return view('backend.dashboard');
-    })->name('dashboard');
+    Route::get('/','Backend\HomeController@index')->name('dashboard');
+    Route::get('stocks','Backend\StockController@index')->name('stocks');
     Route::resource('catalogs','Backend\CatalogController');
     Route::resource('colors','Backend\ColorController');
     Route::resource('orders','Backend\OrderController');
@@ -23,6 +22,8 @@ Route::name('backend.')->middleware('auth:admin')->prefix('backend')->group(func
     Route::resource('receipts','Backend\ReceiptController');
     Route::resource('reports','Backend\ReportController');
     Route::resource('senders','Backend\SenderController');
+    Route::resource('profile','Backend\ProfileController');
+    Route::resource('customers','Backend\CustomerController');
     Route::resource('sizes','Backend\SizeController');
 });
 
@@ -31,4 +32,5 @@ Route::get('backend/login', 'Auth\AdminLoginController@showLoginForm')->name('ba
 Route::post('backend/login', ['as'=>'admin-login','uses'=>'Auth\AdminLoginController@login']);
 Route::get('backend/logout','Auth\AdminLoginController@logout')->name('backend.logout');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/product-details/{pid}', 'HomeController@product_details')->name('product_details');

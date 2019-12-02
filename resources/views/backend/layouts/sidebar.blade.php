@@ -2,9 +2,9 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <div class="text-center pb-1">
-            <img class="mt-5"
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Logo_TV_2015.svg/1200px-Logo_TV_2015.svg.png"
-                style="height: 5rem;">
+{{--            <img class="mt-5"--}}
+{{--                src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Logo_TV_2015.svg/1200px-Logo_TV_2015.svg.png"--}}
+{{--                style="height: 5rem;">--}}
         </div>
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
@@ -31,8 +31,8 @@
                     <li><a href="{{ route('backend.sizes.index') }}"><i class="fa fa-circle-o"></i> ขนาด</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="{{ route('backend.dashboard') }}">
+            <li class="{{ Request::is('*stocks*') ? 'active':'' }}">
+                <a href="{{ route('backend.stocks') }}">
                     <i class="fa fa-dashboard"></i> <span>คลังสินค้า</span>
                     <span class="pull-right-container">
                     </span>
@@ -70,6 +70,20 @@
             <li class="{{ Request::is('*senders') ? 'active':'' }}">
                 <a href="{{ route('backend.senders.index') }}">
                     <i class="fa fa-truck"></i> <span>วิธีการจัดส่ง</span>
+                    <span class="pull-right-container">
+                    </span>
+                </a>
+            </li>
+            <li class="{{ Request::is('*customers') ? 'active':'' }}">
+                <a href="{{ route('backend.customers.index') }}">
+                    <i class="fa fa-user"></i> <span>สมาชิก</span>
+                    <span class="pull-right-container">
+                    </span>
+                </a>
+            </li>
+            <li class="{{ Request::is('*reports') ? 'active':'' }}">
+                <a href="{{ route('backend.reports.index') }}">
+                    <i class="fa fa-warning"></i> <span>แจ้งปัญหา</span>
                     <span class="pull-right-container">
                     </span>
                 </a>

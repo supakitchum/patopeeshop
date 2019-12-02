@@ -44,6 +44,9 @@ class AdminLoginController extends Controller
 
     public function login(Request $request)
     {
+//        $request->validate([
+//            'g-recaptcha-response' => 'required|recaptcha'
+//        ]);
         if (auth()->guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
             return redirect()->route('backend.dashboard');
         }

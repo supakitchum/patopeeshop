@@ -46,7 +46,7 @@ class OrderController extends Controller
         $user_orders = $this->order
             ->join('users','orders.mid','=','users.id')
             ->where('admin_id',0)
-            ->select('orders.*','users.name as fname','users.name as lname')
+            ->select('orders.*','users.fname','users.lname')
             ->orderBy('orders.created_at','desc')
             ->get()
             ->toArray();
@@ -173,7 +173,7 @@ class OrderController extends Controller
         if ($order->mid == 0)
             $user = Admin::find($order->admin_id);
         else
-            $user = User::find($order->mid);
+            $user = User::withTrashed()->find($order->mid);
         $details = $this->orderDetail->where('order_id',$id)->get();
         $senders = Sender::all();
         return view('backend.order.detail')->with(
@@ -208,7 +208,8 @@ class OrderController extends Controller
         $data = $request->validate([
             'sender_id' => 'integer',
             'status' => 'required|integer',
-            'tracking_number' => 'string'
+            'tracking_number',
+            'platform' => 'required'
         ]);
         $order = $this->order->find($id);
         try{

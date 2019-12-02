@@ -98,7 +98,7 @@ class ProductController extends Controller
             }
         }
         if (isset($products) && sizeof($products) > 0) {
-            $query = "select products.*,product_images.path from products,product_images where products.id = product_images.pid and (";
+            $query = "select products.*,product_images.path from products left join product_images on products.id = product_images.pid where (";
             foreach ($products as $index => $product) {
                 if ($index > 0 && sizeof($products) > 1){
                     $query .= "or ";
@@ -106,12 +106,12 @@ class ProductController extends Controller
 
                 $query .= " products.id = " . $product->pid . " ";
             }
-            $query .= ')';
+            $query .= ') and products.deleted_at IS NULL group by products.id';
         } elseif ($catalogs || $sizes || $colors){
             return [];
         }
         else {
-            $query = "select products.*,product_images.path from products,product_images where products.id = product_images.pid";
+            $query = "select products.*,product_images.path from products left join product_images on products.id = product_images.pid where products.deleted_at IS NULL group by products.id";
         }
         return response()->json(DB::select($query));
     }

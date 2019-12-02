@@ -3,9 +3,11 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    use SoftDeletes;
     protected $fillable = ['name', 'recommend','detail'];
 
 
@@ -17,9 +19,9 @@ class Product extends Model
 
     public function details($pid)
     {
-        $results = ProductDetail::join('products', 'product_details.pid', '=', 'products.id')
-            ->join('colors', 'product_details.color', '=', 'colors.id')
-            ->join('sizes', 'product_details.size', '=', 'sizes.id')
+        $results = ProductDetail::leftjoin('products', 'product_details.pid', '=', 'products.id')
+            ->leftjoin('colors', 'product_details.color', '=', 'colors.id')
+            ->leftjoin('sizes', 'product_details.size', '=', 'sizes.id')
             ->select('products.*', 'colors.id as color', 'sizes.id as size','product_details.id as detail_id', 'product_details.quality', 'product_details.price', 'products.recommend')
             ->where('pid', $pid)
             ->orderBy('product_details.created_at')

@@ -67,8 +67,6 @@
                             <div class="form-group">
                                 <label>ขนาด</label>
                                 <select class="form-control" id="size" name="size">
-                                    <option>S</option>
-                                    <option>M</option>
                                 </select>
                             </div>
                         </div>

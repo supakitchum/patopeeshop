@@ -4,6 +4,7 @@ namespace App;
 
 use App\Model\Order;
 use App\Model\Receipt;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,14 +12,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
-
+    use SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'province', 'district', 'zip_code', 'address', 'phone', 'email_verified_at'
+        'fname','lname', 'email', 'password', 'province', 'district', 'zip_code', 'address', 'phone', 'email_verified_at'
     ];
 
     /**

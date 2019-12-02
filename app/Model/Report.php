@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Report extends Model
 {
-    protected $fillable = ['email', 'name', 'order_id', 'detail', 'phone'];
+    protected $fillable = ['email', 'title', 'order_ref', 'detail', 'phone','status'];
     function order()
     {
-        return $this->hasMany(order::class, 'order_id', 'id');
+        return $this->hasMany(order::class, 'order_ref', 'reference');
     }
 }
