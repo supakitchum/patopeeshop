@@ -149,4 +149,50 @@ class ProductController extends Controller
             ->get();
         return response()->json($results);
     }
+
+    public function getColor(Request $request){
+        $size = $request->size;
+        $pid = $request->pid;
+        $result = ProductDetail::join('colors', 'product_details.color', '=', 'colors.id')
+            ->select(
+                'colors.name as color_name',
+                'colors.id as color_id',
+                'product_details.price',
+                'product_details.quality'
+            )
+            ->where(['pid' => $pid,'size' => $size])
+            ->get();
+
+        return response()->json($result);
+    }
+
+    public function getProductDetail(Request $request){
+        $size = $request->size;
+        $pid = $request->pid;
+        $color = $request->color;
+        $result = ProductDetail::where(['pid' => $pid,'size' => $size,'color' => $color])->first();
+        return response()->json($result);
+    }
+
+    public function getProducts(Request $request){
+        $pids = $request->pids;
+        $results = [];
+        foreach ($pids as $pid){
+            $product = Product::leftjoin('product_images','products.id','=','product_images.pid')->where('products.id',$pid)->first();
+            $attribute = ProductDetail::leftjoin('sizes','product_details.size','=','sizes.id')
+                ->leftjoin('colors','product_details.color','=','colors.id')
+                ->where('pid',$pid)
+                ->select('sizes.name as size','sizes.id as size_id','colors.id as color_id','colors.name as color','product_details.id as aid')
+                ->groupBy('sizes.id')
+                ->get();
+            array_push($results,[
+                'id' => $pid,
+                'name' => $product->name,
+                'image' => $product->path,
+                'detail' => $product->detail,
+                'attribute' => $attribute
+            ]);
+        }
+        return response()->json($results,200);
+    }
 }

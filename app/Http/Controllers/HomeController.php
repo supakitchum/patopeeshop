@@ -41,10 +41,11 @@ class HomeController extends Controller
             ->leftjoin('product_images','products.id','=','product_images.pid')
             ->leftjoin('product_details','products.id','=','product_details.pid')
             ->groupBy('products.id')
+            ->orderBy('products.created_at','desc')
             ->select('products.*','product_images.path','product_details.price')
             ->get();
         return view('frontend.home')->with([
-            'catalogs' => $this->catalog->limit(8)->get(),
+            'catalogs' => $this->catalog->get(),
             'products' => $products
         ]);
     }

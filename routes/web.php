@@ -34,3 +34,9 @@ Route::get('backend/logout','Auth\AdminLoginController@logout')->name('backend.l
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/product-details/{pid}', 'HomeController@product_details')->name('product_details');
+Route::get('/cart',function (){
+    return view('frontend.cart');
+});
+Route::get('/checkout',function (){
+    return view('frontend.checkout');
+});

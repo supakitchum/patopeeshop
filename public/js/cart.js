@@ -171,6 +171,7 @@ $('.clear-cart').click(function() {
 function displayCart() {
     var cartArray = shoppingCart.listCart();
     var output = "";
+    var output2 = "";
     for(var i in cartArray) {
         output += "<tr>"
             + "<input type='hidden' value='"+cartArray[i].aid+"' name='aid[]' >"
@@ -182,8 +183,20 @@ function displayCart() {
             + " = "
             + "<td>" + cartArray[i].total + "</td>"
             +  "</tr>";
+        output2 += "<li>"
+            + "<input type='hidden' value='"+cartArray[i].aid+"' name='aid[]' >"
+            + "<div class='thumb'>"
+            + "<img src='images/products/1.png' alt=''>"
+            + "</div>"
+            + "<div class='info'>"
+            + "<h4 class='product-name'><a href='#'>"+cartArray[i].name+"</a></h4>"
+            + "<span class='price'>" + cartArray[i].aid + "x"+cartArray[i].price+"</span>"
+            + "<a class='remove-item' href='#'><i class='fa fa-close'></i></a>"
+            + "</div>"
+            + "</li>";
     }
     $('.show-cart').html(output);
+    $('.list-product').html(output2);
     $('.total-cart').html(shoppingCart.totalCart());
     $('.total-count').html(shoppingCart.totalCount());
 }

@@ -22,12 +22,12 @@ var routes = [
 
   {
     path: '/cart/',
-    url: './cart.html',
+    url: './cart',
   },
 
   {
     path: '/checkout/',
-    url: './checkout.html',
+    url: '/checkout',
   },
 
   {

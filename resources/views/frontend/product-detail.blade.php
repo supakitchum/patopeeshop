@@ -180,13 +180,9 @@
             showToastBottom: function () {
                 var items = sessionStorage.getItem('shoppingCart') ? JSON.parse(sessionStorage.getItem('shoppingCart')): [];
                 var message = "";
-                if (!items.includes({{ $product->id }})){
-                    items.push({{ $product->id }});
-                    sessionStorage.setItem('shoppingCart',JSON.stringify(items));
-                    message = "เพิ่มสินค้าแล้ว";
-                }else{
-                    message = "มีสินค้าในรถเข็นแล้ว"
-                }
+                items.push({{ $product->id }});
+                sessionStorage.setItem('shoppingCart',JSON.stringify(items));
+                message = "เพิ่มสินค้าแล้ว";
                 var self = this;
                 // Create toast
                 if (!self.toastBottom) {
