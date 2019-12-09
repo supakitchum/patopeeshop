@@ -22,7 +22,7 @@ class Product extends Model
         $results = ProductDetail::leftjoin('products', 'product_details.pid', '=', 'products.id')
             ->leftjoin('colors', 'product_details.color', '=', 'colors.id')
             ->leftjoin('sizes', 'product_details.size', '=', 'sizes.id')
-            ->select('products.*', 'colors.id as color', 'sizes.id as size','product_details.id as detail_id', 'product_details.quality', 'product_details.price', 'products.recommend')
+            ->select('products.*', 'colors.id as color','colors.name as color_name','colors.code as color_code', 'sizes.id as size','sizes.name as size_name','product_details.id as detail_id', 'product_details.quality', 'product_details.price', 'products.recommend')
             ->where('pid', $pid)
             ->orderBy('product_details.created_at')
             ->get();

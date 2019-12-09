@@ -9,7 +9,25 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Order extends Model
 {
     use SoftDeletes;
-    protected $fillable = ['mid','status','tracking_number','reference','admin_id','total','sender_id','platform'];
+    protected $fillable = [
+        'mid',
+        'status',
+        'tracking_number',
+        'reference',
+        'admin_id',
+        'total',
+        'sender_id',
+        'platform',
+        'fname',
+        'lname',
+        'email',
+        'province',
+        'district',
+        'amphoe',
+        'zip_code',
+        'address',
+        'phone'
+    ];
 
     function user()
     {

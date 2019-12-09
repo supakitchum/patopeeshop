@@ -12,30 +12,22 @@
                 <li><a href="#"><i class="fa fa-envelope"></i>info@demo.com</a></li>
             </ul>
             <ul class="boutique-nav topbar-menu right">
-                <li class="menu-item-has-children">
-                    <a href="#"><i class="fa fa-lock"></i> Account</a>
-                    <ul class="sub-menu">
-                        <li><a href="#"><i class="icon-heart icons"></i><span>Wishlist</span></a></li>
-                        <li><a href="#"><i class="icon-user icons"></i><span> MyAccount</span></a></li>
-                        <li><a href="#"><i class="icon-note icons"></i><span>Checkout</span></a></li>
-                        <li><a href="#"><i class="icon-handbag icons"></i><span>Compare</span></a></li>
-                        <li><a href="#"><i class="icon-lock-open icons"></i><span>Login / Register</span></a></li>
-                    </ul>
-                </li>
-                <li class="menu-item-has-children">
-                    <a href="#">USD</a>
-                    <ul class="sub-menu">
-                        <li><a href="#">USD</a></li>
-                        <li><a href="#">EURO</a></li>
-                    </ul>
-                </li>
-                <li class="menu-item-has-children">
-                    <a href="#"><img src="images/flag3.png" alt="">English</a>
-                    <ul class="sub-menu">
-                        <li><a href="#">English</a></li>
-                        <li><a href="#">French</a></li>
-                    </ul>
-                </li>
+                @isset(auth()->user()->id)
+                    <li class="menu-item-has-children">
+                        <a href="#"><i class="fa fa-user"></i> {{ auth()->user()->email }}</a>
+                        <ul class="sub-menu">
+                            <li><a href="#"><i class="fa fa-heart"></i><span>รายการที่ชื่นชอบ</span></a></li>
+                            <li><a href="{{ route('profile.index') }}"><i class="fa fa-user" aria-hidden="true"></i><span> บัญชีของฉัน</span></a></li>
+                            <li><a href="#"><i class="fa fa-money"></i><span>แจ้งชำระเงิน</span></a></li>
+                            <li><a href="#"><i class="fa fa-list"></i><span>ประวัติการสั่งซื้อ</span></a></li>
+                            <li><a href="/logout"><i class="fa fa-sign-out"></i><span>ออกจากระบบ</span></a></li>
+                        </ul>
+                    </li>
+                @else
+                    <li class="menu-item">
+                        <a href="#" data-toggle="modal"  data-target="#loginModal">เข้าสู่ระบบ | สมัครสมาชิก</a>
+                    </li>
+                @endisset
             </ul>
         </div>
         <div class="main-menu-wapper">
@@ -58,38 +50,18 @@
                             </form>
                             <div class="mini-cart">
                                 <a class="cart-link" href="#"><span class="icon pe-7s-cart"></span> <span class="count total-count"></span>
-                                    $255.00</a>
+                                    <span class="total-cart"></span> บาท</a>
                                 <div class="show-shopping-cart">
-                                    <h3 class="title">YOU HAVE (<span class="total-count"></span>) IN YOUR CART
+                                    <h3 class="title">คุณมีสินค้า (<span class="total-count"></span> ชิ้น) ในรถเข็น
                                     </h3>
-                                    <ul class="list-product">
-                                        <li>
-                                            <div class="thumb">
-                                                <img src="images/products/1.png" alt="">
-                                            </div>
-                                            <div class="info">
-                                                <h4 class="product-name"><a href="#">LONDON STAR SWEATSHIRT</a></h4>
-                                                <span class="price">1x£375.00</span>
-                                                <a class="remove-item" href="#"><i class="fa fa-close"></i></a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="thumb">
-                                                <img src="images/products/1.png" alt="">
-                                            </div>
-                                            <div class="info">
-                                                <h4 class="product-name"><a href="#">LONDON STAR SWEATSHIRT</a></h4>
-                                                <span class="price">1x£375.00</span>
-                                                <a class="remove-item" href="#"><i class="fa fa-close"></i></a>
-                                            </div>
-                                        </li>
+                                    <ul class="list-product show-cart">
                                     </ul>
                                     <div class="sub-total">
-                                        Subtotal:£255.00
+                                        ราคารวม : <span class="total-cart"></span> บาท
                                     </div>
                                     <div class="group-button">
-                                        <a href="#" class="button">Shopping Cart</a>
-                                        <a href="#" class="check-out button">CheckOut</a>
+                                        <a href="#" class="button">ตะกร้าสินค้า</a>
+                                        <a href="/checkout" class="check-out button">ชำระเงิน</a>
                                     </div>
                                 </div>
                             </div>
@@ -97,84 +69,77 @@
                     </div>
                     <ul class="boutique-nav main-menu clone-main-menu">
                         <li class="active menu-item-has-children item-megamenu">
-                            <a href="index.html">Home</a>
-                            <div style="width:500px;" class="sub-menu megamenu">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="mega-custom-menu">
-                                            <ul>
-                                                <li><a href="index.html">Home Version 01</a></li>
-                                                <li><a href="index2.html">Home Version 02</a></li>
-                                                <li><a href="index3.html">Home Version 03</a></li>
-                                                <li><a href="index4.html">Home Version 04</a></li>
-                                                <li><a href="index5.html">Home Version 05</a></li>
-                                                <li><a href="index6.html">Home Version 06</a></li>
-                                                <li><a href="index7.html">Home Version 07</a></li>
+                            <a href="/">หน้าแรก</a>
+{{--                            <div style="width:500px;" class="sub-menu megamenu">--}}
+{{--                                <div class="row">--}}
+{{--                                    <div class="col-sm-4">--}}
+{{--                                        <div class="mega-custom-menu">--}}
+{{--                                            <ul>--}}
+{{--                                                <li><a href="index.html">Home Version 01</a></li>--}}
+{{--                                                <li><a href="index2.html">Home Version 02</a></li>--}}
+{{--                                                <li><a href="index3.html">Home Version 03</a></li>--}}
+{{--                                                <li><a href="index4.html">Home Version 04</a></li>--}}
+{{--                                                <li><a href="index5.html">Home Version 05</a></li>--}}
+{{--                                                <li><a href="index6.html">Home Version 06</a></li>--}}
+{{--                                                <li><a href="index7.html">Home Version 07</a></li>--}}
 
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="mega-custom-menu">
-                                            <ul>
-                                                <li><a href="index8.html">Home Version 08</a></li>
-                                                <li><a href="index9.html">Home Version 09</a></li>
-                                                <li><a href="index10.html">Home Version 10</a></li>
-                                                <li><a href="index11.html">Home Version 11</a></li>
-                                                <li><a href="index12.html">Home Version 12</a></li>
-                                                <li><a href="index13.html">Home Version 13</a></li>
-                                                <li><a href="index14.html">Home Version 14</a></li>
+{{--                                            </ul>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="col-sm-4">--}}
+{{--                                        <div class="mega-custom-menu">--}}
+{{--                                            <ul>--}}
+{{--                                                <li><a href="index8.html">Home Version 08</a></li>--}}
+{{--                                                <li><a href="index9.html">Home Version 09</a></li>--}}
+{{--                                                <li><a href="index10.html">Home Version 10</a></li>--}}
+{{--                                                <li><a href="index11.html">Home Version 11</a></li>--}}
+{{--                                                <li><a href="index12.html">Home Version 12</a></li>--}}
+{{--                                                <li><a href="index13.html">Home Version 13</a></li>--}}
+{{--                                                <li><a href="index14.html">Home Version 14</a></li>--}}
 
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="mega-custom-menu">
-                                            <ul>
-                                                <li><a href="index15.html">Home Version 15</a></li>
-                                                <li><a href="index16.html">Home Version 16</a></li>
-                                                <li><a href="index17.html">Home Version 17</a></li>
-                                                <li><a href="index18.html">Home Version 18</a></li>
-                                                <li><a href="index19.html">Home Version 19</a></li>
-                                                <li><a href="index20.html">Home Version 20</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+{{--                                            </ul>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="col-sm-4">--}}
+{{--                                        <div class="mega-custom-menu">--}}
+{{--                                            <ul>--}}
+{{--                                                <li><a href="index15.html">Home Version 15</a></li>--}}
+{{--                                                <li><a href="index16.html">Home Version 16</a></li>--}}
+{{--                                                <li><a href="index17.html">Home Version 17</a></li>--}}
+{{--                                                <li><a href="index18.html">Home Version 18</a></li>--}}
+{{--                                                <li><a href="index19.html">Home Version 19</a></li>--}}
+{{--                                                <li><a href="index20.html">Home Version 20</a></li>--}}
+{{--                                            </ul>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                         </li>
-                        <li class="menu-item-has-children">
-                            <a href="#">Pages</a>
-                            <span class="arow"></span>
-                            <ul class="sub-menu">
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="contact.html">Contact Us</a></li>
-                                <li><a href="cart.html">Cart</a></li>
-                                <li><a href="checkout.html">Checkout</a></li>
-                                <li><a href="wishlist.html">wishlist</a></li>
-                                <li><a href="lookbook.html">Lookbook</a></li>
-                                <li><a href="404.html">404 page</a></li>
-                            </ul>
-                        </li>
+{{--                        <li class="menu-item-has-children">--}}
+{{--                            <a href="#">Pages</a>--}}
+{{--                            <span class="arow"></span>--}}
+{{--                            <ul class="sub-menu">--}}
+{{--                                <li><a href="about.html">About Us</a></li>--}}
+{{--                                <li><a href="contact.html">Contact Us</a></li>--}}
+{{--                                <li><a href="cart.html">Cart</a></li>--}}
+{{--                                <li><a href="checkout.html">Checkout</a></li>--}}
+{{--                                <li><a href="wishlist.html">wishlist</a></li>--}}
+{{--                                <li><a href="lookbook.html">Lookbook</a></li>--}}
+{{--                                <li><a href="404.html">404 page</a></li>--}}
+{{--                            </ul>--}}
+{{--                        </li>--}}
                         <li class="menu-item-has-children item-megamenu">
-                            <a href="#">Shop</a>
+                            <a href="#">สินค้า</a>
                             <div style="width:820px; background-image:url('images/bg-megamenu.png'); "
                                  class="sub-menu megamenu megamenu-bg">
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <div class="mega-custom-menu">
-                                            <h2 class="title">CATEGORIES</h2>
+                                            <h2 class="title">หมวดหมู่</h2>
                                             <ul>
-                                                <li><a href="category-left-sidebar.html">Left sidebar</a></li>
-                                                <li><a href="category-right-sidebar.html">Right sidebar</a></li>
-                                                <li><a href="category-list.html">Category list</a></li>
-                                                <li><a href="category-2columns.html">2 columns</a></li>
-                                                <li><a href="category-3columns.html">3 columns</a></li>
-                                                <li><a href="category-4columns.html">4 columns</a></li>
-                                                <li><a href="category-6columns.html">6 columns</a></li>
-                                                <li><a href="category2-leftsidebar.html">Categorie Style 2</a></li>
-                                                <li><a href="category3-leftsidebar.html">Categorie Style 3</a></li>
-                                                <li><a href="category4-leftsidebar.html">Categorie Style 4</a></li>
+                                                @foreach($catalogs as $catalog)
+                                                    <li><a href="#">{{ $catalog->name }}</a></li>
+                                                @endforeach
                                             </ul>
                                         </div>
                                     </div>
@@ -195,7 +160,7 @@
                             </div>
                         </li>
                         <li class="menu-item-has-children item-megamenu">
-                            <a href="#">FEATURES</a>
+                            <a href="#">เกี่ยวกับเรา</a>
                             <div style="width:1500px;" class="sub-menu megamenu">
                                 <div class="row">
                                     <div class="col-sm-6">
@@ -246,11 +211,11 @@
                             </div>
                         </li>
                         <li class="menu-item-has-children">
-                            <a href="blogs.html">BLOG</a>
-                            <ul class="sub-menu">
-                                <li><a href="blogs.html">Blog List</a></li>
-                                <li><a href="blogpost.html">Blog Single</a></li>
-                            </ul>
+                            <a href="blogs.html">แจ้งปัญหา</a>
+{{--                            <ul class="sub-menu">--}}
+{{--                                <li><a href="blogs.html">Blog List</a></li>--}}
+{{--                                <li><a href="blogpost.html">Blog Single</a></li>--}}
+{{--                            </ul>--}}
                         </li>
                     </ul>
                 </div>

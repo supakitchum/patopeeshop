@@ -1,240 +1,252 @@
-<template>
-    <div class="page">
-        <div class="wrap-action-product-d">
-            <div class="row">
-                <div class="col-15">
-                    <div class="content-icon">
-                        <a href="#"><i class="ti-heart"></i></a>
-                    </div>
-                </div>
-                <div class="col-15">
-                    <div class="content-icon">
-                        <a href="#" @click="showToastBottom" class="total-count" data-target="#cart"><i class="ti-shopping-cart"></i></a>
-                    </div>
-                </div>
-                <div class="col-70">
-                    <div class="content-button">
-                        <button class="button">ซื้อเลยตอนนี้</button>
-                    </div>
-                </div>
-            </div>
+@extends('frontend.layouts.main')
+@section('title',$results[0]->name)
+@section('content')
+    <div class="container">
+        <div class="shop-banner">
+            <img src="images/slides/slider-cat2.jpg" alt="">
         </div>
-
-        <div class="page-content">
-            <!-- link back -->
-            <a href="" class="link back nav-back">
-                <i class="ti-arrow-left"></i>
-            </a>
-            <!-- end link back -->
-
-            <!-- product details -->
-            <div class="product-details">
-                <div class="header">
-                    <div data-pagination='{"el": ".swiper-pagination"}' data-space-between="0"
-                         class="swiper-container swiper-init swiper-container-horizontal">
-                        <div class="swiper-pagination"></div>
-                        <div class="swiper-wrapper">
-                            @foreach($productImages as $image)
-                                <div class="swiper-slide">
-                                    <div class="content">
-                                        <div class="mask"></div>
-                                        <img src="{{ asset($image->path) }}" style="height: 500px !important;" alt="">
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-                <div class="wrap-content">
-                    <h4>{{ $product->name }}</h4>
-                    <span class="price">{{ number_format($productDetails->price,2) }} บาท</span>
-
-                    <!-- small divider -->
-                    <div class="small-divider"></div>
-                    <!-- end  small divider -->
-
-                    <div class="description-product-wrapper section-wrapper">
-                        <div class="wrap-title">
-                            <h3>รายละเอียด</h3>
-                        </div>
-                        <p>{!! $product->detail !!}</p>
-                    </div>
-                    <div class="information-product-wrapper section-wrapper">
-                        <input type="hidden" name="aid" value="" id="aid">
-                        <div class="wrap-title">
-                            <h3>ข้อมูลสินค้า</h3>
-                        </div>
-                        <ul>
-                            <li>สี
-                                <span>
-                                    @foreach($colors as $color)
-                                        {{ $color->name.' ' }}
-                                    @endforeach
-                                </span>
-                            </li>
-                            <li>ขนาด
-                                <span>
-                                     @foreach($sizes as $size)
-                                        {{ $size->name.' ' }}
-                                    @endforeach
-                                </span>
-                            </li>
-                            <li>มีในคลัง <span>{{ $total }} ชิ้น</span></li>
-                        </ul>
-                    </div>
-                    <!-- small divider -->
-                    <div class="small-divider"></div>
-                    <!-- end  small divider -->
-                    <div class="information-product-wrapper section-wrapper">
-                        <div class="wrap-title">
-                            <h3>คำสั่งซื้อ</h3>
-                        </div>
-                        <ul>
-                            <li>ขนาด
-                                <span>
-                                    <div class="input input-dropdown" style="width: 70px;">
-                                        <select name="size" id="size">
-                                        </select>
-                                    </div>
-                                </span>
-                            </li>
-                            <li>สี
-                                <span>
-                                    <div class="input input-dropdown" style="width: 70px;">
-                                        <select name="color" id="color">
-                                        </select>
-                                    </div>
-                                </span>
-                            </li>
-                            <li>จำนวน
-                                <span class="list">
-                                    <div class="item-input-wrap" style="width: 70px;">
-                                        <input type="number" min="1" value="0">
-                                    </div>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- small divider -->
-                    <div class="small-divider"></div>
-                    <!-- end  small divider -->
-                    <div class="share-product-wrapper">
-                        <ul>
-                            <li>แบ่งปัน</li>
-                            <li><a href="#"><i class="ti-facebook"></i></a></li>
-                            <li><a href="#"><i class="ti-twitter"></i></a></li>
-                            <li><a href="#"><i class="ti-google"></i></a></li>
-                        </ul>
-                    </div>
-                    <!-- small divider -->
-                    <div class="small-divider"></div>
-                    <!-- end  small divider -->
-                </div>
-
-                <div class="related-product" style="height:200px;margin-top: 10px;">
-                    <div class="wrap-title">
-                        <h3>สินค้าแนะนำ</h3>
-                    </div>
-                    <div data-space-between="10" data-slides-per-view="auto"
-                         class="swiper-container swiper-init demo-swiper-auto">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="content">
-                                    <img src="images/product9.jpg" alt="">
-                                    <div class="text">
-                                        <a href="#"><p>Casual Dress Shirt Men short Sleeves</p></a>
-                                        <span class="price">$27.00</span>
-                                    </div>
-                                </div>
+        <div class="row">
+            <div class="main-content col-sm-12">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="product-detail-image style2">
+                            <div class="main-image-wapper">
+                                <img class="main-image" src="{{ asset($images[0]->path) }}" alt="">
                             </div>
-                            <div class="swiper-slide">
-                                <div class="content">
-                                    <img src="images/product1.jpg" alt="">
-                                    <div class="text">
-                                        <a href="#"><p>Original Sweater With 100% Wool Fabric</p></a>
-                                        <span class="price">$30.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="content">
-                                    <img src="images/product11.jpg" alt="">
-                                    <div class="text">
-                                        <a href="#"><p>New Style Plain Casual t-shirt</p></a>
-                                        <span class="price">$21.00</span>
-                                    </div>
-                                </div>
+                            <div class="thumbnails owl-carousel nav-center-center nav-style3" data-autoplay="true"
+                                 data-loop="true" data-items="{{ sizeof($images) }}" data-dots="false" data-nav="true"
+                                 data-margin="20">
+                                @foreach($images as $image)
+                                    <a data-url="{{ asset($image->path) }}" class="active" href="#"><img
+                                            src="{{ asset($image->path) }}" alt=""></a>
+                                @endforeach
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-8">
+                        <div class="product-details-right style2">
+                            <h3 class="product-name">{{ $results[0]->name }}</h3>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <span class="count-review">( 2 <span>Reviews</span> )</span>
+                            </div>
+                            <span class="price">
+                    <ins><span id="price">{{ number_format($results[0]->price) }}</span> บาท</ins>
+                </span>
+                            <div class="meta">
+                                <span>คงเหลือ: {{ $results[0]->quality }}</span>
+                                <span>สถานะ: <span
+                                        class="{{ $results[0]->quality > 0 ? 'text-primary':'text-danger' }}">{{ $results[0]->quality > 0 ? 'มีสินค้าในคลัง':'สินค้าหมดชั่วคราว' }}</span></span>
+                            </div>
+                            <input type="hidden" name="aid" value="" id="aid">
+                            <div style="width: 50%">
+                                <div class="form-group">
+                                    <label for="size">ขนาด</label><br>
+                                    <select id="size" name="size">
+                                    </select>
+                                </div>
+                            </div>
+                            <div style="width: 50%">
+                                <div class="form-group">
+                                    <label>สี</label>
+                                    <select disabled id="color" name="color">
+                                    </select>
+                                </div>
+                            </div>
+                            <form class="cart-form" enctype="multipart/form-data" method="post">
+                                <div class="quantity">
+                                    <a onclick="$('#amount').val() > 1 ? $('#amount').val($('#amount').val() - 1):''">-</a>
+                                    <input type="number" min="1" class="input-text qty text" title="Qty" value="1" id="amount">
+                                    <a onclick="$('#amount').val(($('#amount').val() * 1) + 1)">+</a>
+                                </div>
+                                <a class="button button-add-cart add-to-cart" data-quantity="1" href="#">เพิ่มลงรถเข็นของฉัน</a>
+                                <a class="wishlist button" href="#"><i class="fa fa-heart-o"></i></a>
+                                <a href="#" class="button compare"><i class="fa fa-exchange"></i></a>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-
             </div>
-            <!-- end product details -->
         </div>
     </div>
-</template>
-<script>
-    return {
-        methods: {
-            showToastBottom: function () {
-                var items = sessionStorage.getItem('shoppingCart') ? JSON.parse(sessionStorage.getItem('shoppingCart')): [];
-                var message = "";
-                items.push({{ $product->id }});
-                sessionStorage.setItem('shoppingCart',JSON.stringify(items));
-                message = "เพิ่มสินค้าแล้ว";
-                var self = this;
-                // Create toast
-                if (!self.toastBottom) {
-                    self.toastBottom = self.$app.toast.create({
-                        text: message,
-                        closeTimeout: 1500,
-                    });
-                }
-                // Open it
-                self.toastBottom.open();
-            },
-        },
-        on: {
-            pageBeforeOut: function () {
-                var self = this;
-                self.$app.toast.close();
-            },
-            pageBeforeRemove: function () {
-                var self = this;
-                // Destroy toasts when page removed
-                if (self.toastBottom) self.toastBottom.destroy();
-            },
-        },
-        mounted(){
-            let details = [];
-            var size = $('#size');
-            var color = $('#color');
-            axios.get("/api/product/{{ $product->id }}")
-                .then(function (response) {
-                    // handle success
-                    details = response.data;
-                })
-            axios.get("/api/product/{{ $product->id }}/true")
-                .then(function (response) {
-                    let sizes = response.data
-                    size.html('');
-                    size.append($("<option>").attr('value',0).text('โปรดเลือกขนาด'));
-                    sizes.forEach(data => {
-                        size.append($("<option>").attr('value',data.size_id).text(data.size_name));
-                    })
-                })
-            size.on('change',function () {
-                var id = $('#size').val()
-                detail = details.filter(function(obj) {
+    <!-- tab -->
+    <div class="container">
+        <div class="tab-details-product style2">
+            <ul class="box-tabs nav-tab">
+                <li class="active"><a data-toggle="tab" href="#tab-1">รายละเอียด</a></li>
+                <li><a data-toggle="tab" href="#tab-2">คลังสินค้า</a></li>
+            </ul>
+            <div class="tab-container">
+                <div id="tab-1" class="tab-panel active">
+                    {!! $results[0]->detail !!}
+                </div>
+                <div id="tab-2" class="tab-panel">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>ขนาด</th>
+                            <th>สี</th>
+                            <th>คงเหลือ</th>
+                            <th>ราคา</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($results as $result)
+                            <tr>
+                                <td>{{ $result->size_name }}</td>
+                                <td>{{ $result->color_name }}</td>
+                                <td>{{ $result->quality }}</td>
+                                <td>{{ $result->price }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="product-slide upsell-products">
+            <div class="section-title text-center"><h3>UPSELL PRODUCTS</h3></div>
+            <ul class="owl-carousel" data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":4}}'
+                data-autoplay="true" data-loop="true" data-items="4" data-dots="false" data-nav="false"
+                data-margin="30">
+                <li class="product-item">
+                    <div class="product-inner">
+                        <div class="product-thumb">
+                            <a href="#"><img src="images/products/5.jpg" alt=""></a>
+                            <div class="gorup-button">
+                                <a href="#" class="wishlist"><i class="fa fa-heart"></i></a>
+                                <a href="#" class="compare"><i class="fa fa-exchange"></i></a>
+                                <a href="#" class="quick-view"><i class="fa fa-search"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name"><a href="#">London Star Sweatshirt</a></h3>
+                            <span class="price">
+                            <ins>£85.00</ins>
+                            <del>£95.00</del>
+                        </span>
+                            <a href="#" class="button">ADD TO CART</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="product-item">
+                    <div class="product-inner">
+                        <div class="product-thumb">
+                            <a href="#"><img src="images/products/6.jpg" alt=""></a>
+                            <div class="gorup-button">
+                                <a href="#" class="wishlist"><i class="fa fa-heart"></i></a>
+                                <a href="#" class="compare"><i class="fa fa-exchange"></i></a>
+                                <a href="#" class="quick-view"><i class="fa fa-search"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name"><a href="#">London Star Sweatshirt</a></h3>
+                            <span class="price">
+                            <ins>£85.00</ins>
+                            <del>£95.00</del>
+                        </span>
+                            <a href="#" class="button">ADD TO CART</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="product-item">
+                    <div class="product-inner">
+                        <div class="product-thumb">
+                            <a href="#"><img src="images/products/7.jpg" alt=""></a>
+                            <div class="gorup-button">
+                                <a href="#" class="wishlist"><i class="fa fa-heart"></i></a>
+                                <a href="#" class="compare"><i class="fa fa-exchange"></i></a>
+                                <a href="#" class="quick-view"><i class="fa fa-search"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name"><a href="#">London Star Sweatshirt</a></h3>
+                            <span class="price">
+                            <ins>£85.00</ins>
+                            <del>£95.00</del>
+                        </span>
+                            <a href="#" class="button">ADD TO CART</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="product-item">
+                    <div class="product-inner">
+                        <div class="product-thumb">
+                            <a href="#"><img src="images/products/8.jpg" alt=""></a>
+                            <div class="gorup-button">
+                                <a href="#" class="wishlist"><i class="fa fa-heart"></i></a>
+                                <a href="#" class="compare"><i class="fa fa-exchange"></i></a>
+                                <a href="#" class="quick-view"><i class="fa fa-search"></i></a>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name"><a href="#">London Star Sweatshirt</a></h3>
+                            <span class="price">
+                            <ins>£85.00</ins>
+                            <del>£95.00</del>
+                        </span>
+                            <a href="#" class="button">ADD TO CART</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div> <!--END CONTAINER-->
+@endsection
+@section('script')
+    <script>
+        function getAll(){
+            color.attr('disabled',true);
+            color.html('')
+            color.trigger("chosen:updated");
+            // $("#amount").attr('disabled',true);
+            price.val(0)
+            $.get( "/api/product/{{ $results[0]->id }}", function( data ) {
+                details = data;
+            });
+            $.get("/api/product/{{ $results[0]->id }}/true",function (sizes) {
+                size.html('');
+                size.append($("<option>").attr('value',0).text('โปรดเลือกขนาด'));
+                $(sizes).each(function() {
+                    size.append($("<option>").attr('value',this.size_id).text(this.size_name));
+                });
+                size.trigger("chosen:updated");
+            })
+        }
+        $(document).ready(function () {
+            getAll();
+            size.on('change', function () {
+                var id = $('#size option:selected').val()
+                detail = details.filter(function (obj) {
                     return obj.size_id == id;
                 });
                 color.html('');
-                color.append($("<option>").attr('value',0).text('โปรดเลือกสี'));
-                detail.forEach(data => {
-                    color.append($("<option>").attr('value',data.color_id).text(data.color_name));
+                amount.attr('disabled', true);
+                amount.val();
+                $('#total').html('0')
+                price.val(0)
+                color.append($("<option>").attr('value', 0).text('โปรดเลือกสี'));
+                $(detail).each(function () {
+                    color.attr('disabled', false);
+                    color.append($("<option>").attr('value', this.color_id).text(this.color_name));
                 });
+                color.trigger("chosen:updated")
             })
-        }
-    }
-</script>
+            color.on('change', function () {
+                var id = $('#color option:selected').val()
+                detail = details.filter(function (obj) {
+                    return obj.color_id == id;
+                });
+                amount.attr('disabled', false);
+                amount.val(1);
+                $('#aid').val(detail[0].id)
+                $('#total').html(detail[0].price)
+                price.val(detail[0].price)
+            })
+        });
+    </script>
+@endsection

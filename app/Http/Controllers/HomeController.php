@@ -43,6 +43,7 @@ class HomeController extends Controller
             ->groupBy('products.id')
             ->orderBy('products.created_at','desc')
             ->select('products.*','product_images.path','product_details.price')
+            ->limit(12)
             ->get();
         return view('frontend.home')->with([
             'catalogs' => $this->catalog->get(),

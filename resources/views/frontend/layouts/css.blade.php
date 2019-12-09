@@ -137,3 +137,4 @@
 
 } */
 </style>
+<link rel="stylesheet" href="{{ asset('css/frontend/sweetalert2.css') }}" />

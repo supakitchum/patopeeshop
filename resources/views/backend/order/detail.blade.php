@@ -70,20 +70,20 @@
                                 <table class="table table-bordered table-responsive">
                                     <tr>
                                         <td>ชื่อ</td>
-                                        <td>{{ $user->fname.' '.$user->lname }}</td>
+                                        <td>{{ $order->fname.' '.$order->lname }}</td>
                                     </tr>
                                     <tr>
                                         <td>อีเมล</td>
-                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $order->email }}</td>
                                     </tr>
                                     <tr>
                                         <td>เบอร์โทร.</td>
-                                        <td>{{ $user->phone }}</td>
+                                        <td>{{ $order->phone }}</td>
                                     </tr>
                                     <tr>
                                         <td>ที่อยู่</td>
                                         <td>
-                                            ​​{{ $user->address }} ต.{{ $user->district }} จ.{{ $user->provice }} {{ $user->zip_code }}
+                                            ​​{{ $order->address }} ต.{{ $address->district }} อ. {{ $address->amphoe }} จ.{{ $address->provice }} {{ $order->zip_code }}
                                         </td>
                                     </tr>
                                 </table>
