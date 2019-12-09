@@ -28,6 +28,7 @@
                     <thead>
                         <th>ลำดับ</th>
                         <th>สี</th>
+                        <th>โค้ดสี</th>
                         <th>เพิ่มเมื่อ</th>
                         <th>แก้ไขล่าสุดเมื่อ</th>
                         <th>การจัดการ</th>
@@ -38,15 +39,16 @@
                         <tr>
                             <td>{{ $index + 1 }}</th>
                             <td>{{ $result->name }}</th>
+                            <td>{{ $result->code }}</th>
                             <td>{{ $result->created_at }}</th>
                             <td>{{ $result->updated_at }}</th>
                             <td>
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-12">
+                                    <div class="col-lg-6 col-md-12">
                                         <a href="{{ route('backend.colors.edit',["id" => $result->id]) }}"
                                             class="btn btn-primary btn-rounded w-100"><i class="fa fa-edit"></i></a>
                                     </div>
-                                    <div class="col-lg-4 col-md-12">
+                                    <div class="col-lg-6 col-md-12">
                                         <form action="{{ route('backend.colors.destroy',["id" => $result->id]) }}"
                                             method="post">
                                             @csrf
@@ -79,7 +81,7 @@ $(function() {
                 "targets": 0
             },
             {
-                "width": "15%",
+                "width": "10%",
                 "targets": 1
             },
             {
@@ -93,7 +95,11 @@ $(function() {
             {
                 "width": "10%",
                 "targets": 4
-            }
+            },
+            {
+                "width": "10%",
+                "targets": 5
+            },
         ]
     });
 
