@@ -14,12 +14,13 @@ class ProductController extends Controller
 {
     public function filter(Request $request)
     {
+
         $form_params = $request->get('form');
         $catalogs = [];
         $colors = [];
         $sizes = [];
-        if (isset($form_params)){
-            foreach ($form_params as $param){
+        if (isset($form_params)) {
+            foreach ($form_params as $param) {
                 if ($param['name'] == "catalogs")
                     $catalogs[] = $param['value'];
                 if ($param['name'] == "colors")
@@ -28,8 +29,9 @@ class ProductController extends Controller
                     $sizes[] = $param['value'];
             }
         }
+
         if ($catalogs) {
-            try{
+            try {
                 $query = "select DISTINCT(pid) from product_catalogs where ";
                 foreach ($catalogs as $index => $cid) {
                     if ($index > 0)
@@ -37,7 +39,7 @@ class ProductController extends Controller
                     $query .= "cid = " . $cid . " ";
                 }
                 $products = DB::select($query);
-                if ($products){
+                if ($products) {
                     $query = "select DISTINCT(pid),size from product_details where (";
                     foreach ($products as $index => $pid) {
                         if ($index > 0)
@@ -45,16 +47,15 @@ class ProductController extends Controller
                         $query .= "pid = " . $pid->pid . " ";
                     }
                     $query .= ') ';
-                }
-                else{
+                } else {
                     return $products;
                 }
-            } catch (\Exception $e){
+            } catch (\Exception $e) {
                 throw $e;
             }
         }
         if ($colors) {
-            if ($catalogs){
+            if ($catalogs) {
                 if (sizeof($colors) > 0) {
                     $query .= "and ";
                     foreach ($colors as $index => $color) {
@@ -65,7 +66,7 @@ class ProductController extends Controller
                     $query = "select DISTINCT(pid),size from (" . $query . ") as a;";
                 } else
                     $query .= ';';
-            }else{
+            } else {
                 $query = "select DISTINCT(pid),size from product_details where ";
                 foreach ($colors as $index => $color) {
                     if ($index > 0)
@@ -78,15 +79,14 @@ class ProductController extends Controller
         if (isset($query))
             $products = DB::select($query);
         if ($sizes) {
-            if ($catalogs || $colors){
+            if ($catalogs || $colors) {
                 $products = array_filter($products, function ($product) use ($sizes) {
                     if (in_array($product->size, $sizes))
                         return true;
                     else
                         return false;
                 });
-            }
-            else{
+            } else {
                 $query = "select DISTINCT(pid),size from product_details where ";
                 foreach ($sizes as $index => $size) {
                     if ($index > 0)
@@ -100,22 +100,128 @@ class ProductController extends Controller
         if (isset($products) && sizeof($products) > 0) {
             $query = "select products.*,product_images.path from products left join product_images on products.id = product_images.pid where (";
             foreach ($products as $index => $product) {
-                if ($index > 0 && sizeof($products) > 1){
+                if ($index > 0 && sizeof($products) > 1) {
                     $query .= "or ";
                 }
 
                 $query .= " products.id = " . $product->pid . " ";
             }
             $query .= ') and products.deleted_at IS NULL group by products.id';
-        } elseif ($catalogs || $sizes || $colors){
+        } elseif ($catalogs || $sizes || $colors) {
             return [];
-        }
-        else {
+        } else {
             $query = "select products.*,product_images.path from products left join product_images on products.id = product_images.pid where products.deleted_at IS NULL group by products.id";
         }
         return response()->json(DB::select($query));
     }
+    public function filterFrontend(Request $request)
+    {
+        // return $request;
+        // $form_params = $request->get('catalogs');
 
+        $catalogs = [];
+        $catalogs = $request->get('catalogs');
+        $colors = [];
+        $colors = $request->get('colors');
+        $sizes = [];
+        $sizes = $request->get('sizes');
+
+        // if (isset($form_params)) {
+        //     foreach ($form_params as $param) {
+        //         return $param;
+        //         if ($param['name'] == "catalogs")
+        //             return $param['value'];
+        //         $catalogs[] = $param['value'];
+        //         if ($param['name'] == "colors")
+        //             $colors[] = $param['value'];
+        //         if ($param['name'] == "sizes")
+        //             $sizes[] = $param['value'];
+        //     }
+        // }
+        if ($catalogs) {
+            try {
+                $query = "select DISTINCT(pid) from product_catalogs where ";
+                foreach ($catalogs as $index => $cid) {
+                    if ($index > 0)
+                        $query .= "or ";
+                    $query .= "cid = " . $cid . " ";
+                }
+                $products = DB::select($query);
+                if ($products) {
+                    $query = "select DISTINCT(pid),size from product_details where (";
+                    foreach ($products as $index => $pid) {
+                        if ($index > 0)
+                            $query .= "or ";
+                        $query .= "pid = " . $pid->pid . " ";
+                    }
+                    $query .= ') ';
+                } else {
+                    return $products;
+                }
+            } catch (\Exception $e) {
+                throw $e;
+            }
+        }
+        if ($colors) {
+            if ($catalogs) {
+                if (sizeof($colors) > 0) {
+                    $query .= "and ";
+                    foreach ($colors as $index => $color) {
+                        if ($index > 0)
+                            $query .= "or ";
+                        $query .= "color = " . $color . " ";
+                    }
+                    $query = "select DISTINCT(pid),size from (" . $query . ") as a;";
+                } else
+                    $query .= ';';
+            } else {
+                $query = "select DISTINCT(pid),size from product_details where ";
+                foreach ($colors as $index => $color) {
+                    if ($index > 0)
+                        $query .= "or ";
+                    $query .= "color = " . $color . " ";
+                }
+                $query .= ";";
+            }
+        }
+        if (isset($query))
+            $products = DB::select($query);
+        if ($sizes) {
+            if ($catalogs || $colors) {
+                $products = array_filter($products, function ($product) use ($sizes) {
+                    if (in_array($product->size, $sizes))
+                        return true;
+                    else
+                        return false;
+                });
+            } else {
+                $query = "select DISTINCT(pid),size from product_details where ";
+                foreach ($sizes as $index => $size) {
+                    if ($index > 0)
+                        $query .= "or ";
+                    $query .= "size = " . $size . " ";
+                }
+                $query .= ";";
+                $products = DB::select($query);
+            }
+        }
+        if (isset($products) && sizeof($products) > 0) {
+            $query = "select products.*,product_images.path ,product_details.* from products left join product_images on products.id = product_images.pid left join product_details on products.id = product_details.pid  where (";
+            foreach ($products as $index => $product) {
+                if ($index > 0 && sizeof($products) > 1) {
+                    $query .= "or ";
+                }
+
+                $query .= " products.id = " . $product->pid . " ";
+            }
+            $query .= ') and products.deleted_at IS NULL group by products.id';
+        } elseif ($catalogs || $sizes || $colors) {
+            return [];
+        } else {
+            $query = "select products.*,product_images.path,product_details.* from products left join product_images on products.id = product_images.pid left join product_details on products.id = product_details.pid where products.deleted_at IS NULL group by products.id";
+        }
+        return response()->json(DB::select($query));
+    }
     public function getDetail($pid, $size = false)
     {
         if ($size) {
@@ -150,7 +256,8 @@ class ProductController extends Controller
         return response()->json($results);
     }
 
-    public function getColor(Request $request){
+    public function getColor(Request $request)
+    {
         $size = $request->size;
         $pid = $request->pid;
         $result = ProductDetail::join('colors', 'product_details.color', '=', 'colors.id')
@@ -160,32 +267,34 @@ class ProductController extends Controller
                 'product_details.price',
                 'product_details.quality'
             )
-            ->where(['pid' => $pid,'size' => $size])
+            ->where(['pid' => $pid, 'size' => $size])
             ->get();
 
         return response()->json($result);
     }
 
-    public function getProductDetail(Request $request){
+    public function getProductDetail(Request $request)
+    {
         $size = $request->size;
         $pid = $request->pid;
         $color = $request->color;
-        $result = ProductDetail::where(['pid' => $pid,'size' => $size,'color' => $color])->first();
+        $result = ProductDetail::where(['pid' => $pid, 'size' => $size, 'color' => $color])->first();
         return response()->json($result);
     }
 
-    public function getProducts(Request $request){
+    public function getProducts(Request $request)
+    {
         $pids = $request->pids;
         $results = [];
-        foreach ($pids as $pid){
-            $product = Product::leftjoin('product_images','products.id','=','product_images.pid')->where('products.id',$pid)->first();
-            $attribute = ProductDetail::leftjoin('sizes','product_details.size','=','sizes.id')
-                ->leftjoin('colors','product_details.color','=','colors.id')
-                ->where('pid',$pid)
-                ->select('sizes.name as size','sizes.id as size_id','colors.id as color_id','colors.name as color','product_details.id as aid')
+        foreach ($pids as $pid) {
+            $product = Product::leftjoin('product_images', 'products.id', '=', 'product_images.pid')->where('products.id', $pid)->first();
+            $attribute = ProductDetail::leftjoin('sizes', 'product_details.size', '=', 'sizes.id')
+                ->leftjoin('colors', 'product_details.color', '=', 'colors.id')
+                ->where('pid', $pid)
+                ->select('sizes.name as size', 'sizes.id as size_id', 'colors.id as color_id', 'colors.name as color', 'product_details.id as aid')
                 ->groupBy('sizes.id')
                 ->get();
-            array_push($results,[
+            array_push($results, [
                 'id' => $pid,
                 'name' => $product->name,
                 'image' => $product->path,
@@ -193,6 +302,6 @@ class ProductController extends Controller
                 'attribute' => $attribute
             ]);
         }
-        return response()->json($results,200);
+        return response()->json($results, 200);
     }
 }
