@@ -2,14 +2,14 @@
 // Shopping Cart API
 // ************************************************
 
-var shoppingCart = (function() {
+var shoppingCart = (function () {
     // =============================
     // Private methods and propeties
     // =============================
     cart = [];
 
     // Constructor
-    function Item(name, price, count,aid) {
+    function Item(name, price, count, aid) {
         this.name = name;
         this.price = price;
         this.count = count;
@@ -25,6 +25,7 @@ var shoppingCart = (function() {
     function loadCart() {
         cart = JSON.parse(sessionStorage.getItem('shoppingCart'));
     }
+
     if (sessionStorage.getItem("shoppingCart") != null) {
         loadCart();
     }
@@ -36,21 +37,21 @@ var shoppingCart = (function() {
     var obj = {};
 
     // Add to cart
-    obj.addItemToCart = function(name, price, count,aid) {
-        for(var item in cart) {
-            if(cart[item].aid == name) {
-                cart[item].count ++;
+    obj.addItemToCart = function (name, price, count, aid) {
+        for (var item in cart) {
+            if (cart[item].aid == name) {
+                cart[item].count++;
                 saveCart();
                 return;
             }
         }
-        var item = new Item(name, price, count,aid);
+        var item = new Item(name, price, count, aid);
         cart.push(item);
         saveCart();
     }
     // Set count from item
-    obj.setCountForItem = function(name, count) {
-        for(var i in cart) {
+    obj.setCountForItem = function (name, count) {
+        for (var i in cart) {
             if (cart[i].aid == name) {
                 cart[i].count = count;
                 saveCart()
@@ -59,11 +60,11 @@ var shoppingCart = (function() {
         }
     };
     // Remove item from cart
-    obj.removeItemFromCart = function(name) {
-        for(var item in cart) {
-            if(cart[item].aid == name) {
-                cart[item].count --;
-                if(cart[item].count === 0) {
+    obj.removeItemFromCart = function (name) {
+        for (var item in cart) {
+            if (cart[item].aid == name) {
+                cart[item].count--;
+                if (cart[item].count === 0) {
                     cart.splice(item, 1);
                 }
                 break;
@@ -73,9 +74,9 @@ var shoppingCart = (function() {
     }
 
     // Remove all items from cart
-    obj.removeItemFromCartAll = function(name) {
-        for(var item in cart) {
-            if(cart[item].aid == name) {
+    obj.removeItemFromCartAll = function (name) {
+        for (var item in cart) {
+            if (cart[item].aid == name) {
                 cart.splice(item, 1);
                 break;
             }
@@ -84,36 +85,36 @@ var shoppingCart = (function() {
     }
 
     // Clear cart
-    obj.clearCart = function() {
+    obj.clearCart = function () {
         cart = [];
         saveCart();
     }
 
     // Count cart
-    obj.totalCount = function() {
+    obj.totalCount = function () {
         var totalCount = 0;
-        for(var item in cart) {
+        for (var item in cart) {
             totalCount += cart[item].count;
         }
         return totalCount;
     }
 
     // Total cart
-    obj.totalCart = function() {
+    obj.totalCart = function () {
         var totalCart = 0;
-        for(var item in cart) {
+        for (var item in cart) {
             totalCart += cart[item].price * cart[item].count;
         }
         return Number(totalCart.toFixed(2));
     }
 
     // List cart
-    obj.listCart = function() {
+    obj.listCart = function () {
         var cartCopy = [];
-        for(i in cart) {
+        for (i in cart) {
             item = cart[i];
             itemCopy = {};
-            for(p in item) {
+            for (p in item) {
                 itemCopy[p] = item[p];
 
             }
@@ -142,7 +143,7 @@ var shoppingCart = (function() {
 // Triggers / Events
 // *****************************************
 // Add item
-$('.add-to-cart').click(function(event) {
+$('.add-to-cart').click(function (event) {
     event.preventDefault();
     var size = $('#size option:selected').text();
     var color = $('#color option:selected').text();
@@ -152,17 +153,17 @@ $('.add-to-cart').click(function(event) {
     let price = Number($("#price").val())
     let aid = $("#aid").val()
     $("#total").html(amount * price)
-    shoppingCart.addItemToCart(name, price, amount,aid);
+    shoppingCart.addItemToCart(name, price, amount, aid);
     Swal.fire(
         'เพิ่มสินค้าสำเร็จ',
-        'เพิ่ม '+ name +' ลงรถเข็นของคุณเรียบร้อยแล้ว',
+        'เพิ่ม ' + name + ' ลงรถเข็นของคุณเรียบร้อยแล้ว',
         'success'
     )
     displayCart();
 });
 
 // Clear items
-$('.clear-cart').click(function() {
+$('.clear-cart').click(function () {
     shoppingCart.clearCart();
     displayCart();
 });
@@ -172,9 +173,10 @@ function displayCart() {
     var cartArray = shoppingCart.listCart();
     var output = "";
     var output2 = "";
-    for(var i in cartArray) {
+    var output3 = "";
+    for (var i in cartArray) {
         output += "<tr>"
-            + "<input type='hidden' value='"+cartArray[i].aid+"' name='aid[]' >"
+            + "<input type='hidden' value='" + cartArray[i].aid + "' name='aid[]' >"
             + "<td>" + cartArray[i].name + "</td>"
             + "<td>" + cartArray[i].price + "</td>"
             + "<td><div class='input-group'>"
@@ -182,28 +184,46 @@ function displayCart() {
             + "<button class='delete-item btn btn-danger' data-name='" + cartArray[i].aid + "'><i class='fa fa-trash'></i></button></div></td>"
             + " = "
             + "<td>" + cartArray[i].total + "</td>"
-            +  "</tr>";
+            + "</tr>";
         output2 += "<li>"
-            + "<input type='hidden' value='"+cartArray[i].aid+"' name='aid[]' >"
             + "<div class='thumb'>"
             + "<img src='images/products/1.png' alt=''>"
             + "</div>"
             + "<div class='info'>"
-            + "<h4 class='product-name'><a href='#'>"+cartArray[i].name+"</a></h4>"
-            + "<span class='price'>" + cartArray[i].aid + "x"+cartArray[i].price+"</span>"
-            + "<a class='remove-item' href='#'><i class='fa fa-close'></i></a>"
+            + "<h4 class='product-name'><a href='#'>" + cartArray[i].name + "</a></h4>"
+            + "<span class='price'>" + cartArray[i].count + "x" + cartArray[i].price + "</span>"
+            + "<button style='border: none;background-color: transparent;' class='delete-item remove-item' data-name='" + cartArray[i].aid + "'><i class='fa fa-close'></i></button>"
             + "</div>"
             + "</li>";
+        output3 += "<tr>"
+            + "<input type='hidden' value='" + cartArray[i].aid + "' name='aid[]' >"
+            + "<input type='hidden' value='" + cartArray[i].count + "' name='amount[]' >"
+            + '<td class="product-name">'+ cartArray[i].name +' x '+cartArray[i].count+'</td>'
+            + '<td class="total"><span class="price">'+ (cartArray[i].count * cartArray[i].price)  +'</span></td>'
+            + "</tr>";
     }
+
+    output3 += '<tr>'
+        + '<td class="product-name">ค่าจัดส่ง</td>'
+        + '<td class="total"><span class="price">100</span></td>'
+        + '</tr>'
+        + '<tr class="order-total">'
+        + '<td class="subtotal">ราคารวม</td>'
+        + '<td class="total">'+(shoppingCart.totalCart() + 100)+' บาท</td>'
+        + '</tr>';
     $('.show-cart').html(output);
-    $('.list-product').html(output2);
+    if ($("#order-detail")){
+        $("#order-detail").html(output3);
+    }
+    if ($('.list-product'))
+        $('.list-product').html(output2);
     $('.total-cart').html(shoppingCart.totalCart());
     $('.total-count').html(shoppingCart.totalCount());
 }
 
 // Delete item button
 
-$('.show-cart').on("click", ".delete-item", function(event) {
+$('.show-cart').on("click", ".delete-item", function (event) {
     var name = $(this).data('name')
     shoppingCart.removeItemFromCartAll(name);
     displayCart();
@@ -211,20 +231,20 @@ $('.show-cart').on("click", ".delete-item", function(event) {
 
 
 // -1
-$('.show-cart').on("click", ".minus-item", function(event) {
+$('.show-cart').on("click", ".minus-item", function (event) {
     var name = $(this).data('name')
     shoppingCart.removeItemFromCart(name);
     displayCart();
 })
 // +1
-$('.show-cart').on("click", ".plus-item", function(event) {
+$('.show-cart').on("click", ".plus-item", function (event) {
     var name = $(this).data('name')
     shoppingCart.addItemToCart(name);
     displayCart();
 })
 
 // Item count input
-$('.show-cart').on("change", ".item-count", function(event) {
+$('.show-cart').on("change", ".item-count", function (event) {
     var name = $(this).data('name');
     var count = Number($(this).val());
     console.log(count);

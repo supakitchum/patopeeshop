@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Admin;
+use App\Model\District;
 use App\Model\Order;
 use App\Model\OrderDetail;
 use App\Model\Product;
@@ -170,18 +171,20 @@ class OrderController extends Controller
     public function show($id)
     {
         $order = $this->order->find($id);
-        if ($order->mid == 0)
-            $user = Admin::find($order->admin_id);
-        else
-            $user = User::withTrashed()->find($order->mid);
         $details = $this->orderDetail->where('order_id',$id)->get();
+        $address = District::where(
+            [
+                'district_code' => $order->district,
+                'amphoe_code' => $order->amphoe,
+                'province_code' => $order->province
+            ])->first();
         $senders = Sender::all();
         return view('backend.order.detail')->with(
             [
                 'details' => $details,
                 'order' => $order,
-                'user' => $user,
-                'senders' => $senders
+                'senders' => $senders,
+                'address' => $address
             ]);
     }
 

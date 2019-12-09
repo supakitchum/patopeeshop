@@ -16,7 +16,7 @@ use App\Http\Controllers\Controller;
 class ProductController extends Controller
 {
 
-    private $product, $color, $size, $catalog, $product_detail, $product_catalog;
+    private $product, $color, $size, $catalog, $product_detail, $product_catalog,$productImage;
 
     public function __construct(
         Product $product,
@@ -24,14 +24,17 @@ class ProductController extends Controller
         Color $color,
         Catalog $catalog,
         ProductDetail $product_detail,
-        ProductCatalog $product_catalog
-    ) {
+        ProductCatalog $product_catalog,
+        ProductImage $productImage
+    )
+    {
         $this->product = $product;
         $this->size = $size;
         $this->color = $color;
         $this->catalog = $catalog;
         $this->product_catalog = $product_catalog;
         $this->product_detail = $product_detail;
+        $this->productImage = $productImage;
     }
 
     /**
@@ -65,94 +68,47 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $colors = $this->color->all();
-        $sizes = $this->size->all();
-        $catalogs = $this->catalog->all();
-        $id = $this->product->latest('created_at')->first();
-        if (isset($id->id))
-            $id = $id->id;
-        else
-            $id = 1;
-        return view('backend.product.form')->with(
-            [
-                'colors' => $colors,
-                'sizes' => $sizes,
-                'catalogs' => $catalogs,
-                'id' => $id + 1
-            ]
-        );
+
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        try {
-            $new = $this->product->create([
-                'name' => $request->input('name'),
-                'recommend' => $request->input('recommend') ? 1 : 0,
-                'detail' => $request->input('detail')
-            ]);
-            if (isset($new->id)) {
-                foreach ($request->input('size') as $index => $size) {
-                    $this->product_detail->create([
-                        'pid' => $new->id,
-                        'price' => $request->input('amount')[$index],
-                        'color' => $request->input('color')[$index],
-                        'size' => $size,
-                        'quality' => $request->input('quality')[$index]
-                    ]);
-                }
-                if ($request->input('catalogs') && sizeof($request->input('catalogs')) > 0) {
-                    foreach ($request->input('catalogs') as $catalog) {
-                        $this->product_catalog->create([
-                            'pid' => $new->id,
-                            'cid' => $catalog
-                        ]);
-                    }
-                }
-            }
-            return redirect()->route('backend.products.index')->with([
-                'status' => [
-                    'class' => 'success',
-                    'message' => 'เพิ่ม ' . $request->input('name') . ' สำเร็จ'
-                ]
-            ]);
-        } catch (\Exception $e) {
-            throw $e;
-        }
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //        $colors = $this->color->all();
-        //        $sizes = $this->size->all();
-        //        $catalogs = $this->catalog->all();
-        //        $results = $this->product->details($id);
-        //        return $results;
-        //        return view('backend.product.form')->with(
-        //            [
-        //                'colors' => $colors,
-        //                'sizes' => $sizes,
-        //                'catalogs' => $catalogs,
-        //                'results' => $results
-        //            ]);
+        $colors = $this->color->all();
+        $sizes = $this->size->all();
+        $catalogs = $this->catalog->all();
+        $results = $this->product->details($id);
+        $images = $this->productImage->where('pid',$id)->get();
+        return view('frontend.product-detail')->with(
+            [
+                'colors' => $colors,
+                'sizes' => $sizes,
+                'catalogs' => $catalogs,
+                'results' => $results,
+                'images' => $images
+            ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -184,8 +140,8 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -258,7 +214,7 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

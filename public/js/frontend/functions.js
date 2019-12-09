@@ -64,7 +64,7 @@
             owl.owlCarousel(config);
           });
         }
-        
+
     }
     /* ---------------------------------------------
      MENU REPONSIIVE
@@ -79,7 +79,7 @@
                 liItem.removeClass('show-submenu');
                 licurrent.parents().each(function (){
                     if($(this).hasClass('menu-item-has-children')){
-                     $(this).addClass('show-submenu');   
+                     $(this).addClass('show-submenu');
                     }
                       if($(this).hasClass('main-menu')){
                           return false;
@@ -99,7 +99,7 @@
                   }
                   else{
                       window.location = href;
-                  } 
+                  }
               }
               // Close all child submenu if parent submenu is closed
                   if ( !licurrent.hasClass('show-submenu') ) {
@@ -112,7 +112,7 @@
               if ( !target.closest('.show-submenu').length || !target.closest('.boutique-nav').length ) {
                   $('.show-submenu').removeClass('show-submenu');
               }
-          }); 
+          });
           // On Desktop
           }else{
               $(document).on('mousemove','.boutique-nav .menu-item-has-children',function(){
@@ -306,19 +306,19 @@
     /* ---------------------------------------------
      Init popup
      --------------------------------------------- */
-    function init_popup(){
-        if($(window).width() + boutique_get_scrollbar_width() >= 768){
-            if($('body').hasClass('home')){
-                //Open directly via API
-                $.magnificPopup.open({
-                  items: {
-                    src: '<div class="white-popup"><div class="kt-popup-newsletter"><div class="popup-title"><h3>BoutiQue</h3><img src="images/arow-popup.png" alt=""><p class="notice">enter your email and get  <span class="primary">25% off</span> YOUR first purchase!</p></div><form class="form-subscribe"><input class="input" placeholder="Your email here" type="text" /><button class="button">NO THANKS!</button><button class="button">Enter</button></form><div class="checkbox"><label><input type="checkbox" value="">Dont show this popup again!</label></div></div></div>',  //can be a HTML string, jQuery object, or CSS selector
-                    type: 'inline'
-                  }
-                });
-            }
-        }
-    }
+    // function init_popup(){
+    //     if($(window).width() + boutique_get_scrollbar_width() >= 768){
+    //         if($('body').hasClass('home')){
+    //             //Open directly via API
+    //             $.magnificPopup.open({
+    //               items: {
+    //                 src: '<div class="white-popup"><div class="kt-popup-newsletter"><div class="popup-title"><h3>BoutiQue</h3><img src="images/arow-popup.png" alt=""><p class="notice">enter your email and get  <span class="primary">25% off</span> YOUR first purchase!</p></div><form class="form-subscribe"><input class="input" placeholder="Your email here" type="text" /><button class="button">NO THANKS!</button><button class="button">Enter</button></form><div class="checkbox"><label><input type="checkbox" value="">Dont show this popup again!</label></div></div></div>',  //can be a HTML string, jQuery object, or CSS selector
+    //                 type: 'inline'
+    //               }
+    //             });
+    //         }
+    //     }
+    // }
 
     function kt_parallax(){
       //parallax
@@ -342,7 +342,7 @@
               var austDay = new Date($(this).data('y'),$(this).data('m') - 1,$(this).data('d'),$(this).data('h'),$(this).data('i'),$(this).data('s'));
               $(this).countdown({
                   until: austDay,
-                  labels: labels, 
+                  labels: labels,
                   layout: layout
               });
           });
@@ -416,7 +416,7 @@
         //MENU REPONSIIVE
         init_menu_reposive();
         //SELECT CHOSEN
-        $("select").chosen();
+        $("select").chosen({width: "100%"});
         // Resize Megamenu
         boutique_resizeMegamenu();
 
@@ -429,7 +429,7 @@
         tab_product_fade_effect();
         kt_parallax();
         kt_countdown();
-        // CATEGORY FILTER 
+        // CATEGORY FILTER
         $('.slider-range-price').each(function(){
             var min             = $(this).data('min');
             var max             = $(this).data('max');
@@ -496,7 +496,7 @@
           $(this).closest('.product-detail-image').find('.main-image').attr('src',url);
           return false;
         })
-        
+
 
         // TESTANIAL STYLE 1
         $('.testimonials-owl-3').each(function(){
@@ -562,7 +562,7 @@
         $(document).on('click','.box-settings .icon',function(){
           $(this).closest('.box-settings').toggleClass('open');
         })
-        // Scroll top 
+        // Scroll top
         $(document).on('click','.scroll_top',function(){
           $('body,html').animate({scrollTop:0},400);
           return false;
@@ -688,7 +688,7 @@
              'background-color':bgcolor
             });
          }
-         
+
          if( typeof( positiontop ) != "undefined" && positiontop !=""){
             content.css({
              'top':positiontop

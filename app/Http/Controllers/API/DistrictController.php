@@ -11,14 +11,12 @@ class DistrictController extends Controller
     public function provinces()
     {
         $provinces = District::groupBy('province_code')
-            ->orderBy('province_code','desc')
             ->get();
         return response()->json($provinces);
     }
     public function amphoes($province_code)
     {
         $amphoes = District::where('province_code',$province_code)
-            ->orderBy('province_code','desc')
             ->groupBy('amphoe_code')
             ->get();
         return response()->json($amphoes);
@@ -27,7 +25,6 @@ class DistrictController extends Controller
     {
         $districts = District::where('province_code',$province_code)
             ->where('amphoe_code',$amphoe_code)
-            ->orderBy('province_code','desc')
             ->groupBy('district_code')
             ->get();
         return response()->json($districts);
@@ -37,7 +34,6 @@ class DistrictController extends Controller
         $districts = District::where('province_code',$province_code)
             ->where('amphoe_code',$amphoe_code)
             ->where('district_code',$district_code)
-            ->orderBy('province_code','desc')
             ->get();
         return response()->json($districts);
     }
