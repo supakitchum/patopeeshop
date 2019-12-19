@@ -36,7 +36,7 @@
                                 <td>{{ $customer->email }}</td>
                                 <td>{{ $customer->phone }}</td>
                                 <td>
-                                    {{ $customer->address }}<br>ตำบล {{ $customer->district ? $customer->district:'-' }}<br>จังหวัด {{ $customer->province ? $customer->province:'-' }}<br>{{ $customer->zip_code ? $customer->zip_code:'-' }}
+                                    {{ $customer->address }}<br>ตำบล {{ $customer->district_name ?:'-' }}<br>อำเภอ {{ $customer->amphoe_name ?:'-' }}<br>จังหวัด {{ $customer->province_name ?:'-' }}<br>{{ $customer->zip_code ?:'-' }}
                                 </td>
                                 <td>{{ $customer->created_at }}</td>
                                 <td>

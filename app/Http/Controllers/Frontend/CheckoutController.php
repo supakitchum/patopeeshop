@@ -13,6 +13,10 @@ use App\Http\Controllers\Controller;
 
 class CheckoutController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -101,6 +105,7 @@ class CheckoutController extends Controller
                 'color' => $product->color,
                 'size' => $product->size,
                 'product_name' => $product->name,
+                'aid' => $aid,
                 'price' => $product->price,
                 'amount' => $request->input('amount')[$index],
                 'image' => $image->path
@@ -122,6 +127,9 @@ class CheckoutController extends Controller
     public function show($id)
     {
         $order = Order::find($id);
+        if ($order === null){
+            return redirect('/');
+        }
         $address = District::where(
             [
                 'district_code' => $order->district,

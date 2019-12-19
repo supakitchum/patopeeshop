@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -28,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '';
 
     /**
      * Create a new controller instance.
@@ -38,6 +40,12 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        $this->redirectTo = redirect()->back()->with(['page' => 'register']);
+    }
+
+    public function showRegistrationForm()
+    {
+        return redirect('/')->with(['page' => 'register']);
     }
 
     /**
@@ -48,11 +56,32 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $messages = [
+            'fname.required' => 'ชื่อ ไม่สามารถเว้นว่างได้',
+            'lname.required' => 'นามสกุล ไม่สามารถเว้นว่างได้',
+            'email.required' => 'อีเมล ไม่สามารถเว้นว่างได้',
+            'email.unique' => 'มีคนใช้อีเมลนี้แล้ว',
+            'password.required' => 'รหัสผ่าน ไม่สามารถเว้นว่างได้',
+            'password.confirmed' => 'ยืนยันรหัสผ่านผิด'
+        ];
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'fname' => ['required', 'string', 'max:255'],
+            'lname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        ],$messages);
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+            ?: redirect()->back();
     }
 
     /**
@@ -64,9 +93,10 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'fname' => $data['fname'],
+            'lname' => $data['lname'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => bcrypt($data['password']),
         ]);
     }
 }

@@ -35,11 +35,18 @@
                     @endif
                     <section>
                         <div class="row">
-                            <div class="col-md-10">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="name">หมวดหมู่:</label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                        value="{{ isset($results->name)?$results->name:''}}">
+                                           value="{{ isset($results->name)?$results->name:''}}">
+
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="name">หมวดหมู่:</label>
+                                    <input type="file" class="form-control" name="photo">
 
                                 </div>
                             </div>

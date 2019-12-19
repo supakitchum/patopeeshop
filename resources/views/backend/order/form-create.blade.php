@@ -127,19 +127,108 @@
                 </div>
                 <form action="{{ route('backend.orders.store') }}" method="post">
                     <div class="modal-body">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>ชื่อสินค้า</th>
-                                <th>ราคาต่อชิ้น (บาท)</th>
-                                <th>จำนวน</th>
-                                <th>ราคารวม (บาท)</th>
-                            </tr>
-                            </thead>
-                            <tbody class="show-cart">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>ชื่อสินค้า</th>
+                                        <th>ราคาต่อชิ้น (บาท)</th>
+                                        <th>จำนวน</th>
+                                        <th>ราคารวม (บาท)</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="show-cart">
 
-                            </tbody>
-                        </table>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-12">
+                                <hr>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="container">
+                                    <h3 class="text-center"><b>ข้อมูลลูกค้า</b></h3>
+                                    <div class="form-group row">
+                                        <label for="email" class="col-sm-2 col-form-label">อีเมล : </label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" required name="email" type="email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-2 col-form-label">ชื่อ : </label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" required type="text" id="fname" name="fname">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-2 col-form-label">นามสกุล : </label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="text" required
+                                                   id="lname" name="lname">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="address" class="col-sm-2 col-form-label">ที่อยู่ : </label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="text" required
+                                                   id="address" name="address">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="province" class="col-sm-2 col-form-label">จังหวัด : </label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" id="input_province" required name="province"
+                                                    onchange="showAmphoes()">
+                                                <option value="">กรุณาเลือกจังหวัด</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="input_amphoe" class="col-sm-2 col-form-label">อำเภอ : </label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" id="input_amphoe" required name="amphoe" onchange="showDistricts()">
+                                                <option value="">กรุณาเลือกอำเภอ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="district" class="col-sm-2 col-form-label">ตำบล : </label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" id="input_district" required name="district"
+                                                    onchange="showZipcode()">
+                                                <option value="">กรุณาเลือกตำบล</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="zip_code" class="col-sm-2 col-form-label">รหัสไปรษณีย์ : </label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="text" required
+                                                   id="input_zipcode" name="zip_code">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="phone" class="col-sm-2 col-form-label">เบอร์โทร. : </label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" type="text" required name="phone">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">คำสั่งซื้อจาก : </label>
+                                        <div class="col-sm-10">
+                                            <select name="platform" class="form-control">
+                                                <option value="1">Facebook</option>
+                                                <option value="2">Line</option>
+                                                <option value="3">WebSite</option>
+                                                <option value="4">Store</option>
+                                                <option value="5">อื่นๆ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer w-100" align="right">
                         @csrf
@@ -160,7 +249,100 @@
         var color = $('#color');
         var amount = $('#amount');
         var price = $('#price');
+
+        async function ajax(url, callback) {
+            await $.ajax({
+                "url": url,
+                "type": "GET",
+                "dataType": "json",
+            })
+                .done(callback); //END AJAX
+        }
+
+        async function showProvinces() {
+            //PARAMETERS
+            var url = "/api/province";
+            var callback = await function (result) {
+                $("#input_province").empty();
+                for (var i = 0; i < result.length; i++) {
+                    $("#input_province").append(
+                        $('<option></option>')
+                            .attr("value", "" + result[i].province_code)
+                            .html("" + result[i].province)
+                    );
+                }
+                $("#input_province").trigger("chosen:updated");
+                return showAmphoes();
+            };
+            //CALL AJAX
+            await ajax(url, callback);
+        }
+
+        async function showAmphoes() {
+            //INPUT
+            var province_code = $("#input_province").val();
+            //PARAMETERS
+            var url = "/api/province/" + province_code + "/amphoe";
+            var callback = await function (result) {
+                //console.log(result);
+                $("#input_amphoe").empty();
+                for (var i = 0; i < result.length; i++) {
+                    $("#input_amphoe").append(
+                        $('<option></option>')
+                            .attr("value", "" + result[i].amphoe_code)
+                            .html("" + result[i].amphoe)
+                    );
+                }
+                $("#input_amphoe").trigger("chosen:updated");
+                return showDistricts();
+            };
+            //CALL AJAX
+            await ajax(url, callback);
+        }
+
+        async function showDistricts() {
+            //INPUT
+            var province_code = $("#input_province").val();
+            var amphoe_code = $("#input_amphoe").val();
+            //PARAMETERS
+            var url = "/api/province/" + province_code + "/amphoe/" + amphoe_code + "/district";
+            var callback = await function (result) {
+                //console.log(result);
+                $("#input_district").empty();
+                for (var i = 0; i < result.length; i++) {
+                    $("#input_district").append(
+                        $('<option></option>')
+                            .attr("value", "" + result[i].district_code)
+                            .html("" + result[i].district)
+                    );
+                }
+                $("#input_district").trigger("chosen:updated");
+                return showZipcode();
+            };
+            //CALL AJAX
+            await ajax(url, callback);
+        }
+
+        async function showZipcode() {
+            //INPUT
+            var province_code = $("#input_province").val();
+            var amphoe_code = $("#input_amphoe").val();
+            var district_code = $("#input_district").val();
+            //PARAMETERS
+            var url = "/api/province/" + province_code + "/amphoe/" + amphoe_code + "/district/" + district_code;
+            var callback = await function (result) {
+                //console.log(result);
+                for (var i = 0; i < result.length; i++) {
+                    $("#input_zipcode").val(result[i].zipcode);
+                }
+                return true;
+            };
+            //CALL AJAX
+            await ajax(url, callback);
+        }
         $(document).ready(function () {
+            showProvinces();
+            let dataTable = $('#product-table').dataTable();
             size.on('change',function () {
                 var id = $('#size option:selected').val()
                 detail = details.filter(function(obj) {

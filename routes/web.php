@@ -38,8 +38,14 @@ Route::get('backend/logout','Auth\AdminLoginController@logout')->name('backend.l
 Route::get('/', 'HomeController@index')->name('home');
 Route::resource('checkout','Frontend\CheckoutController');
 Route::resource('profile','Frontend\ProfileController');
+Route::resource('report','Frontend\ReportController');
 Route::get('logout',function (){
     Auth::logout();
-    return redirect()->back();
+    return redirect('/');
 });
 Route::resource('/product', 'Frontend\ProductController');
+Route::get('/payment','Frontend\PaymentController@index');
+Route::post('/payment','Frontend\PaymentController@store');
+Route::get('/history','Frontend\HistoryController@index');
+Route::get('/history/{id}','Frontend\HistoryController@detail');
+Route::get('/receipt/{id}','Frontend\HistoryController@receipt');

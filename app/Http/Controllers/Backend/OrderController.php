@@ -37,38 +37,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $admin_orders = $this->order
-            ->join('admins','orders.admin_id','=','admins.id')
-            ->where('mid',0)
-            ->select('orders.*','admins.fname','admins.lname')
-            ->orderBy('orders.created_at','desc')
-            ->get()
-            ->toArray();
-        $user_orders = $this->order
-            ->join('users','orders.mid','=','users.id')
-            ->where('admin_id',0)
-            ->select('orders.*','users.fname','users.lname')
-            ->orderBy('orders.created_at','desc')
-            ->get()
-            ->toArray();
-//        $results = $admin_orders + $user_orders;
-        if (sizeof($admin_orders) > 0 && sizeof($user_orders) > 0){
-            $merged = array_merge_recursive($admin_orders, $user_orders);
-            uasort($merged, function($a, $b){
-                return strtotime($a['created_at']) - strtotime($b['created_at']);
-            });
-            $results = $merged;
-        }
-        else if (sizeof($admin_orders) > 0){
-            $results = $admin_orders;
-        }
-        else if (sizeof($user_orders) > 0){
-            $results = $user_orders;
-        }
-        else{
-            $results = [];
-        }
-        return view('backend.order.index')->with(['results' => $results]);
+        $orders = $this->order->orderBy('created_at','desc')->get();
+        return view('backend.order.index')->with(['results' => $orders]);
     }
 
     /**
@@ -112,8 +82,20 @@ class OrderController extends Controller
                 'mid' => 0,
                 'admin_id' => auth()->user()->id,
                 'status' => 1,
+                'tracking_number' => null,
                 'reference' => $ref,
-                'total' => 0
+                'total' => 0,
+                'sender_id' => null,
+                'platform' => $request->platform,
+                'fname' => $request->fname,
+                'lname' => $request->lname,
+                'email' => $request->email,
+                'province' => $request->province,
+                'district' => $request->district,
+                'amphoe' => $request->amphoe,
+                'zip_code' => $request->zip_code,
+                'address' => $request->address,
+                'phone' => $request->phone
             ]);
             $total = 0;
             foreach ($request->input('aid') as $index=>$aid){
@@ -131,6 +113,7 @@ class OrderController extends Controller
                     'color' => $product->color,
                     'size' => $product->size,
                     'product_name' => $product->name,
+                    'aid' => $aid,
                     'price' => $product->price,
                     'amount' => $request->input('amount')[$index],
                     'image' => $image->path
@@ -196,7 +179,8 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $order = $this->order->where('reference',$id)->first();
+        return $this->show($order->id);
     }
 
     /**
@@ -211,7 +195,7 @@ class OrderController extends Controller
         $data = $request->validate([
             'sender_id' => 'integer',
             'status' => 'required|integer',
-            'tracking_number',
+            'tracking_number' => 'string',
             'platform' => 'required'
         ]);
         $order = $this->order->find($id);

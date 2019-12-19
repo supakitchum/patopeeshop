@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Admin;
+use App\Model\District;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Order;
@@ -65,18 +66,20 @@ class ReceiptController extends Controller
     public function show($id)
     {
         $order = $this->order->find($id);
-        if ($order->mid == 0)
-            $user = Admin::find($order->admin_id);
-        else
-            $user = User::withTrashed()->find($order->mid);
         $details = $this->orderDetail->where('order_id', $id)->get();
         $senders = Sender::all();
+        $address = District::where(
+            [
+                'district_code' => $order->district,
+                'amphoe_code' => $order->amphoe,
+                'province_code' => $order->province
+            ])->first();
 
         $pdf = PDF::loadView('frontend.pdf', [
             'details' => $details,
             'order' => $order,
-            'user' => $user,
-            'senders' => $senders
+            'senders' => $senders,
+            'address' => $address
         ]);
         return $pdf->stream();
         // return view('frontend.pdf')->with([

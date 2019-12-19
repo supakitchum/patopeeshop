@@ -1,76 +1,40 @@
-@extends('layouts.app')
-
+@extends('frontend.layouts.main')
+@section('title','คำสั่งซื้อ')
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+    <div class="row">
+        <div class="main-content col-sm-12">
+            <form>
+                <div class="row">
+                    <h5>ระบบสมาชิกประตูผี</h5>
                 </div>
-            </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-sm-4">
+                        <label>อีเมล</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="email" name="email" style="width: 100%;">
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-sm-4">
+                        <label>รหัสผ่าน</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="password" name="password" style="width: 100%;">
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-sm-12 text-right">
+                        <button class="btn btn-success">เข้าสู่ระบบ</button>
+                        <span><a href="">ลืมรหัสผ่าน</a> </span>
+                    </div>
+                    <div class="col-sm-12 text-center">
+                        <hr>
+                        <p>มีบัญชีแล้ว ? <a href="/register">เข้าสู่ระบบ</a> </p>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

@@ -1,7 +1,7 @@
 <script type="text/javascript" src="{{ asset('js/frontend/jquery-2.1.4.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/frontend/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/frontend/owl.carousel.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/frontend/chosen.jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/frontend/chosen.jquery.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/frontend/Modernizr.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/frontend/jquery-ui.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/frontend/lightbox.min.js') }}"></script>
@@ -22,6 +22,16 @@
     var color = $('#color');
     var amount = $('#amount');
     var price = $('#price');
+    var quality = 0;
+    function calculate() {
+        let amount = $("#amount").val()
+        let price = $("#price").val()
+        if (amount > quality){
+            $("#amount").val(quality)
+            amount = quality;
+        }
+        $("#total").html(amount * price)
+    }
     $(document).ready(function () {
         size.on('change',function () {
             var id = $('#size option:selected').val()
@@ -47,6 +57,9 @@
             });
             amount.attr('disabled',false);
             amount.val(1);
+            quality = detail[0].quality;
+            $('#quality').html(quality);
+            $('#amount').attr('max',quality);
             $('#aid').val(detail[0].id)
             $('#total').html(detail[0].price)
             price.val(detail[0].price)
@@ -54,6 +67,7 @@
     });
     $(document).on('show.bs.modal', '.modal', function (e) {
         var title = $(e.relatedTarget).data('title')
+        $("#photo").val($(e.relatedTarget).data('photo'))
         $("#total").html(0)
         $("#color").attr('disabled',true);
         $("#color").html('')
@@ -75,3 +89,5 @@
         })
     });
 </script>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v5.0&appId=260246377791645&autoLogAppEvents=1"></script>

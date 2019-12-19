@@ -14,8 +14,7 @@
                                 <img class="main-image" src="{{ asset($images[0]->path) }}" alt="">
                             </div>
                             <div class="thumbnails owl-carousel nav-center-center nav-style3" data-autoplay="true"
-                                 data-loop="true" data-items="{{ sizeof($images) }}" data-dots="false" data-nav="true"
-                                 data-margin="20">
+                                 data-loop="true" data-items="{{ sizeof($images) }}" data-dots="false" data-nav="true">
                                 @foreach($images as $image)
                                     <a data-url="{{ asset($image->path) }}" class="active" href="#"><img
                                             src="{{ asset($image->path) }}" alt=""></a>
@@ -38,9 +37,9 @@
                     <ins><span id="price">{{ number_format($results[0]->price) }}</span> บาท</ins>
                 </span>
                             <div class="meta">
-                                <span>คงเหลือ: {{ $results[0]->quality }}</span>
-                                <span>สถานะ: <span
-                                        class="{{ $results[0]->quality > 0 ? 'text-primary':'text-danger' }}">{{ $results[0]->quality > 0 ? 'มีสินค้าในคลัง':'สินค้าหมดชั่วคราว' }}</span></span>
+                                คงเหลือ : <span id="quality"> {{ $results[0]->quality }}</span>
+                                <span>สถานะ : <span id="status"
+                                        class="{{ $results[0]->quality > 0 ? 'text-success':'text-danger' }}">{{ $results[0]->quality > 0 ? 'มีสินค้าในคลัง':'สินค้าหมดชั่วคราว' }}</span></span>
                             </div>
                             <input type="hidden" name="aid" value="" id="aid">
                             <div style="width: 50%">
@@ -63,9 +62,7 @@
                                     <input type="number" min="1" class="input-text qty text" title="Qty" value="1" id="amount">
                                     <a onclick="$('#amount').val(($('#amount').val() * 1) + 1)">+</a>
                                 </div>
-                                <a class="button button-add-cart add-to-cart" data-quantity="1" href="#">เพิ่มลงรถเข็นของฉัน</a>
-                                <a class="wishlist button" href="#"><i class="fa fa-heart-o"></i></a>
-                                <a href="#" class="button compare"><i class="fa fa-exchange"></i></a>
+                                <a class="button button-add-cart" onclick="add_item()" style="margin-left: 10px;" data-quantity="1">เพิ่มลงรถเข็นของฉัน</a>
                             </form>
                         </div>
                     </div>
@@ -107,93 +104,6 @@
                     </table>
                 </div>
             </div>
-        </div>
-        <div class="product-slide upsell-products">
-            <div class="section-title text-center"><h3>UPSELL PRODUCTS</h3></div>
-            <ul class="owl-carousel" data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":4}}'
-                data-autoplay="true" data-loop="true" data-items="4" data-dots="false" data-nav="false"
-                data-margin="30">
-                <li class="product-item">
-                    <div class="product-inner">
-                        <div class="product-thumb">
-                            <a href="#"><img src="images/products/5.jpg" alt=""></a>
-                            <div class="gorup-button">
-                                <a href="#" class="wishlist"><i class="fa fa-heart"></i></a>
-                                <a href="#" class="compare"><i class="fa fa-exchange"></i></a>
-                                <a href="#" class="quick-view"><i class="fa fa-search"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name"><a href="#">London Star Sweatshirt</a></h3>
-                            <span class="price">
-                            <ins>£85.00</ins>
-                            <del>£95.00</del>
-                        </span>
-                            <a href="#" class="button">ADD TO CART</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="product-item">
-                    <div class="product-inner">
-                        <div class="product-thumb">
-                            <a href="#"><img src="images/products/6.jpg" alt=""></a>
-                            <div class="gorup-button">
-                                <a href="#" class="wishlist"><i class="fa fa-heart"></i></a>
-                                <a href="#" class="compare"><i class="fa fa-exchange"></i></a>
-                                <a href="#" class="quick-view"><i class="fa fa-search"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name"><a href="#">London Star Sweatshirt</a></h3>
-                            <span class="price">
-                            <ins>£85.00</ins>
-                            <del>£95.00</del>
-                        </span>
-                            <a href="#" class="button">ADD TO CART</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="product-item">
-                    <div class="product-inner">
-                        <div class="product-thumb">
-                            <a href="#"><img src="images/products/7.jpg" alt=""></a>
-                            <div class="gorup-button">
-                                <a href="#" class="wishlist"><i class="fa fa-heart"></i></a>
-                                <a href="#" class="compare"><i class="fa fa-exchange"></i></a>
-                                <a href="#" class="quick-view"><i class="fa fa-search"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name"><a href="#">London Star Sweatshirt</a></h3>
-                            <span class="price">
-                            <ins>£85.00</ins>
-                            <del>£95.00</del>
-                        </span>
-                            <a href="#" class="button">ADD TO CART</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="product-item">
-                    <div class="product-inner">
-                        <div class="product-thumb">
-                            <a href="#"><img src="images/products/8.jpg" alt=""></a>
-                            <div class="gorup-button">
-                                <a href="#" class="wishlist"><i class="fa fa-heart"></i></a>
-                                <a href="#" class="compare"><i class="fa fa-exchange"></i></a>
-                                <a href="#" class="quick-view"><i class="fa fa-search"></i></a>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name"><a href="#">London Star Sweatshirt</a></h3>
-                            <span class="price">
-                            <ins>£85.00</ins>
-                            <del>£95.00</del>
-                        </span>
-                            <a href="#" class="button">ADD TO CART</a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
         </div>
     </div> <!--END CONTAINER-->
 @endsection
@@ -246,6 +156,8 @@
                 $('#aid').val(detail[0].id)
                 $('#total').html(detail[0].price)
                 price.val(detail[0].price)
+                $('#price').html(detail[0].price)
+                $('#quality').html(detail[0].quality)
             })
         });
     </script>

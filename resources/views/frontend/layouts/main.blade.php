@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
@@ -8,19 +8,22 @@
 </head>
 <body class="home">
 @include('frontend.layouts.navbar')
-@yield('content')
-@include('frontend.layouts.footer')
-<a href="#" class="scroll_top" title="Scroll to Top" style="display: block;"><i class="fa fa-arrow-up"></i></a>
+<div style="width: 100vw;overflow-x: hidden">
+    @yield('content')
+    @include('frontend.layouts.footer')
+</div>
+{{--<a href="#" class="scroll_top" title="Scroll to Top" style="display: block;"><i class="fa fa-arrow-up"></i></a>--}}
 <div id="addOrderModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
+    <input type="hidden" id="photo" value="{{ \Request::is('product/*') ? asset($images[0]->path):'' }}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="row">
-                    <div class="col-md-10">
+                    <div class="col-sm-12 text-center" style="position: absolute;">
                         <h4 class="modal-title" id="name_product"></h4>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-sm-12 text-right">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
                 </div>
@@ -45,7 +48,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>จำนวน</label>
+                            <label>จำนวน (เหลือ : <span id="quality">0</span>)</label>
                             <input disabled type="number" min="1" id="amount"
                                    name="quality"
                                    class="form-control" onchange="calculate()" required value="1">
@@ -62,17 +65,11 @@
             </div>
             <div class="modal-footer" align="right">
                 ราคารวม : <span id="total">0</span>บาท
-                <button type="button" data-name="test" data-dismiss="modal" data-price="0" class="btn btn-info waves-effect add-to-cart"><i
+                <button type="button" data-name="test" data-dismiss="modal" data-price="0"
+                        class="btn btn-info waves-effect add-to-cart"><i
                         class="fa fa-shopping-cart"></i> เพิ่มลงรถเข็น
                 </button>
             </div>
-            <script>
-                function calculate() {
-                    let amount = $("#amount").val()
-                    let price = $("#price").val()
-                    $("#total").html(amount * price)
-                }
-            </script>
         </div>
         <!-- /.modal-content -->
     </div>
@@ -83,7 +80,14 @@
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h4 class="modal-title" id="name_product">ระบบสมาชิก</h4>
+                <div class="row">
+                    <div class="col-sm-12 text-center" style="position: absolute;">
+                        <h4 class="modal-title" id="name_product">เข้าสู่ระบบ</h4>
+                    </div>
+                    <div class="col-sm-12 text-right">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                </div>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -92,12 +96,28 @@
                             <a href="{{ url('/auth/redirect/facebook') }}" class="btn btn-primary"
                                style="width: 70%"><i class="fa fa-facebook"></i> เข้าสู่ระบบด้วย Facebook</a>
                         </p>
+                        <p>
+                            <a href="{{ url('/auth/redirect/google') }}" class="btn btn-danger"
+                               style="width: 70%"><i class="fa fa-google"></i> เข้าสู่ระบบด้วย Google</a>
+                        </p>
                         <hr>
                     </div>
                     <div class="col-sm-12 text-center">
-                        <form>
+                        @if ($errors->any() && session('page') == "login")
+                            <div class="col-lg-12">
+                                <div class="alert alert-danger text-left" style="padding-left: 10%;">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        @endif
+                        <form action="/login" method="post">
+                            @csrf
                             <div class="row">
-                                <h5>เข้าสู่ระบบด้วยบัญชีประตูผี</h5>
+                                <h5>ระบบสมาชิกประตูผี</h5>
                             </div>
                             <div class="row" style="margin-top: 10px;">
                                 <div class="col-sm-4">
@@ -117,12 +137,118 @@
                             </div>
                             <div class="row" style="margin-top: 10px;">
                                 <div class="col-sm-12 text-right">
-                                    <button class="btn btn-success">เข้าสู่ระบบ</button>
+                                    <button class="btn btn-success" type="submit">เข้าสู่ระบบ</button>
                                     <span><a href="">ลืมรหัสผ่าน</a> </span>
                                 </div>
                                 <div class="col-sm-12">
                                     <hr>
-                                    <p>ยังไม่มีบัญชี ? <a href="">สมัครสมาชิก</a> </p>
+                                    <p>ยังไม่มีบัญชี ? <a href="#" data-toggle="modal" data-dismiss="modal"
+                                                          data-target="#registerModal">สมัครสมาชิก</a></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div id="registerModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <h4 class="modal-title" id="name_product" style="position: absolute;">สมัครสมาชิก</h4>
+                    </div>
+                    <div class="col-sm-12 text-right">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <p>
+                            <a href="{{ url('/auth/redirect/facebook') }}" class="btn btn-primary"
+                               style="width: 70%"><i class="fa fa-facebook"></i> เข้าสู่ระบบด้วย Facebook</a>
+                        </p>
+                        <p>
+                            <a href="{{ url('/auth/redirect/google') }}" class="btn btn-danger"
+                               style="width: 70%"><i class="fa fa-google"></i> เข้าสู่ระบบด้วย Google</a>
+                        </p>
+                        <hr>
+                    </div>
+                    <div class="col-sm-12 text-center">
+                        <form id="register-form" action="/register" method="post">
+                            <div class="row">
+                                <h5>สมัครสมาชิกประตูผี</h5>
+                            </div>
+                            @csrf
+                            @if ($errors->any() && session('page') == "register")
+                                <div class="col-lg-12">
+                                    <div class="alert alert-danger text-left" style="padding-left: 10%;">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endif
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-sm-4">
+                                    <label>อีเมล</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input required type="email" name="email" style="width: 100%;">
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-sm-4">
+                                    <label>ชื่อจริง</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input required type="text" value="{{ old('fname') ? old('fname'):'' }}"
+                                           name="fname" style="width: 100%;">
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-sm-4">
+                                    <label>นามสกุล</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input required type="text" name="lname"
+                                           value="{{ old('lname') ? old('lname'):'' }}" style="width: 100%;">
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-sm-4">
+                                    <label>รหัสผ่าน</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input required type="password" id="password" name="password" style="width: 100%;">
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-sm-4">
+                                    <label>ยืนยันรหัสผ่าน</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input required type="password" name="password_confirmation" style="width: 100%;">
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-sm-12 text-right">
+                                    <button class="btn btn-success" type="submit">ยืนยัน</button>
+                                </div>
+                                <div class="col-sm-12 text-center">
+                                    <hr>
+                                    <p>มีบัญชีแล้ว ? <a href="#" data-toggle="modal" data-dismiss="modal"
+                                                        data-target="#loginModal">เข้าสู่ระบบ</a></p>
                                 </div>
                             </div>
                         </form>
@@ -136,6 +262,15 @@
 </div>
 @include('frontend.layouts.js')
 @yield('script')
+@if(session('page') == "login" && !isset(auth()->user()->id))
+    <script>
+        $('#loginModal').modal('show');
+    </script>
+@elseif(session('page') == "register")
+    <script>
+        $('#registerModal').modal('show');
+    </script>
+@endif
 @if (session('alert'))
     <script>
         Swal.fire(
@@ -147,3 +282,4 @@
 @endif
 </body>
 </html>
+

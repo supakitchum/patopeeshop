@@ -28,6 +28,7 @@
                     <thead>
                         <th>ลำดับ</th>
                         <th>หมวดหมู่</th>
+                        <th>รูปปก</th>
                         <th>เพิ่มเมื่อ</th>
                         <th>แก้ไขล่าสุดเมื่อ</th>
                         <th>การจัดการ</th>
@@ -38,6 +39,7 @@
                         <tr>
                             <td>{{ $index + 1 }}</th>
                             <td>{{ $result->name }}</th>
+                            <td><img src="{{ asset($result->photo) }}" height="200px"></td>
                             <td>{{ $result->created_at }}</th>
                             <td>{{ $result->updated_at }}</th>
                             <td>

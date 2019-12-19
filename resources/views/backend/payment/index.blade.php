@@ -51,7 +51,7 @@
                         @foreach($results as $index=>$result)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $result->order_ref}}</td>
+                            <td><a href="{{ route('backend.orders.edit',['id' => $result->order_ref]) }}" target="_blank">{{ $result->order_ref}}</a> </td>
                             <td>{{ $result->amount }}</td>
                             <td><img data-toggle="modal" data-target="#myModal" class="model_img img-fluid"
                                     src="{{ isset($result->slip)?($result->slip):'' }}" height="100" width="100"

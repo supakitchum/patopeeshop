@@ -304,4 +304,10 @@ class ProductController extends Controller
         }
         return response()->json($results, 200);
     }
+
+    public function stock($aid){
+        $stock = ProductDetail::find($aid);
+        if ($stock->quality > 0)
+            return response()->json(['in_stock' => true], 200);
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Model\Catalog;
+use App\Model\Product;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Schema;
@@ -28,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+//        \URL::forceScheme('https');
         Carbon::setLocale(config('app.locale'));
         Validator::extend('recaptcha', 'App\\Validators\\ReCaptcha@validate');
         Schema::defaultStringLength(191);
@@ -35,7 +37,8 @@ class AppServiceProvider extends ServiceProvider
             '*',
             function ($view) {
                 View::share([
-                    'catalogs' => Catalog::all()
+                    'catalogs' => Catalog::all(),
+                    'products_nav' => Product::limit(10)->get()
                 ]);
             }
         );

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Model\Order;
+use App\Model\ProductDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Payment;
@@ -94,6 +95,14 @@ class PaymentController extends Controller
         $order = $this->order->where('reference',$payment->order_ref)->first();
         $order->status = 3;
         $order->save();
+
+        // Update stock
+        $details = $this->order->join('order_details','orders.id','=','order_details.order_id')->where('reference',$payment->order_ref)->get();
+        foreach ($details as $detail){
+            $stock = ProductDetail::find($detail->aid);
+            $stock->quality -= $detail->amount;
+            $stock->update();
+        }
         // return $payment;
         $payment->confirm = 1;
         $payment->save();

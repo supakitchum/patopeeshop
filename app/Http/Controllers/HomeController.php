@@ -45,9 +45,28 @@ class HomeController extends Controller
             ->select('products.*','product_images.path','product_details.price')
             ->limit(12)
             ->get();
+        $recommend_products= $this->product
+            ->leftjoin('product_images','products.id','=','product_images.pid')
+            ->leftjoin('product_details','products.id','=','product_details.pid')
+            ->where('recommend',true)
+            ->groupBy('products.id')
+            ->orderBy('products.created_at','desc')
+            ->select('products.*','product_images.path','product_details.price')
+            ->limit(12)
+            ->get();
+        $random_products= $this->product
+            ->leftjoin('product_images','products.id','=','product_images.pid')
+            ->leftjoin('product_details','products.id','=','product_details.pid')
+            ->groupBy('products.id')
+            ->inRandomOrder()
+            ->select('products.*','product_images.path','product_details.price')
+            ->limit(10)
+            ->get();
         return view('frontend.home')->with([
             'catalogs' => $this->catalog->get(),
-            'products' => $products
+            'products' => $products,
+            'recommend_products' => $recommend_products,
+            'random_products' => $random_products
         ]);
     }
 

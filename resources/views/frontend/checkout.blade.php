@@ -11,22 +11,30 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="form-checkout">
+                            <div class="form-checkout text-border">
                                 <h5 class="form-title">ระบบสมาชิก</h5>
-                                <div class="row text-border margin-bottom-60">
+                                <div class="row margin-bottom-60">
                                     @if(isset(auth()->user()->id))
                                         <div class="col-sm-12">
                                             <p class="text-left">
                                                 ชื่อ {{ auth()->user()->fname .' '.auth()->user()->lname }}<br>
-                                                {{ auth()->user()->address }} {{ 'ต.'. $address->district}} {{ 'อ.'. $address->amphoe}} {{ 'จ.'. $address->province}}
-                                                <br>
-                                                {{ auth()->user()->zip_code}}<br>
-                                                {{ 'เบอร์โทร.'. auth()->user()->phone}}
+                                                @if(isset($address->district))
+                                                    {{ auth()->user()->address }} {{ 'ต.'. $address->district}} {{ 'อ.'. $address->amphoe}} {{ 'จ.'. $address->province}}
+                                                    <br>
+                                                    {{ auth()->user()->zip_code}}<br>
+                                                    {{ 'เบอร์โทร.'. auth()->user()->phone}}
+                                                @else
+                                                    ที่อยู่ ไม่พบข้อมูล
+                                                @endif
                                             </p>
                                         </div>
                                         <div class="col-sm-12" align="left">
-                                            <button type="button" class="btn btn-primary"><i class="fa fa-edit"></i> แก้ไขที่อยู่นี้</button>
-                                            <button type="button" class="btn btn-success" onclick="useAddress()"><i class="fa fa-check"></i> ใช้ที่อยู่นี้</button>
+                                            <a href="{{ route('profile.index') }}" type="button" class="btn btn-primary"><i class="fa fa-edit"></i>
+                                                แก้ไขที่อยู่นี้
+                                            </a>
+                                            <button type="button" class="btn btn-success" onclick="useAddress()"><i
+                                                    class="fa fa-check"></i> ใช้ที่อยู่นี้
+                                            </button>
                                             <script>
                                                 async function useAddress() {
                                                     $('#fname').val('{{ auth()->user()->fname }}')
@@ -47,7 +55,8 @@
                                         </div>
                                     @else
                                         <div class="col-sm-12">
-                                            <p><a href="#" class="btn btn-success" style="width: 100%">เข้าสู่ระบบด้วย
+                                            <p><a href="#" data-toggle="modal" data-target="#loginModal"
+                                                  class="btn btn-success" style="width: 100%">เข้าสู่ระบบด้วย
                                                     บัญชีประตูผี</a></p>
                                         </div>
                                         <div class="col-sm-12">
@@ -68,17 +77,21 @@
                                         <p><input type="text" id="fname" name="fname" required placeholder="ชื่อ"></p>
                                     </div>
                                     <div class="col-sm-6">
-                                        <p><input type="text" id="lname" name="lname" required placeholder="นามสกุล"></p>
+                                        <p><input type="text" id="lname" name="lname" required placeholder="นามสกุล">
+                                        </p>
                                     </div>
                                     <div class="col-sm-12">
-                                        <p><input type="email" name="email" placeholder="Email Address" required value="{{ isset(auth()->user()->email) ? auth()->user()->email : ''}}" style="width: 100%;"></p>
+                                        <p><input type="email" name="email" placeholder="Email Address" required
+                                                  value="{{ isset(auth()->user()->email) ? auth()->user()->email : ''}}"
+                                                  style="width: 100%;"></p>
                                     </div>
                                 </div>
                                 <p><input id="address" name="address" type="text" required placeholder="ที่อยู่"></p>
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <p>
-                                            <select id="input_province" required name="province" onchange="showAmphoes()">
+                                            <select id="input_province" required name="province"
+                                                    onchange="showAmphoes()">
                                                 <option value="">กรุณาเลือกจังหวัด</option>
                                             </select>
                                         </p>
@@ -92,7 +105,8 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <p>
-                                            <select id="input_district" required name="district" onchange="showZipcode()">
+                                            <select id="input_district" required name="district"
+                                                    onchange="showZipcode()">
                                                 <option value="">กรุณาเลือกตำบล</option>
                                             </select>
                                         </p>
@@ -100,10 +114,12 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <p><input type="text" required name="zip_code" id="input_zipcode" placeholder="รหัสไปรษณีย์"></p>
+                                        <p><input type="text" required name="zip_code" id="input_zipcode"
+                                                  placeholder="รหัสไปรษณีย์"></p>
                                     </div>
                                     <div class="col-sm-6">
-                                        <p><input type="text" required name="phone" id="phone" placeholder="เบอร์โทรศัพท์"></p>
+                                        <p><input type="text" required name="phone" id="phone"
+                                                  placeholder="เบอร์โทรศัพท์"></p>
                                     </div>
                                 </div>
                             </div>
@@ -135,15 +151,18 @@
                                     <div class="payment_method">
                                         <label><input checked name="payment_method" type="radio" value="1">โอนผ่านธนาคาร</label>
                                         <div class="payment_box">
-                                            กรุณาโอนเงินมาที่ : xxx-x-xxxx-x <br>
-                                            เมื่อโอนเงินสำเร็จกรุณาแจ้งชำระเงินพร้อมหลักฐายที่ : <a href="/payment">แจ้งชำระเงิน</a>
+                                            <p><img src="https://rock.in.th/65467176_372895336917578_4910815737381126144_n.png"></p>
+                                            กรุณาโอนเงินมาที่ : 051-8-51290-0 (บจก. ประตูผี) <br>
+                                            เมื่อโอนเงินสำเร็จกรุณาแจ้งชำระเงินพร้อมหลักฐานที่ : <a href="/payment">แจ้งชำระเงิน</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <button type="submit" class="button btn-primary medium" style="width: 100%;">ยืนยันคำสั่งซื้อ</button>
+                            <button type="submit" class="button btn-primary medium" style="width: 100%;">
+                                ยืนยันคำสั่งซื้อ
+                            </button>
                         </div>
                     </div>
                 </div>

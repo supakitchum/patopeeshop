@@ -25,7 +25,13 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $users = $this->user->all();
+        $users = $this->user->leftJoin('districts', function ($join) {
+            $join->on('users.district', '=', 'districts.district_code');
+            $join->on('users.province', '=', 'districts.province_code');
+            $join->on('users.amphoe', '=', 'districts.amphoe_code');
+        })
+            ->select('users.*','districts.district as district_name','districts.province as province_name','districts.amphoe as amphoe_name')
+            ->get();
         return view('backend.customer.index')->with('customers', $users);
     }
 
@@ -115,6 +121,7 @@ class CustomerController extends Controller
                 'lname' => 'required',
                 'district' => 'required',
                 'province' => 'required',
+                'amphoe' => 'required',
                 'zip_code' => 'required',
                 'address' => 'required'
             ]);

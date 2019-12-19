@@ -46,24 +46,33 @@ class CatalogController extends Controller
      */
     public function store(Request $request)
     {
-        $create = $this->catalog->create([
-            'name' => $request->input('name'),
-        ]);
+        try{
+            $file = $request->file('photo');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            $filename = 'catalog_' . time() . '.' . $extension;
+            if ($file->move('uploads/', $filename)) {
+                $create = $this->catalog->create([
+                    'name' => $request->input('name'),
+                    'photo' => 'upload/'.$filename
+                ]);
 
-        if ($create) {
-            return redirect(route('backend.catalogs.index'))->with([
+                if ($create) {
+                    return redirect(route('backend.catalogs.index'))->with([
+                        'status' => [
+                            'class' => 'success',
+                            'message' => 'แก้ไขสำเร็จ'
+                        ]
+                    ]);;
+                }
+            }
+        } catch (\Exception $e){
+            return redirect(route('backend.catalogs.create'))->with([
                 'status' => [
-                    'class' => 'success',
-                    'message' => 'แก้ไขสำเร็จ'
+                    'class' => 'warning',
+                    'message' => 'แก้ไขไม่สำเร็จ'
                 ]
-            ]);;
+            ]);
         }
-        return redirect(route('backend.catalogs.create'))->with([
-            'status' => [
-                'class' => 'warning',
-                'message' => 'แก้ไขไม่สำเร็จ'
-            ]
-        ]);
     }
 
     /**
@@ -100,6 +109,14 @@ class CatalogController extends Controller
     {
         $catalog = $this->catalog->find($id);
         $catalog->name = $request->input('name');
+        if ($request->file('photo')){
+            $file = $request->file('photo');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            $filename = 'catalog_' . time() . '.' . $extension;
+            if ($file->move('uploads/', $filename)) {
+                $catalog->photo = 'uploads/'.$filename;
+            }
+        }
 
         if ($catalog->save()) {
             return redirect(route('backend.catalogs.index'))->with([

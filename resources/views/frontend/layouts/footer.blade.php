@@ -1,45 +1,41 @@
-<footer class="footer style2">
+<footer class="footer style3">
     <div class="footer-top">
         <div class="container">
             <div class="row flex-flow">
-                <div class="col-xs-12 col-sm-12 col-md-4 footer-sidebar">
-                    <div class="widget contact-info">
-                        <span class="text-primary PlayfairDisplay">Talk to Us Now !</span>
-                        <h3 class="widget-title">Contact Us</h3>
-                        <div class="content">
-                            <p class="address">5701 Outlets at Tejon Pkwy, Tejon ranch CA 93203 UK.</p>
-                            <p class="phone"><i class="fa fa-phone"></i> (+800) 6868 2268</p>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-xs-12  col-sm-12 col-md-4 footer-sidebar">
                     <div class="widget our-service">
-                        <span class="text-primary PlayfairDisplay">Talk to Us Now !</span>
-                        <h3 class="widget-title">OUR SERVICES</h3>
+                        <h3>หมวดหมู่</h3>
                         <div class="content">
                             <ul>
-                                <li><a href="#">About us</a></li>
-                                <li><a href="#">Order History</a></li>
-                                <li><a href="#">Returns</a></li>
-                                <li><a href="#">Custom Service</a></li>
-                                <li><a href="#">Terms & Condition</a></li>
-                                <li><a href="#">Order History</a></li>
+                                @foreach($catalogs as $catalog)
+                                    <li><a href="/product?catalog={{ $catalog->id }}">{{ $catalog->name }}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-12  col-sm-12 col-md-4 footer-sidebar">
-                    <div class="widget widget_social style11">
-                        <span class="text-primary PlayfairDisplay">Talk to Us Now !</span>
-                        <h3 class="widget-title">FOLLOW US</h3>
+                    <div class="widget our-service">
+                        <h3>บริการของเรา</h3>
                         <div class="content">
-                            <div class="social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-google-plus"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa fa-pinterest"></i></a>
-                            </div>
+                            <ul>
+                                <li><a href="#">เกี่ยวกับเรา</a></li>
+                                <li><a href="/history">ประวัติคำสั่งซื้อ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 footer-sidebar">
+                    <div class="widget contact-info">
+                        <h3>ช่องทางการติดต่อ</h3>
+                        <div class="fb-page"
+                             data-href="https://www.facebook.com/pratoopee/"
+                             data-width="380"
+                             data-hide-cover="false"
+                             data-show-facepile="false"></div>
+                        <div class="content margin-top-10">
+                            <p class="address">2 อาคารศูนย์การค้าเซ็นทรัลแอร์พอร์ต พลาซ่า ชั้น 2 ถนนมหิดล ตำบลหายยา เทศบาลนครเชียงใหม่ 50100</p>
+                            <p class="phone"><i class="fa fa-phone"></i> 081-169-0901</p>
                         </div>
                     </div>
                 </div>
@@ -48,16 +44,9 @@
     </div>
     <div class="footer-bottom">
         <div class="container">
-            <div class="payment">
-                <div class="head"><span>We Accept</span><span class="PlayfairDisplay">Online Payment Be Secured</span>
-                </div>
-                <div class="list">
-                    <div class="list">
-                        <a href="#" class="item"><img src="images/payments/5.png" alt=""></a>
-                        <a href="#" class="item"><img src="images/payments/6.png" alt=""></a>
-                        <a href="#" class="item"><img src="images/payments/7.png" alt=""></a>
-                        <a href="#" class="item"><img src="images/payments/8.png" alt=""></a>
-                    </div>
+            <div class="row flex-flow">
+                <div class="col-sm-12 text-center">
+                    <h5>Copyright © rock.in.th 2019</h5>
                 </div>
             </div>
         </div>

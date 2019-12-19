@@ -31,6 +31,68 @@ Last change: 01/15/2016
 /*------------------
  FONTFACE
 ------------------*/
+.resize-scale {
+    height:100%;
+}
+.d-none {
+    display: none !important;
+}
+
+.home-slide3 img {
+    height: 70vh;
+}
+@media (max-width: 576px) {
+    .border-sm{
+        border: 1px solid #d6d6d6;
+    }
+}
+@media (min-width: 576px) {
+    .d-sm-none {
+        display: none !important;
+    }
+    .d-sm-block {
+        display: block !important;
+    }
+}
+
+.w-100{
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .w-md-50 {
+        width: 50% !important;
+    }
+    .d-md-none {
+        display: none !important;
+    }
+    .d-md-table-cell {
+        display: table-cell !important;
+    }
+    .d-md-table {
+        display: table !important;
+    }
+    .d-lg-block {
+        display: block !important;
+    }
+}
+@media (min-width: 992px) {
+    .d-lg-none {
+        display: none !important;
+    }
+
+    .d-lg-block {
+        display: block !important;
+    }
+
+    .d-lg-table-cell {
+        display: table-cell !important;
+    }
+
+    .d-lg-table {
+        display: table !important;
+    }
+}
 @font-face {
   font-family: 'DearPrudence';
   font-style: normal;
@@ -113,7 +175,7 @@ img{
     max-width: 100%;
 }
 h1,h2,h3,h4,h5,h6{
-    font-family: 'Kanit', sans-serif;
+    font-family: 'Kanit', sans-serif !important;
     line-height: 1.3em;
     margin-top: 0;
     color: #222;
@@ -150,7 +212,7 @@ a:hover, a:focus{
 }
 p{margin-bottom: 22px;font-family: 'Kanit', sans-serif;}
 ul, ol{
-    font-family: 'Kanit', sans-serif;
+    font-family: 'Kanit', sans-serif !important;
     margin: 0;
     padding: 0;
 }
@@ -310,6 +372,10 @@ blockquote.style2:before{
 }
 blockquote.style2:after{
     margin-right: 39px;
+}
+
+table{
+    font-family: 'Kanit', sans-serif !important;
 }
 
 /*OWL*/
@@ -1512,13 +1578,13 @@ blockquote.style2:after{
 
 /* HEADER STYLE 3 */
 .header.style3 .logo{
-    padding-top: 50px;
+    padding-top: 20px;
 }
 .header.style3 .top-header{
     width: 100%;
     border-bottom: 1px solid #e5e5e5;
     padding-bottom: 17px;
-    padding-top: 40px;
+    padding-top: 10px;
     display: table;
 }
 .header.style3 .top-header .inner{
@@ -3676,7 +3742,7 @@ DS
 }
 .woocommerce-result-count{
     display: inline-block;
-    font-family: 'Roboto';
+    font-family: 'Kanit', sans-serif !important;
 }
 .orderby-wapper .chosen-container-single .chosen-single{
     border: none;
@@ -3746,6 +3812,7 @@ DS
     margin-bottom: 0;
 }
 .widget .widget-title{
+    font-family: 'Kanit', sans-serif !important;
     font-size: 15px;
     text-transform: uppercase;
     margin-bottom: 15px;
@@ -3756,6 +3823,7 @@ DS
     margin: 0;
 }
 .widget ul li {
+    font-family: 'Kanit', sans-serif !important;
     list-style: none;
     border-bottom: 1px dashed  #d8d8d8;
 }
@@ -6717,6 +6785,7 @@ FOOTER
 }
 .product-details-right.style2{
     padding: 0;
+    overflow: visible;
 }
 .select-color,
 .select-size{
@@ -7655,7 +7724,6 @@ BLOG PAGE
 .testimonials.style2 .inner {
     display: inherit;
     font-size: 13px;
-    font-family: 'MontserratLight';
     padding-left: 75px;
     padding-right: 75px;
     overflow: hidden;
@@ -8624,7 +8692,7 @@ table{
 }
 /*Check out*/
 .form-checkout{
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Kanit', sans-serif !important;
     margin-bottom: 50px;
 }
 .form-checkout .form-title{

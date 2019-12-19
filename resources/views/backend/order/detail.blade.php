@@ -19,7 +19,14 @@
         <div class="col-lg-8 col-sm-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">รายการสินค้า</h3>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3 class="box-title">รายการสินค้า</h3>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <a href="{{ route('backend.receipts.show',['id' => $order->id]) }}" class="btn btn-info btn-rounded"><i class="fa fa-file-text-o"></i> ใบเสร็จ/ใบจัดส่ง</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="box-body">
                     <div class="row">

@@ -35,11 +35,19 @@
                     @endif
                     <section>
                         <div class="row">
-                            <div class="col-md-10">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="name">ชื่อสี: </label>
                                     <input type="text" class="form-control" id="name" name="name"
                                         value="{{ isset($results->name)?$results->name:''}}">
+
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="name">โค้ดสี: </label>
+                                    <input type="text" class="form-control" name="code"
+                                           value="{{ isset($results->code)?$results->code:''}}">
 
                                 </div>
                             </div>

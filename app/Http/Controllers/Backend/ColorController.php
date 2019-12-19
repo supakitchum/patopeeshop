@@ -48,6 +48,7 @@ class ColorController extends Controller
     {
         $create = $this->color->create([
             'name' => $request->input('name'),
+            'code' => $request->input('code')
         ]);
 
         if ($create) {
@@ -100,6 +101,7 @@ class ColorController extends Controller
     {
         $color = $this->color->find($id);
         $color->name = $request->input('name');
+        $color->code = $request->input('code');
 
         if ($color->save()) {
             return redirect(route('backend.colors.index'))->with([

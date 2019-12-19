@@ -9,11 +9,12 @@ var shoppingCart = (function () {
     cart = [];
 
     // Constructor
-    function Item(name, price, count, aid) {
+    function Item(name, price, count, aid, photo) {
         this.name = name;
         this.price = price;
         this.count = count;
         this.aid = aid;
+        this.photo = photo;
     }
 
     // Save cart
@@ -37,7 +38,7 @@ var shoppingCart = (function () {
     var obj = {};
 
     // Add to cart
-    obj.addItemToCart = function (name, price, count, aid) {
+    obj.addItemToCart = function (name, price, count, aid, photo) {
         for (var item in cart) {
             if (cart[item].aid == name) {
                 cart[item].count++;
@@ -45,7 +46,7 @@ var shoppingCart = (function () {
                 return;
             }
         }
-        var item = new Item(name, price, count, aid);
+        var item = new Item(name, price, count, aid, photo);
         cart.push(item);
         saveCart();
     }
@@ -143,17 +144,44 @@ var shoppingCart = (function () {
 // Triggers / Events
 // *****************************************
 // Add item
+function add_item(){
+    var size = $('#size option:selected').text();
+    var color = $('#color option:selected').text();
+    var name = $('#name_product').html();
+    var photo = $('#photo').val();
+    name = `${name} (${color})(${size})`;
+    var amount = Number($("#amount").val())
+    var price = Number($("#price").val())
+    var aid = $("#aid").val()
+    if (aid === '') {
+        Swal.fire(
+            'กรุณาเลือกสินค้า',
+            '',
+            'warning'
+        );
+    }else{
+        $("#total").html(amount * price)
+        shoppingCart.addItemToCart(name, price, amount, aid, photo);
+        Swal.fire(
+            'เพิ่มสินค้าสำเร็จ',
+            'เพิ่ม ' + name + ' ลงรถเข็นของคุณเรียบร้อยแล้ว',
+            'success'
+        )
+        displayCart();
+    }
+}
 $('.add-to-cart').click(function (event) {
     event.preventDefault();
     var size = $('#size option:selected').text();
     var color = $('#color option:selected').text();
     var name = $('#name_product').html();
+    var photo = $('#photo').val();
     name = `${name} (${color})(${size})`;
     let amount = Number($("#amount").val())
     let price = Number($("#price").val())
     let aid = $("#aid").val()
     $("#total").html(amount * price)
-    shoppingCart.addItemToCart(name, price, amount, aid);
+    shoppingCart.addItemToCart(name, price, amount, aid, photo);
     Swal.fire(
         'เพิ่มสินค้าสำเร็จ',
         'เพิ่ม ' + name + ' ลงรถเข็นของคุณเรียบร้อยแล้ว',
@@ -187,12 +215,12 @@ function displayCart() {
             + "</tr>";
         output2 += "<li>"
             + "<div class='thumb'>"
-            + "<img src='images/products/1.png' alt=''>"
+            + "<img src='"+ cartArray[i].photo +"' alt='"+cartArray[i].name+"'>"
             + "</div>"
             + "<div class='info'>"
             + "<h4 class='product-name'><a href='#'>" + cartArray[i].name + "</a></h4>"
             + "<span class='price'>" + cartArray[i].count + "x" + cartArray[i].price + "</span>"
-            + "<button style='border: none;background-color: transparent;' class='delete-item remove-item' data-name='" + cartArray[i].aid + "'><i class='fa fa-close'></i></button>"
+            + "<button style='border: none;background-color: transparent;' class='remove-item' onclick='deleteItem("+cartArray[i].aid +")' data-name='" + cartArray[i].aid + "'><i class='fa fa-close'></i></button>"
             + "</div>"
             + "</li>";
         output3 += "<tr>"
@@ -202,21 +230,21 @@ function displayCart() {
             + '<td class="total"><span class="price">'+ (cartArray[i].count * cartArray[i].price)  +'</span></td>'
             + "</tr>";
     }
-
-    output3 += '<tr>'
-        + '<td class="product-name">ค่าจัดส่ง</td>'
-        + '<td class="total"><span class="price">100</span></td>'
-        + '</tr>'
-        + '<tr class="order-total">'
-        + '<td class="subtotal">ราคารวม</td>'
-        + '<td class="total">'+(shoppingCart.totalCart() + 100)+' บาท</td>'
-        + '</tr>';
     $('.show-cart').html(output);
     if ($("#order-detail")){
+        output3 += '<tr>'
+            + '<td class="product-name">ค่าจัดส่ง</td>'
+            + '<td class="total"><span class="price">ฟรี</span></td>'
+            + '</tr>'
+            + '<tr class="order-total">'
+            + '<td class="subtotal">ราคารวม</td>'
+            + '<td class="total">'+shoppingCart.totalCart()+' บาท</td>'
+            + '</tr>';
         $("#order-detail").html(output3);
     }
-    if ($('.list-product'))
+    if ($('.list-product')){
         $('.list-product').html(output2);
+    }
     $('.total-cart').html(shoppingCart.totalCart());
     $('.total-count').html(shoppingCart.totalCount());
 }
@@ -228,6 +256,11 @@ $('.show-cart').on("click", ".delete-item", function (event) {
     shoppingCart.removeItemFromCartAll(name);
     displayCart();
 })
+
+function deleteItem(name){
+    shoppingCart.removeItemFromCartAll(name);
+    displayCart();
+}
 
 
 // -1

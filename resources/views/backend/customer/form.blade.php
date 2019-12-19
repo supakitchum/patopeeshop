@@ -33,7 +33,8 @@
                         <div class="form-group row">
                             <label for="fname" class="col-sm-2 col-form-label">ชื่อ : </label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" id="fname" name="fname" value="{{ $result->fname }}">
+                                <input class="form-control" type="text" id="fname" name="fname"
+                                       value="{{ $result->fname }}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -51,24 +52,36 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="district" class="col-sm-2 col-form-label">ตำบล : </label>
+                            <label for="province" class="col-sm-2 col-form-label">จังหวัด : </label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" required value="{{ $result->district }}"
-                                       id="district" name="district">
+                                <select class="form-control" id="input_province" required name="province"
+                                        onchange="showAmphoes()">
+                                    <option value="">กรุณาเลือกจังหวัด</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="province" class="col-sm-2 col-form-label">จังหวัด : </label>
+                            <label for="input_amphoe" class="col-sm-2 col-form-label">อำเภอ : </label>
                             <div class="col-sm-10">
-                                <input class="form-control" type="text" required value="{{ $result->province }}"
-                                       id="province" name="province">
+                                <select class="form-control" id="input_amphoe" required name="amphoe" onchange="showDistricts()">
+                                    <option value="">กรุณาเลือกอำเภอ</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="district" class="col-sm-2 col-form-label">ตำบล : </label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="input_district" required name="district"
+                                        onchange="showZipcode()">
+                                    <option value="">กรุณาเลือกตำบล</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="zip_code" class="col-sm-2 col-form-label">รหัสไปรษณีย์ : </label>
                             <div class="col-sm-10">
                                 <input class="form-control" type="text" required value="{{ $result->zip_code }}"
-                                       id="zip_code" name="zip_code">
+                                       id="input_zipcode" name="zip_code">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -96,9 +109,11 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="password_confirmation" class="col-sm-2 col-form-label">ยืนยันรหัสผ่านใหม่ : </label>
+                            <label for="password_confirmation" class="col-sm-2 col-form-label">ยืนยันรหัสผ่านใหม่
+                                : </label>
                             <div class="col-sm-10">
-                                <input class="form-control" required type="password" id="password_confirmation" name="password_confirmation">
+                                <input class="form-control" required type="password" id="password_confirmation"
+                                       name="password_confirmation">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -112,3 +127,110 @@
         </div>
     </div>
 @stop
+@section('script')
+    <script>
+        async function useAddress() {
+            await showProvinces();
+            await $('#input_province').val({{ $result->province }})
+            await showAmphoes();
+            await $('#input_amphoe').val({{ $result->amphoe }});
+            await showDistricts();
+            await $('#input_district').val({{ $result->district }});
+        }
+
+        $(document).ready(function () {
+            {{ isset($result->province) ? 'useAddress();':'showProvinces()'}}
+        });
+
+        async function ajax(url, callback) {
+            await $.ajax({
+                "url": url,
+                "type": "GET",
+                "dataType": "json",
+            })
+                .done(callback); //END AJAX
+        }
+
+        async function showProvinces() {
+            //PARAMETERS
+            var url = "/api/province";
+            var callback = await function (result) {
+                $("#input_province").empty();
+                for (var i = 0; i < result.length; i++) {
+                    $("#input_province").append(
+                        $('<option></option>')
+                            .attr("value", "" + result[i].province_code)
+                            .html("" + result[i].province)
+                    );
+                }
+                $("#input_province").trigger("chosen:updated");
+                return showAmphoes();
+            };
+            //CALL AJAX
+            await ajax(url, callback);
+        }
+
+        async function showAmphoes() {
+            //INPUT
+            var province_code = $("#input_province").val();
+            //PARAMETERS
+            var url = "/api/province/" + province_code + "/amphoe";
+            var callback = await function (result) {
+                //console.log(result);
+                $("#input_amphoe").empty();
+                for (var i = 0; i < result.length; i++) {
+                    $("#input_amphoe").append(
+                        $('<option></option>')
+                            .attr("value", "" + result[i].amphoe_code)
+                            .html("" + result[i].amphoe)
+                    );
+                }
+                $("#input_amphoe").trigger("chosen:updated");
+                return showDistricts();
+            };
+            //CALL AJAX
+            await ajax(url, callback);
+        }
+
+        async function showDistricts() {
+            //INPUT
+            var province_code = $("#input_province").val();
+            var amphoe_code = $("#input_amphoe").val();
+            //PARAMETERS
+            var url = "/api/province/" + province_code + "/amphoe/" + amphoe_code + "/district";
+            var callback = await function (result) {
+                //console.log(result);
+                $("#input_district").empty();
+                for (var i = 0; i < result.length; i++) {
+                    $("#input_district").append(
+                        $('<option></option>')
+                            .attr("value", "" + result[i].district_code)
+                            .html("" + result[i].district)
+                    );
+                }
+                $("#input_district").trigger("chosen:updated");
+                return showZipcode();
+            };
+            //CALL AJAX
+            await ajax(url, callback);
+        }
+
+        async function showZipcode() {
+            //INPUT
+            var province_code = $("#input_province").val();
+            var amphoe_code = $("#input_amphoe").val();
+            var district_code = $("#input_district").val();
+            //PARAMETERS
+            var url = "/api/province/" + province_code + "/amphoe/" + amphoe_code + "/district/" + district_code;
+            var callback = await function (result) {
+                //console.log(result);
+                for (var i = 0; i < result.length; i++) {
+                    $("#input_zipcode").val(result[i].zipcode);
+                }
+                return true;
+            };
+            //CALL AJAX
+            await ajax(url, callback);
+        }
+    </script>
+@endsection

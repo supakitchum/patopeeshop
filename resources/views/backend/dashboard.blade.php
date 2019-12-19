@@ -184,8 +184,22 @@
                         @foreach($orders as $order)
                             <tr>
                                 <td>{{ $order->reference }}</td>
-                                <td>{{ $order->fname }}</td>
-                                <td>{{ $order->status }}</td>
+                                <td>{{ $order->fname .' '.$order->lname }}</td>
+                                <td>
+                                    @if( $order->status == 1)
+                                        ใหม่
+                                    @elseif($order->status == 2)
+                                        รอการชำระเงิน
+                                    @elseif($order->status == 3)
+                                        ชำระเงินแล้ว
+                                    @elseif($order->status == 4)
+                                        กำลังจัดส่ง
+                                    @elseif($order->status == 5)
+                                        จัดส่งเรียบร้อยแล้ว
+                                    @elseif($order->status == 6)
+                                        ยกเลิกคำสั่งซื้อ
+                                    @endif
+                                </td>
                                 ​<td>{{ number_format($order->total,2) }}</td>
                                 <td>
                                     <a href="{{ route('backend.orders.show',['id' => $order->id]) }}" class="btn btn-success btn-rounded text-white">

@@ -63,7 +63,7 @@
                         <thead>
                         <tr>
                             <th>หัวข้อปัญหา</th>
-                            <th>อีเมลล์ผู้แจ้ง</th>
+                            <th>ผู้แจ้ง</th>
                             <th>รหัสคำสั่งซื้อ</th>
                             <th>รายละเอียด</th>
                             <th></th>
@@ -73,7 +73,10 @@
                         @foreach($results as $result)
                             <tr>
                                 <td>{{ $result->title }}</td>
-                                <td>{{ $result->email }}</td>
+                                <td>
+                                    <p>อีเมล : {{ $result->email }}</p>
+                                    <p>เบอร์โทร. : {{ $result->phone }}</p>
+                                </td>
                                 <td><a class="text-primary"
                                        href="{{ $result->order_ref ? route('backend.orders.show',['id' => $result->id]):"#" }}">{{ $result->order_ref ? $result->order_ref:"-" }}</a>
                                 </td>

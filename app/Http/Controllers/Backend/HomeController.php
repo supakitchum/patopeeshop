@@ -15,11 +15,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $orders = Order::join('users', 'orders.mid', '=', 'users.id')
-            ->where('admin_id', 0)
-            ->select('orders.*', 'users.fname', 'users.lname')
-            ->orderBy('orders.created_at', 'desc')
-            ->get();
+        $orders = Order::orderBy('orders.created_at', 'desc')->get();
         $stats = [
             'order' => Order::whereDate('created_at',Carbon::today())->count(),
             'payment' => Payment::whereDate('created_at',Carbon::today())->count(),

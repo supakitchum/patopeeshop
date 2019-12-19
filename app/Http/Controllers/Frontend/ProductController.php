@@ -44,11 +44,33 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $results = $this->product->all();
-        $catalogs = $this->catalog->all();
+        $results = $this->product->leftjoin('product_details','products.id','=','product_details.pid')
+            ->leftjoin('product_images','product_details.pid','=','product_images.pid')
+            ->leftjoin('product_catalogs','product_details.pid','=','product_catalogs.pid');
+        if (isset(\request()->keyword)){
+                $results = $results->where('products.name','like','%'.\request()->keyword.'%');
+        }
+        if (isset(\request()->catalog)){
+            $results = $results->where('product_catalogs.cid',\request()->catalog);
+        }
+        if (isset(\request()->size)){
+            $results = $results->where('product_details.size',\request()->size);
+        }
+        if (isset(\request()->color)){
+            $results = $results->where('product_details.color',\request()->color);
+        }
+        $results = $results->select('products.*','product_details.price','product_images.path')
+            ->groupBy('products.id')
+            ->paginate(9);
+        $catalogs = $this->catalog
+            ->leftjoin('product_catalogs','catalogs.id','=','product_catalogs.cid')
+            ->join('products','product_catalogs.pid','=','products.id')
+            ->whereNull('products.deleted_at')
+            ->select('catalogs.*',\DB::raw('count(catalogs.id) as total'))
+            ->groupBy('catalogs.id')
+            ->get();
         $colors = $this->color->all();
         $sizes = $this->size->all();
-        // return $catalogs;
         return view(
             'frontend.product',
             [

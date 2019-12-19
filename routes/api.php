@@ -32,3 +32,4 @@ Route::post('cart/products', 'API\ProductController@getProducts');
 Route::post('cart/colors', 'API\ProductController@getColor');
 Route::post('cart/product/details', 'API\ProductController@getProductDetail');
 Route::post('checkout', 'API\CheckoutController@checkout');
+Route::get('check-stock/{aid}', 'API\CheckoutController@checkout');

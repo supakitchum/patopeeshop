@@ -1,5 +1,4 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/animate.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/bootstrap.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/font-awesome.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/owl.carousel.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/chosen.css') }}">
@@ -8,7 +7,9 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/jquery.mCustomScrollbar.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/magnific-popup.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/style.css') }}">
-<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/bootstrap.min.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.min.css" integrity="sha256-SMGbWcp5wJOVXYlZJyAXqoVWaE/vgFA5xfrH3i/jVw0=" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link href='https://fonts.googleapis.com/css?family=Playfair+Display:400italic,400,700,700italic,900,900italic'
     rel='stylesheet' type='text/css'>
 <link
@@ -16,6 +17,10 @@
     rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
 <link href="https://fonts.googleapis.com/css?family=Kanit&display=swap" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 
 
 <style>
