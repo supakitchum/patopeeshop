@@ -6,13 +6,14 @@
     <title>{{ get_title() }}</title>
     @include('frontend.layouts.css')
 </head>
-<body class="home">
-@include('frontend.layouts.navbar')
-<div style="width: 100vw;overflow-x: hidden">
-    @yield('content')
+<body class="woocommerce-active page-template-template-homepage-v6">
+<div id="page" class="hfeed site">
+    @include('frontend.layouts.navbar')
+    <div id="content" class="site-content" tabindex="-1">
+        @yield('content')
+    </div>
     @include('frontend.layouts.footer')
 </div>
-{{--<a href="#" class="scroll_top" title="Scroll to Top" style="display: block;"><i class="fa fa-arrow-up"></i></a>--}}
 <div id="addOrderModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <input type="hidden" id="photo" value="{{ \Request::is('product/*') ? asset($images[0]->path):'' }}">

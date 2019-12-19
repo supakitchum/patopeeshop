@@ -38,11 +38,6 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function showLoginForm()
-    {
-        return redirect('/')->with(['page' => 'login']);
-    }
-
     public function login(Request $request)
     {
         $this->redirectTo = redirect()->back()->with(['page' => 'login']);
