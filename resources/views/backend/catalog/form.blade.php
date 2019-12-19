@@ -45,7 +45,7 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="form-group">
-                                    <label for="name">หมวดหมู่:</label>
+                                    <label for="name">รูปหมวดหมู่:</label>
                                     <input type="file" class="form-control" name="photo">
 
                                 </div>

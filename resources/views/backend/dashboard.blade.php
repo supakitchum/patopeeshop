@@ -53,25 +53,7 @@
     <!-- Main row -->
     <div class="row">
         <!-- Left col -->
-        <div class="col-xl-6">
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title">ภาพรวมการขาย</h3>
-
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="box-body">
-                    <div class="chart">
-                        <canvas id="areaChart" style="height:340px"></canvas>
-                    </div>
-                </div>
-                <!-- /.box-body -->
-            </div>
-        </div>
-        <div class="col-xl-6">
+        <div class="col-xl-12">
             <!-- solid sales graph -->
             <div class="box">
                 <div class="box-header">

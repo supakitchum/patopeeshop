@@ -182,8 +182,10 @@
 <!-- mínimo_admin App -->
 <script src="{{ asset('js/template.js') }}"></script>
 
-<!-- mínimo_admin dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('js/pages/dashboard.js') }}"></script>
+@if(Request::is('backend'))
+    <!-- mínimo_admin dashboard demo (This is only for demo purposes) -->
+    <script src="{{ asset('js/pages/dashboard.js') }}"></script>
+@endif
 
 <!-- mínimo_admin for demo purposes -->
 <script src="{{ asset('js/demo.js') }}"></script>

@@ -33,3 +33,6 @@ Route::post('cart/colors', 'API\ProductController@getColor');
 Route::post('cart/product/details', 'API\ProductController@getProductDetail');
 Route::post('checkout', 'API\CheckoutController@checkout');
 Route::get('check-stock/{aid}', 'API\CheckoutController@checkout');
+
+//stat api
+Route::get('stat/line-chart','API\StatController@lineChart');
