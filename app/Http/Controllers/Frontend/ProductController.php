@@ -59,7 +59,7 @@ class ProductController extends Controller
         if (isset(\request()->color)){
             $results = $results->where('product_details.color',\request()->color);
         }
-        $results = $results->select('products.*','product_details.price','product_images.path')
+        $results = $results->select('products.*','product_details.price','product_images.path','product_details.quality')
             ->groupBy('products.id')
             ->paginate(9);
         $catalogs = $this->catalog

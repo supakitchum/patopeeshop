@@ -6,7 +6,7 @@
     <title>{{ get_title() }}</title>
     @include('frontend.layouts.css')
 </head>
-<body class="woocommerce-active page-template-template-homepage-v6">
+<body class="woocommerce-active {{ Request::is('/') ? 'page-template-template-homepage-v6':'single-product left-sidebar normal' }}">
 <div id="page" class="hfeed site">
     @include('frontend.layouts.navbar')
     <div id="content" class="site-content" tabindex="-1">
