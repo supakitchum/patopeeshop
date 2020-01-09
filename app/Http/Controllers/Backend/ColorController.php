@@ -47,19 +47,18 @@ class ColorController extends Controller
     public function store(Request $request)
     {
         $create = $this->color->create([
-            'name' => $request->input('name'),
-            'code' => $request->input('code')
+            'name' => $request->input('name')
         ]);
 
         if ($create) {
-            return redirect(route('backend.colors.index'))->with([
+            return redirect(route('backend.powers.index'))->with([
                 'status' => [
                     'class' => 'success',
                     'message' => 'แก้ไขสำเร็จ'
                 ]
-            ]);;
+            ]);
         }
-        return redirect(route('backend.colors.create'))->with([
+        return redirect(route('backend.powers.create'))->with([
             'status' => [
                 'class' => 'warning',
                 'message' => 'แก้ไขไม่สำเร็จ'
@@ -101,17 +100,16 @@ class ColorController extends Controller
     {
         $color = $this->color->find($id);
         $color->name = $request->input('name');
-        $color->code = $request->input('code');
 
         if ($color->save()) {
-            return redirect(route('backend.colors.index'))->with([
+            return redirect(route('backend.powers.index'))->with([
                 'status' => [
                     'class' => 'success',
                     'message' => 'แก้ไขสำเร็จ'
                 ]
             ]);;
         }
-        return redirect(route('backend.colors.edit', ['id' => $color->id]))->with([
+        return redirect(route('backend.powers.edit', ['id' => $color->id]))->with([
             'status' => [
                 'class' => 'warning',
                 'message' => 'แก้ไขไม่สำเร็จ'

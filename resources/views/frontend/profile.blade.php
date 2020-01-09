@@ -1,7 +1,7 @@
 @extends('frontend.layouts.main')
 @section('title','บัญชีของฉัน')
 @section('content')
-    <div class="main-container no-sidebar">
+    <div class="main-container no-sidebar mt-5">
         <div class="container">
             <div class="main-content">
                 <div class="row">
@@ -32,7 +32,7 @@
                                                       placeholder="ยืนยันรหัสผ่านใหม่"></p>
                                         </div>
                                         <div class="col-sm-12 text-right">
-                                            <button class="btn btn-primary">บันทึก</button>
+                                            <button class="btn btn-success w-100">บันทึก</button>
                                         </div>
                                     </div>
                                 </div>
@@ -45,44 +45,52 @@
                             @csrf
                             <div class="form-checkout text-border" style="text-align: left !important;">
                                 <h5 class="form-title text-center">ข้อมูลส่วนตัว/ที่อยู่ในการจัดส่ง</h5>
+                                <br>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <p><input type="text"
+                                        <label>ชื่อ</label>
+                                        <p><input class="w-100" type="text"
                                                   value="{{ isset(auth()->user()->fname) ? auth()->user()->fname:''}}"
                                                   id="fname" name="fname" required placeholder="ชื่อ"></p>
                                     </div>
                                     <div class="col-sm-6">
-                                        <p><input type="text"
+                                        <label>นามสกุล</label>
+                                        <p><input class="w-100" type="text"
                                                   value="{{ isset(auth()->user()->lname) ? auth()->user()->lname:''}}"
                                                   id="lname" name="lname" required placeholder="นามสกุล"></p>
                                     </div>
                                     <div class="col-sm-12">
-                                        <p><input type="email" name="email" disabled placeholder="Email Address" required
+                                        <label>อีเมล</label>
+                                        <p><input class="w-100" type="email" name="email" disabled placeholder="Email Address" required
                                                   value="{{ isset(auth()->user()->email) ? auth()->user()->email : ''}}"
                                                   style="width: 100%;"></p>
                                     </div>
                                 </div>
-                                <p><input id="address"
+                                <label>ที่อยู่</label>
+                                <p><input id="address" class="w-100"
                                           value="{{ isset(auth()->user()->address) ? auth()->user()->address:''}}"
                                           name="address" type="text" required placeholder="ที่อยู่"></p>
                                 <div class="row">
                                     <div class="col-sm-12">
+                                        <label>จังหวัด</label>
                                         <p>
-                                            <select id="input_province" required name="province" onchange="showAmphoes()">
+                                            <select class="w-100" id="input_province" required name="province" onchange="showAmphoes()">
                                                 <option value="">กรุณาเลือกจังหวัด</option>
                                             </select>
                                         </p>
                                     </div>
                                     <div class="col-sm-12">
+                                        <label>อำเภอ</label>
                                         <p>
-                                            <select id="input_amphoe" required name="amphoe" onchange="showDistricts()">
+                                            <select class="w-100" id="input_amphoe" required name="amphoe" onchange="showDistricts()">
                                                 <option value="">กรุณาเลือกอำเภอ</option>
                                             </select>
                                         </p>
                                     </div>
                                     <div class="col-sm-12">
+                                        <label>ตำบล</label>
                                         <p>
-                                            <select id="input_district" required name="district" onchange="showZipcode()">
+                                            <select class="w-100" id="input_district" required name="district" onchange="showZipcode()">
                                                 <option value="">กรุณาเลือกตำบล</option>
                                             </select>
                                         </p>
@@ -90,20 +98,22 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <p><input type="text"
+                                        <label>รหัสไปรษณีย์</label>
+                                        <p><input type="text" class="w-100"
                                                   value="{{ isset(auth()->user()->zip_code) ? auth()->user()->zip_code:''}}"
                                                   required name="zip_code" id="input_zipcode" placeholder="รหัสไปรษณีย์">
                                         </p>
                                     </div>
                                     <div class="col-sm-6">
-                                        <p><input type="text"
+                                        <label>เบอร์โทร.</label>
+                                        <p><input type="text" class="w-100"
                                                   value="{{ isset(auth()->user()->phone) ? auth()->user()->phone:''}}"
                                                   required name="phone" id="phone" placeholder="เบอร์โทรศัพท์"></p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 text-right">
-                                        <button class="btn btn-primary">บันทึก</button>
+                                        <button class="btn btn-success w-100">บันทึก</button>
                                     </div>
                                 </div>
                             </div>

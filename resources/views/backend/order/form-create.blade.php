@@ -72,7 +72,7 @@
                         </div>
                         <div class="col-3">
                             <div class="form-group">
-                                <label>สี</label>
+                                <label>กำลังไฟ</label>
                                 <select disabled class="form-control" id="color" name="color">
                                 </select>
                             </div>
@@ -353,7 +353,7 @@
                 amount.val();
                 $('#total').html('0')
                 price.val(0)
-                color.append($("<option>").attr('value',0).text('โปรดเลือกสี'));
+                color.append($("<option>").attr('value',0).text('โปรดเลือกกำลังไฟ'));
                 $(detail).each(function() {
                     color.attr('disabled',false);
                     color.append($("<option>").attr('value',this.color_id).text(this.color_name));

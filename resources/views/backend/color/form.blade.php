@@ -1,6 +1,6 @@
 @extends('backend.layouts.main')
-@section('title','สี')
-@section('page_name','สี')
+@section('title','กำลังไฟ')
+@section('page_name','กำลังไฟ')
 @section('sub_page_name','')
 @section('content')
 <!-- Main content -->
@@ -11,15 +11,15 @@
                 <div class="row">
                     <div class="col-lg-6 col-sm-12">
                         @if(Request::is('*edit'))
-                        <h3 class="box-title">แก้ไขสี</h3>
+                        <h3 class="box-title">แก้ไขกำลังไฟ</h3>
                         @else
-                        <h3 class="box-title">เพิ่มสี</h3>
+                        <h3 class="box-title">เพิ่มกำลังไฟ</h3>
                         @endif
 
                     </div>
                     <div class="col-lg-6 col-sm-12" align="right">
-                        <a class="btn btn-rounded text-white btn-primary" href="{{ route('backend.colors.index') }}">
-                            <i class="fa fa-list"></i> รายการสี
+                        <a class="btn btn-rounded text-white btn-primary" href="{{ route('backend.powers.index') }}">
+                            <i class="fa fa-list"></i> รายการกำลังไฟ
                         </a>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
             <!-- /.box-header -->
             <div class="box-body">
                 <form role="form" method="post"
-                    action="{{ Request::is('*edit') ? route('backend.colors.update',["id" => $results->id]) : route('backend.colors.store') }}"
+                    action="{{ Request::is('*edit') ? route('backend.powers.update',["id" => $results->id]) : route('backend.powers.store') }}"
                     class="tab-wizard wizard-circle" enctype="multipart/form-data">
                     @csrf
                     @if(Request::is('*edit'))
@@ -35,22 +35,22 @@
                     @endif
                     <section>
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-10">
                                 <div class="form-group">
-                                    <label for="name">ชื่อสี: </label>
+                                    <label for="name">ชื่อกำลังไฟ: </label>
                                     <input type="text" class="form-control" id="name" name="name"
                                         value="{{ isset($results->name)?$results->name:''}}">
 
                                 </div>
                             </div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="name">โค้ดสี: </label>
-                                    <input type="text" class="form-control" name="code"
-                                           value="{{ isset($results->code)?$results->code:''}}">
+{{--                            <div class="col-md-5">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="name">โค้ดกำลังไฟ: </label>--}}
+{{--                                    <input type="text" class="form-control" name="code"--}}
+{{--                                           value="{{ isset($results->code)?$results->code:''}}">--}}
 
-                                </div>
-                            </div>
+{{--                                </div>--}}
+{{--                            </div>--}}
                             <div class="col-md-2 mt-25">
                                 <button type="submit" name="submit" id="submit" class="btn btn-rounded text-white"
                                     style="background-color: #00be00;">บันทึก

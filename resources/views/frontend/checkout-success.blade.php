@@ -1,84 +1,87 @@
 @extends('frontend.layouts.main')
 @section('title','ประวัติคำสั่งซื้อ')
 @section('content')
-    <div class="main-container no-sidebar">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="text-border">
-                        <div class="row margin-bottom-60">
-                            <p><h1 class="text-success"><i class="fa fa-check-circle"></i> ยืนยันคำสั่งซื้อ #{{ $order->reference }} สำเร็จ</h1></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-8">
-                    <h3>ข้อมูลสินค้า</h3>
-                    <table class="table table-responsive table-bordered">
-                        <thead>
-                        <tr>
-                            <th class="d-none d-md-table-cell">ลำดับ</th>
-                            <th class="d-none d-md-table-cell">รูป</th>
-                            <th>ชื่อสินค้า</th>
-                            <th>คุณลักษณะ</th>
-                            <th class="d-none d-md-table-cell">ราคาต่อชิ้น</th>
-                            <th>จำนวน</th>
-                            <th>ราคารวม</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($details as $index=>$detail)
-                            <tr>
-                                <td class="d-none d-md-table-cell">{{ $index+1 }}</td>
-                                <td class="d-none d-md-table-cell"><img src="{{ asset($detail->image) }}" width="150px" height="150px"> </td>
-                                <td >{{ $detail->product_name  }}</td>
-                                <td>
-                                    <p>สี : {{ $detail->color }}</p>
-                                    <p>ขนาด : {{ $detail->size }}</p>
-                                </td>
-                                <td class="d-none d-md-none  d-md-table-cell">{{ number_format( $detail->price,2) }}</td>
-                                <td>{{ $detail->amount }}</td>
-                                <td>{{ number_format( $detail->price * $detail->amount,2) }}</td>
-                            </tr>
-                        @endforeach
-                        <tr>
-                            <td class="d-md-none" colspan="3">ยอดชำระรวม</td>
-                            <td class="d-none d-md-table-cell" colspan="6">ยอดชำระรวม</td>
-                            <td>{{ number_format($order->total,2) }} บาท</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-sm-4">
-                    <h3>ข้อมูลที่อยู่จัดส่ง</h3>
-                    <table class="table table-bordered table-responsive">
-                        <tr>
-                            <td>ชื่อ</td>
-                            <td>{{ $order->fname.' '.$order->lname }}</td>
-                        </tr>
-                        <tr>
-                            <td>อีเมล</td>
-                            <td>{{ $order->email }}</td>
-                        </tr>
-                        <tr>
-                            <td>เบอร์โทร.</td>
-                            <td>{{ $order->phone }}</td>
-                        </tr>
-                        <tr>
-                            <td>ที่อยู่</td>
-                            <td>
-                                ​​{{ $order->address }} ต.{{ $address->district }} อ. {{ $address->amphoe }} จ.{{ $address->provice }} {{ $order->zip_code }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <p><a class="btn btn-primary w-100" href="/payment?reference={{$order->reference}}">แจ้งชำระเงิน</a></p>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+    <div class="col-full mt-5">
+        <div class="row">
+           <div class="col-sm-12">
+               <div class="woocommerce-order">
+
+                   <p class="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received">ขอบคุณสำหรับการสั่งซื้อ. เราได้รับคำสั่งซื้อของคุณแล้ว</p>
+
+                   <ul class="woocommerce-order-overview woocommerce-thankyou-order-details order_details">
+
+                       <li class="woocommerce-order-overview__order order">
+                           รหัสคำสั่งซื้อ :<strong>{{ $order->reference }}</strong>
+                       </li>
+
+                       <li class="woocommerce-order-overview__date date">
+                           วันที่ :<strong>{{ $order->created_at }}</strong>
+                       </li>
+
+
+                       <li class="woocommerce-order-overview__total total">
+                           ราคารวม :<strong><span class="woocommerce-Price-amount amount">{{ number_format($order->total,2) }} <span class="woocommerce-Price-currencySymbol">บาท</span></span></strong>
+                       </li>
+
+                       <li class="woocommerce-order-overview__payment-method method">
+                           วิธีชำระเงิน : <strong>โอนผ่านธนาคาร</strong>
+                       </li>
+
+                   </ul>
+                   <!-- .woocommerce-order-overview -->
+
+
+                   <section class="woocommerce-order-details">
+                       <h2 class="woocommerce-order-details__title">รายละเอียดคำสั่งซื้อ</h2>
+
+                       <table class="woocommerce-table woocommerce-table--order-details shop_table order_details">
+
+                           <thead>
+                           <tr>
+                               <th class="woocommerce-table__product-name product-name">สินค้า</th>
+                               <th class="woocommerce-table__product-table product-total">ราคา</th>
+                           </tr>
+                           </thead>
+
+                           <tbody>
+                           @foreach($details as $index=>$detail)
+                               <tr class="woocommerce-table__line-item order_item">
+
+                                   <td class="woocommerce-table__product-name product-name">
+                                       <a href="single-product-fullwidth.html">{{ $detail->product_name }}</a>
+                                       <strong class="product-quantity">× {{ $detail->amount }}</strong>
+                                   </td>
+
+                                   <td class="woocommerce-table__product-total product-total">
+                                       <span class="woocommerce-Price-amount amount">{{ number_format( $detail->price * $detail->amount,2) }} <span class="woocommerce-Price-currencySymbol">บาท</span></span>
+                                   </td>
+
+                               </tr>
+                           @endforeach
+                           </tbody>
+
+                           <tfoot>
+                           <tr>
+                               <th scope="row">วิธีการชำระเงิน :</th>
+                               <td>โอนเงินผ่านธนาคาร</td>
+                           </tr>
+                           <tr>
+                               <th scope="row">ราคารวม : </th>
+                               <td><span class="woocommerce-Price-amount amount">{{ number_format($order->total,2) }} <span class="woocommerce-Price-currencySymbol">บาท</span></span></td>
+                           </tr>
+                           </tfoot>
+                       </table>
+                       <!-- .woocommerce-table -->
+                   </section>
+                   <!-- .woocommerce-order-details -->
+
+
+               </div>
+           </div>
         </div>
+        <!-- .row -->
     </div>
+    <!-- .col-full -->
 @endsection
 @section('script')
     <script>

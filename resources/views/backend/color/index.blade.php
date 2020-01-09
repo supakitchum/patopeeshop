@@ -1,6 +1,6 @@
 @extends('backend.layouts.main')
-@section('title','สี')
-@section('page_name','สี')
+@section('title','กำลังไฟ')
+@section('page_name','กำลังไฟ')
 @section('sub_page_name','')
 @section('content')
 <!-- Main content -->
@@ -10,12 +10,12 @@
             <div class="box-header">
                 <div class="row">
                     <div class="col-lg-6 col-sm-12">
-                        <h3 class="box-title">สี</h3>
+                        <h3 class="box-title">กำลังไฟ</h3>
                     </div>
 
                     <div class="col-lg-6 col-sm-12" align="right">
                         <a class="btn btn-rounded text-white" style="background-color: #00be00;"
-                            href="{{ route('backend.colors.create') }}">
+                            href="{{ route('backend.powers.create') }}">
                             <i class="fa fa-plus"></i> เพิ่ม
                         </a>
                     </div>
@@ -26,30 +26,30 @@
             <div class="box-body">
                 <table id="color-table" class="table table-bordered table-striped table-responsive">
                     <thead>
-                        <th>ลำดับ</th>
-                        <th>สี</th>
-                        <th>โค้ดสี</th>
-                        <th>เพิ่มเมื่อ</th>
-                        <th>แก้ไขล่าสุดเมื่อ</th>
-                        <th>การจัดการ</th>
+                        <tr>
+                            <th>ลำดับ</th>
+                            <th>กำลังไฟ</th>
+                            <th>เพิ่มเมื่อ</th>
+                            <th>แก้ไขล่าสุดเมื่อ</th>
+                            <th>การจัดการ</th>
+                        </tr>
                     </thead>
 
                     <tbody>
                         @foreach($results as $index=>$result)
                         <tr>
-                            <td>{{ $index + 1 }}</th>
-                            <td>{{ $result->name }}</th>
-                            <td>{{ $result->code }}</th>
-                            <td>{{ $result->created_at }}</th>
-                            <td>{{ $result->updated_at }}</th>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $result->name }}</td>
+                            <td>{{ $result->created_at }}</td>
+                            <td>{{ $result->updated_at }}</td>
                             <td>
                                 <div class="row">
                                     <div class="col-lg-6 col-md-12">
-                                        <a href="{{ route('backend.colors.edit',["id" => $result->id]) }}"
+                                        <a href="{{ route('backend.powers.edit',["id" => $result->id]) }}"
                                             class="btn btn-primary btn-rounded w-100"><i class="fa fa-edit"></i></a>
                                     </div>
                                     <div class="col-lg-6 col-md-12">
-                                        <form action="{{ route('backend.colors.destroy',["id" => $result->id]) }}"
+                                        <form action="{{ route('backend.powers.destroy',["id" => $result->id]) }}"
                                             method="post">
                                             @csrf
                                             <input type="hidden" name="_method" value="delete">

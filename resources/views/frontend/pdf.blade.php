@@ -114,7 +114,7 @@
         <tr>
             <td>{{ $detail->product_name  }}</td>
             <td>
-                สี : {{ $detail->color }} <br>
+                กำลังไฟ : {{ $detail->color }} <br>
                 ขนาด : {{ $detail->size }}
             </td>
             <td>{{ number_format( $detail->price,2) }}</td>

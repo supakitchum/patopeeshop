@@ -39,7 +39,7 @@ class ReportController extends Controller
         $data = $request->validate([
             'title' => 'required',
             'email' => 'required',
-            'order_ref' => 'string',
+            'order_ref' => 'string|max:255|nullable',
             'detail' => 'required',
             'phone' => 'required'
         ]);

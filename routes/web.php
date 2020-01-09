@@ -15,10 +15,10 @@ Route::get('/auth/redirect/{provider}', 'SocialController@redirect');
 Route::get('/callback/{provider}', 'SocialController@callback');
 
 Route::name('backend.')->middleware('auth:admin')->prefix('backend')->group(function () {
-    Route::get('/','Backend\HomeController@index')->name('dashboard');
+    Route::get('/dashboard','Backend\HomeController@index')->name('dashboard');
     Route::get('stocks','Backend\StockController@index')->name('stocks');
     Route::resource('catalogs','Backend\CatalogController');
-    Route::resource('colors','Backend\ColorController');
+    Route::resource('powers','Backend\ColorController');
     Route::resource('orders','Backend\OrderController');
     Route::resource('payments','Backend\PaymentController');
     Route::resource('products','Backend\ProductController');
@@ -31,8 +31,8 @@ Route::name('backend.')->middleware('auth:admin')->prefix('backend')->group(func
 });
 
 Auth::routes();
-Route::get('backend/login', 'Auth\AdminLoginController@showLoginForm')->name('backend.login');
-Route::post('backend/login', ['as'=>'admin-login','uses'=>'Auth\AdminLoginController@login']);
+Route::get('backend', 'Auth\AdminLoginController@showLoginForm')->name('backend.login');
+Route::post('backend', ['as'=>'admin-login','uses'=>'Auth\AdminLoginController@login']);
 Route::get('backend/logout','Auth\AdminLoginController@logout')->name('backend.logout');
 
 Route::get('/', 'HomeController@index')->name('home');
@@ -44,8 +44,8 @@ Route::get('logout',function (){
     return redirect('/');
 });
 Route::resource('/product', 'Frontend\ProductController');
-Route::get('/payment','Frontend\PaymentController@index');
+Route::get('/payment','Frontend\PaymentController@index')->name('payment');
 Route::post('/payment','Frontend\PaymentController@store');
-Route::get('/history','Frontend\HistoryController@index');
+Route::get('/history','Frontend\HistoryController@index')->name('history');
 Route::get('/history/{id}','Frontend\HistoryController@detail');
 Route::get('/receipt/{id}','Frontend\HistoryController@receipt');

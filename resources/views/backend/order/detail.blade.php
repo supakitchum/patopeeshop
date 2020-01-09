@@ -47,7 +47,7 @@
                                         <td><img src="{{ asset($detail->image) }}" width="150px" height="150px"> </td>
                                         <td>{{ $detail->product_name  }}</td>
                                         <td>
-                                            <p>สี : {{ $detail->color }}</p>
+                                            <p>กำลังไฟ : {{ $detail->color }}</p>
                                             <p>ขนาด : {{ $detail->size }}</p>
                                         </td>
                                         <td>{{ number_format( $detail->price,2) }}</td>

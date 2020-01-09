@@ -27,7 +27,7 @@
                     <li><a href="{{ route('backend.products.index') }}"><i class="fa fa-circle-o"></i> จัดการสินค้า</a>
                     </li>
                     <li><a href="{{ route('backend.catalogs.index') }}"><i class="fa fa-circle-o"></i> หมวดหมู่</a></li>
-                    <li><a href="{{ route('backend.colors.index') }}"><i class="fa fa-circle-o"></i> สี</a></li>
+                    <li><a href="{{ route('backend.powers.index') }}"><i class="fa fa-circle-o"></i> กำลังไฟ</a></li>
                     <li><a href="{{ route('backend.sizes.index') }}"><i class="fa fa-circle-o"></i> ขนาด</a></li>
                 </ul>
             </li>

@@ -64,7 +64,7 @@ class ProductController extends Controller
             ->paginate(9);
         $catalogs = $this->catalog
             ->leftjoin('product_catalogs','catalogs.id','=','product_catalogs.cid')
-            ->join('products','product_catalogs.pid','=','products.id')
+            ->leftjoin('products','product_catalogs.pid','=','products.id')
             ->whereNull('products.deleted_at')
             ->select('catalogs.*',\DB::raw('count(catalogs.id) as total'))
             ->groupBy('catalogs.id')

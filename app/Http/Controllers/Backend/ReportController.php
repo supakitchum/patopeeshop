@@ -25,7 +25,7 @@ class ReportController extends Controller
     {
         $results = $this->report
             ->leftjoin('orders','reports.order_ref','=','orders.reference')
-            ->select('reports.title','reports.detail','reports.email','orders.id','reports.order_ref','reports.id as rid','reports.status')
+            ->select('reports.title','reports.detail','reports.email','orders.id','reports.order_ref','reports.id as rid','reports.status','reports.phone')
             ->get();
         return view('backend.report.index',['results' => $results]);
     }

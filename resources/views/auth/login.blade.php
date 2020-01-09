@@ -1,7 +1,7 @@
 @extends('frontend.layouts.main')
 @section('title','ระบบสมาชิก')
 @section('content')
-    <div class="col-full">
+    <div class="col-full mt-5">
         <div class="row">
             <div class="col-sm-12">
                 <nav class="woocommerce-breadcrumb">
@@ -16,13 +16,13 @@
                                 <div class="woocommerce">
                                     <div class="customer-login-form">
                                         <span class="or-text">หรือ</span>
-                                        <div id="customer_login" class="u-columns col2-set">
-                                            <div class="u-column1 col-1">
+                                        <div id="customer_login" class="u-columns col2-set col2-set-sm p-0-sm">
+                                            <div class="u-column1 col-1 p-0-sm">
                                                 <h2>เข้าสู่ระบบ</h2>
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-6 mb-3">
                                                         <a href="{{ url('/auth/redirect/facebook') }}" class="btn btn-primary"
-                                                           style="width: 100%"><i class="fa fa-facebook"></i> เข้าสู่ระบบด้วย Facebook</a>
+                                                           style="width: 100%;background-color: #007bff;border-color: #007bff;"><i class="fa fa-facebook"></i> เข้าสู่ระบบด้วย Facebook</a>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 mb-3">
                                                         <a href="{{ url('/auth/redirect/google') }}" class="btn btn-danger"
@@ -94,7 +94,7 @@
                                                         <input type="password" required id="reg_password" name="password_confirmation" class="woocommerce-Input woocommerce-Input--text input-text">
                                                     </p>
                                                     <p class="form-row">
-                                                        <input type="submit" class="woocommerce-Button button" name="register" value="สมัครสมาชิก" />
+                                                        <input type="submit" class="woocommerce-Button button w-100" name="register" value="สมัครสมาชิก" />
                                                     </p>
                                                     <div class="register-benefits">
                                                         <h3>สมัครวันนี้ ได้อะไร? :</h3>

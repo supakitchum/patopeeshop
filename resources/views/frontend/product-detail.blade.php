@@ -1,7 +1,7 @@
 @extends('frontend.layouts.main')
 @section('title',$results[0]->name)
 @section('content')
-    <div class="col-full">
+    <div class="col-full mt-5">
         <div class="row">
             <div id="primary" class="content-area">
                 <main id="main" class="site-main">
@@ -73,14 +73,6 @@
                                     <h1 class="product_title entry-title">{{ $results[0]->name }}</h1>
                                 </div>
                                 <!-- .single-product-header -->
-                                <div class="single-product-meta">
-                                    <div class="brand">
-                                        <a href="#">
-                                            <img alt="galaxy" src="/assets/images/brands/5.png">
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- .single-product-meta -->
                                 <div class="woocommerce-product-details__short-description">
                                     {!! $results[0]->detail !!}
                                 </div>
@@ -93,13 +85,38 @@
                                             </ins>
                                         </p>
                                         <!-- .single-product-header -->
-                                        <form enctype="multipart/form-data" method="post" class="cart">
-                                            <div class="quantity">
-                                                <label for="quantity-input">จำนวน</label>
-                                                <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" id="quantity-input">
+                                        <form class="cart-form" enctype="multipart/form-data" method="post">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div style="width: 100%">
+                                                        <div class="form-group">
+                                                            <label for="size">ขนาด</label>
+                                                            <select id="size" name="size">
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div style="width: 100%">
+                                                        <div class="form-group">
+                                                            <label>กำลังไฟ</label>
+                                                            <select disabled id="color" name="color">
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="quantity">
+                                                        <label for="quantity-input">จำนวน</label>
+                                                        <input type="number" size="4" class="input-text qty text w-100" title="Qty" value="1" name="quantity" id="quantity-input">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <button onclick="add_item()" class="single_add_to_cart_button button alt w-100 mt-3" style="margin-left: 0px;margin-right: 0px;" name="add-to-cart" type="button">เพิ่มลงตะกร้า</button>
+                                                </div>
                                             </div>
+                                            <input type="hidden" name="aid" value="" id="aid">
                                             <!-- .quantity -->
-                                            <button class="single_add_to_cart_button button alt" onclick="window.location.href='../cart.html'" value="185" name="add-to-cart" type="submit">เพิ่มลงตะกร้า</button>
                                         </form>
                                         <!-- .cart -->
                                     </div>
@@ -134,7 +151,7 @@
                                         <thead>
                                         <tr>
                                             <th>ขนาด</th>
-                                            <th>สี</th>
+                                            <th>กำลังไฟ</th>
                                             <th>คงเหลือ</th>
                                             <th>ราคา</th>
                                         </tr>
@@ -378,7 +395,7 @@
     {{--                            </div>--}}
     {{--                            <div style="width: 50%">--}}
     {{--                                <div class="form-group">--}}
-    {{--                                    <label>สี</label>--}}
+    {{--                                    <label>กำลังไฟ</label>--}}
     {{--                                    <select disabled id="color" name="color">--}}
     {{--                                    </select>--}}
     {{--                                </div>--}}
@@ -413,7 +430,7 @@
     {{--                        <thead>--}}
     {{--                        <tr>--}}
     {{--                            <th>ขนาด</th>--}}
-    {{--                            <th>สี</th>--}}
+    {{--                            <th>กำลังไฟ</th>--}}
     {{--                            <th>คงเหลือ</th>--}}
     {{--                            <th>ราคา</th>--}}
     {{--                        </tr>--}}
@@ -467,7 +484,7 @@
                 amount.val();
                 $('#total').html('0')
                 price.val(0)
-                color.append($("<option>").attr('value', 0).text('โปรดเลือกสี'));
+                color.append($("<option>").attr('value', 0).text('โปรดเลือกกำลังไฟ'));
                 $(detail).each(function () {
                     color.attr('disabled', false);
                     color.append($("<option>").attr('value', this.color_id).text(this.color_name));

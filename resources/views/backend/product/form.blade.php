@@ -77,7 +77,7 @@
                                             </div>
                                             <div class="col-3">
                                                 <div class="form-group">
-                                                    <label>สี</label>
+                                                    <label>กำลังไฟ</label>
                                                     <select class="form-control" name="color[]">
                                                         @foreach($colors as $color)
                                                             <option
@@ -125,7 +125,7 @@
                                         </div>
                                         <div class="col-3">
                                             <div class="form-group">
-                                                <label>สี</label>
+                                                <label>กำลังไฟ</label>
                                                 <select class="form-control" name="color[]">
                                                     @foreach($colors as $color)
                                                         <option value="{{ $color->id }}">{{ $color->name }}</option>
@@ -224,7 +224,7 @@
             </div>
             <div class="col-3">
                 <div class="form-group">
-                    <label>สี</label>
+                    <label>กำลังไฟ</label>
                     <select class="form-control" name="color[]">
                         @foreach($colors as $color)
                             <option value="{{ $color->id }}">{{ $color->name }}</option>

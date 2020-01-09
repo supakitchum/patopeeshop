@@ -203,44 +203,53 @@ function displayCart() {
     var output = "";
     var output2 = "";
     var output3 = "";
-    for (var i in cartArray) {
-        output += "<li class='woocommerce-mini-cart-item mini_cart_item'>" +
-            "<button class='remove' onclick='deleteItem(" + cartArray[i].aid + ")' aria-label='Remove this item' data-product_id='65' data-product_sku=''>×</button>" +
-            "<a href='single-product-sidebar.html'>" +
-            "<img src='"+ cartArray[i].photo +"' class='attachment-shop_thumbnail size-shop_thumbnail wp-post-image' alt=''>"+ cartArray[i].name +
-            "</a>" +
-            "<span class='quantity'>"+ cartArray[i].count +" ×" +
-            "<span class='woocommerce-Price-amount amount'>" +
-            cartArray[i].price + "<span class='woocommerce-Price-currencySymbol'>บาท</span></span>" +
-            "</span>" +
-            "</li>";
-        output2 += "<li>"
-            + "<div class='thumb'>"
-            + "<img src='" + cartArray[i].photo + "' alt='" + cartArray[i].name + "'>"
-            + "</div>"
-            + "<div class='info'>"
-            + "<h4 class='product-name'><a href='#'>" + cartArray[i].name + "</a></h4>"
-            + "<span class='price'>" + cartArray[i].count + "x" + cartArray[i].price + "</span>"
-            + "<button style='border: none;background-color: transparent;' class='remove-item' onclick='deleteItem(" + cartArray[i].aid + ")' data-name='" + cartArray[i].aid + "'><i class='fa fa-close'></i></button>"
-            + "</div>"
-            + "</li>";
-        output3 += "<tr>"
-            + "<input type='hidden' value='" + cartArray[i].aid + "' name='aid[]' >"
-            + "<input type='hidden' value='" + cartArray[i].count + "' name='amount[]' >"
-            + '<td class="product-name">' + cartArray[i].name + ' x ' + cartArray[i].count + '</td>'
-            + '<td class="total"><span class="price">' + (cartArray[i].count * cartArray[i].price) + '</span></td>'
-            + "</tr>";
+    if (cartArray.length > 0){
+        for (var i in cartArray) {
+            output += "<li class='woocommerce-mini-cart-item mini_cart_item'>" +
+                "<button style='background-color: transparent !important;margin-top: -15px;color: black !important;' class='remove' onclick='deleteItem(" + cartArray[i].aid + ")' aria-label='Remove this item' data-product_id='65' data-product_sku=''>×</button>" +
+                "<a href='single-product-sidebar.html'>" +
+                "<img src='"+ cartArray[i].photo +"' class='attachment-shop_thumbnail size-shop_thumbnail wp-post-image' alt=''>"+ cartArray[i].name +
+                "</a>" +
+                "<span class='quantity'>"+ cartArray[i].count +" ×" +
+                "<span class='woocommerce-Price-amount amount'>" +
+                cartArray[i].price + "<span class='woocommerce-Price-currencySymbol'>บาท</span></span>" +
+                "</span>" +
+                "</li>";
+            output2 += "<li>"
+                + "<div class='thumb'>"
+                + "<img src='" + cartArray[i].photo + "' alt='" + cartArray[i].name + "'>"
+                + "</div>"
+                + "<div class='info'>"
+                + "<h4 class='product-name'><a href='#'>" + cartArray[i].name + "</a></h4>"
+                + "<span class='price'>" + cartArray[i].count + "x" + cartArray[i].price + "</span>"
+                + "<button style='border: none;background-color: transparent;' class='remove-item' onclick='deleteItem(" + cartArray[i].aid + ")' data-name='" + cartArray[i].aid + "'><i class='fa fa-close'></i></button>"
+                + "</div>"
+                + "</li>";
+            output3 += '<tr class="cart_item">' +
+                "<input type='hidden' value='" + cartArray[i].aid + "' name='aid[]' >" +
+                '<td class="product-name">' +
+                "<input type='hidden' value='" + cartArray[i].count + "' name='amount[]' >" +
+                '<strong class="product-quantity">'+cartArray[i].count+'x </strong>' + cartArray[i].name +
+                '</td>' +
+                '<td class="product-total">' +
+                '<span class="woocommerce-Price-amount amount">' +
+                (cartArray[i].count * cartArray[i].price) +'<span class="woocommerce-Price-currencySymbol"> บาท</span></span>' +
+                '</td>' +
+                '</tr>';
+        }
+    } else{
+        output = "<li class='woocommerce-mini-cart-item mini_cart_item text-center w-100vw-sm'>ไม่มีสินค้าในตะกร้า</li>";
     }
     $('.show-cart').html(output);
     if ($("#order-detail")) {
-        output3 += '<tr>'
-            + '<td class="product-name">ค่าจัดส่ง</td>'
-            + '<td class="total"><span class="price">ฟรี</span></td>'
-            + '</tr>'
-            + '<tr class="order-total">'
-            + '<td class="subtotal">ราคารวม</td>'
-            + '<td class="total">' + shoppingCart.totalCart() + ' บาท</td>'
-            + '</tr>';
+        // output3 += '<tr>'
+        //     + '<td class="product-name">ค่าจัดส่ง</td>'
+        //     + '<td class="total"><span class="price">ฟรี</span></td>'
+        //     + '</tr>'
+        //     + '<tr class="order-total">'
+        //     + '<td class="subtotal">ราคารวม</td>'
+        //     + '<td class="total">' + shoppingCart.totalCart() + ' บาท</td>'
+        //     + '</tr>';
         $("#order-detail").html(output3);
     }
     if ($('.list-product')) {

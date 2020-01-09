@@ -77,8 +77,13 @@
                                     <p>อีเมล : {{ $result->email }}</p>
                                     <p>เบอร์โทร. : {{ $result->phone }}</p>
                                 </td>
-                                <td><a class="text-primary"
-                                       href="{{ $result->order_ref ? route('backend.orders.show',['id' => $result->id]):"#" }}">{{ $result->order_ref ? $result->order_ref:"-" }}</a>
+                                <td>
+                                    @if(isset($result->order_ref) && $result->order_ref != "-")
+                                        <a class="text-primary"
+                                           href="{{route('backend.orders.show',['id' => $result->id]) }}">{{ $result->order_ref }}</a>
+                                    @else
+                                        -
+                                    @endif
                                 </td>
                                 <td>{{ $result->detail }}</td>
                                 <td>

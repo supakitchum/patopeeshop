@@ -48,21 +48,37 @@ class CatalogController extends Controller
     {
         try{
             $file = $request->file('photo');
-            $extension = $file->getClientOriginalExtension(); // getting image extension
-            $filename = 'catalog_' . time() . '.' . $extension;
-            if ($file->move('uploads/', $filename)) {
+            if (isset($file)){
+                $extension = $file->getClientOriginalExtension(); // getting image extension
+                $filename = 'catalog_' . time() . '.' . $extension;
+                if ($file->move('uploads/', $filename)) {
+                    $create = $this->catalog->create([
+                        'name' => $request->input('name'),
+                        'photo' => 'upload/'.$filename
+                    ]);
+
+                    if ($create) {
+                        return redirect(route('backend.catalogs.index'))->with([
+                            'status' => [
+                                'class' => 'success',
+                                'message' => 'แก้ไขสำเร็จ'
+                            ]
+                        ]);
+                    }
+                }
+            }
+            else{
                 $create = $this->catalog->create([
                     'name' => $request->input('name'),
-                    'photo' => 'upload/'.$filename
+                    'photo' => null
                 ]);
-
                 if ($create) {
                     return redirect(route('backend.catalogs.index'))->with([
                         'status' => [
                             'class' => 'success',
                             'message' => 'แก้ไขสำเร็จ'
                         ]
-                    ]);;
+                    ]);
                 }
             }
         } catch (\Exception $e){

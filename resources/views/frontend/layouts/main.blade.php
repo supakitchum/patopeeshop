@@ -6,7 +6,13 @@
     <title>{{ get_title() }}</title>
     @include('frontend.layouts.css')
 </head>
-<body class="woocommerce-active {{ Request::is('/') ? 'page-template-template-homepage-v6':'single-product left-sidebar normal' }}">
+@if(Request::is('/'))
+    <body class="woocommerce-active page-template-template-homepage-v6 ">
+@elseif(Request::is('checkout/*'))
+    <body class="woocommerce-checkout woocommerce-page woocommerce-order-received can-uppercase woocommerce-active">
+@else
+    <body class="single-product left-sidebar normal">
+@endif
 <div id="page" class="hfeed site">
     @include('frontend.layouts.navbar')
     <div id="content" class="site-content" tabindex="-1">
@@ -14,18 +20,18 @@
     </div>
     @include('frontend.layouts.footer')
 </div>
-<div id="addOrderModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div id="addOrderModal" class="modal fade" style="z-index: 1000000 !important;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <input type="hidden" id="photo" value="{{ \Request::is('product/*') ? asset($images[0]->path):'' }}">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <div class="row">
-                    <div class="col-sm-12 text-center" style="position: absolute;">
-                        <h4 class="modal-title" id="name_product"></h4>
-                    </div>
-                    <div class="col-sm-12 text-right">
+                <div class="row w-100">
+                    <div class="col-sm-12 text-right" style="position: absolute;">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="col-sm-12 text-center">
+                        <h4 class="modal-title" id="name_product"></h4>
                     </div>
                 </div>
             </div>
@@ -33,21 +39,21 @@
             <div class="modal-body">
                 <h4>เลือกรายละเอียดเพิ่มเติม</h4>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-6 col-sm-12">
                         <div>
                             <label for="size">ขนาด</label><br>
-                            <select id="size" name="size">
+                            <select id="size" name="size" class="w-100">
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6 col-sm-12">
                         <div class="form-group">
-                            <label>สี</label>
-                            <select disabled id="color" name="color">
+                            <label>กำลังไฟ</label><br>
+                            <select disabled id="color" class="w-100" name="color">
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6 col-sm-12">
                         <div class="form-group">
                             <label>จำนวน (เหลือ : <span id="quality">0</span>)</label>
                             <input disabled type="number" min="1" id="amount"
@@ -55,7 +61,7 @@
                                    class="form-control" onchange="calculate()" required value="1">
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6 col-sm-12">
                         <div class="form-group">
                             <label>ราคา</label>
                             <input id="price" disabled type="number"

@@ -26,7 +26,7 @@
                                 <label for="{{ $catalog->name }}">{{ $catalog->name }}</label>
                             </div>
                         @endforeach
-                        <label>สี</label><br>
+                        <label>กำลังไฟ</label><br>
                         @foreach($colors as $index=>$color)
                             <div class="col-lg-12 col-sm-12">
                                 <input type="checkbox" id="{{ $color->name }}" name="colors" value="{{ $color->name }}"
@@ -69,7 +69,7 @@
                             <th>ชื่อสินค้า</th>
                             <th>หมวดหมู่</th>
                             <th>ขนาด</th>
-                            <th>สี</th>
+                            <th>กำลังไฟ</th>
                             <th>จำนวนคงเหลือ</th>
                             <th>ราคา</th>
                             <th></th>

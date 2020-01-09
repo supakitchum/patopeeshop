@@ -43,7 +43,7 @@ class HomeController extends Controller
             ->groupBy('products.id')
             ->orderBy('products.created_at','desc')
             ->select('products.*','product_images.path','product_details.price')
-            ->limit(12)
+            ->limit(4)
             ->get();
         $recommend_products= $this->product
             ->leftjoin('product_images','products.id','=','product_images.pid')
@@ -52,7 +52,7 @@ class HomeController extends Controller
             ->groupBy('products.id')
             ->orderBy('products.created_at','desc')
             ->select('products.*','product_images.path','product_details.price')
-            ->limit(12)
+            ->limit(5)
             ->get();
         $random_products= $this->product
             ->leftjoin('product_images','products.id','=','product_images.pid')
@@ -62,11 +62,34 @@ class HomeController extends Controller
             ->select('products.*','product_images.path','product_details.price')
             ->limit(10)
             ->get();
+        $cat_id = $this->catalog->inRandomOrder()->first();
+        $product_cat = $this->product
+            ->leftjoin('product_images','products.id','=','product_images.pid')
+            ->leftjoin('product_details','products.id','=','product_details.pid')
+            ->leftjoin('product_catalogs','products.id','=','product_catalogs.pid')
+            ->where('product_catalogs.cid',$cat_id->id)
+            ->get();
+        $cat_id_ran = $this->catalog->inRandomOrder()->limit(4)->get();
+        $product_by_cat = array();
+        foreach ($cat_id_ran as $cat){
+            $product_by_cat[] = [
+                'catalog' => $cat->name,
+                'products' => $this->product
+                    ->leftjoin('product_images','products.id','=','product_images.pid')
+                    ->leftjoin('product_details','products.id','=','product_details.pid')
+                    ->leftjoin('product_catalogs','products.id','=','product_catalogs.pid')
+                    ->where('product_catalogs.cid',$cat->id)
+                    ->get()
+            ];
+        }
         return view('frontend.home')->with([
             'catalogs' => $this->catalog->get(),
             'products' => $products,
             'recommend_products' => $recommend_products,
-            'random_products' => $random_products
+            'random_products' => $random_products,
+            'product_cat' => $product_cat,
+            'cat_ran' => $cat_id,
+            'product_by_cat' => (object)$product_by_cat
         ]);
     }
 

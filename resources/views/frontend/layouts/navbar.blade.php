@@ -3,13 +3,25 @@
         <!-- .nav -->
         <ul id="menu-top-bar-right" class="nav menu-top-bar-right">
             <li class="hidden-sm-down menu-item animate-dropdown">
-                <a title="Track Your Order" href="track-your-order.html">
+                <a title="Track Your Order" href="/payment">
+                    <i class="tm tm-dollar"></i>แจ้งชำระเงิน</a>
+            </li>
+            <li class="hidden-sm-down menu-item animate-dropdown">
+                <a title="Track Your Order" href="/history">
                     <i class="tm tm-order-tracking"></i>ติดตามคำสั่งซื้อ</a>
+            </li>
+            <li class="hidden-sm-down menu-item animate-dropdown">
+                <a title="Track Your Order" href="/report">
+                    <i class="fa fa-warning"></i>แจ้งปัญหา</a>
             </li>
             @if(auth()->check())
                 <li class="menu-item">
-                    <a title="My Account" href="{{ route('login') }}">
+                    <a title="My Account" href="{{ route('profile.index') }}">
                         <i class="tm tm-login-register"></i>{{ auth()->user()->email }}</a>
+                </li>
+                <li class="hidden-sm-down menu-item animate-dropdown">
+                    <a href="/logout">
+                        <i class="fa fa-sign-out"></i>ออกจากระบบ</a>
                 </li>
             @else
                 <li class="menu-item">
@@ -95,9 +107,9 @@
                 <form class="navbar-search" method="get" action="{{ route('product.index') }}">
                     <label class="sr-only screen-reader-text" for="search">ค้นหาสินค้า</label>
                     <div class="input-group">
-                        <input type="text" id="search" class="form-control search-field product-search-field" dir="ltr" value="" name="s" placeholder="ค้นหาสินค้า" />
+                        <input type="text" id="search" class="form-control search-field product-search-field" dir="ltr" value="" name="keyword" placeholder="ค้นหาสินค้า" />
                         <div class="input-group-addon search-categories popover-header">
-                            <select name='product_cat' id='product_cat' class='postform resizeselect'>
+                            <select name="catalog" id='product_cat' class='postform resizeselect'>
                                 <option value='' selected='selected'>หมวดหมู่ทั้งหมด</option>
                                 @foreach($catalogs as $catalog)
                                     <option class="level-0" value="{{ $catalog->id }}">{{ $catalog->name }}</option>
@@ -119,7 +131,7 @@
                 <!-- .navbar-search -->
                 <ul id="site-header-cart" class="site-header-cart menu">
                     <li class="animate-dropdown dropdown ">
-                        <a class="cart-contents" href="cart.html" data-toggle="dropdown" title="View your shopping cart">
+                        <a class="cart-contents" href="#" data-toggle="dropdown" title="View your shopping cart">
                             <i class="tm tm-shopping-bag"></i>
                             <span class="count total-count"></span>
                             <span class="amount">
@@ -148,8 +160,7 @@
                                                             <span class="total-cart"></span> บาท</span>
                                         </p>
                                         <p class="woocommerce-mini-cart__buttons buttons">
-                                            <a href="cart.html" class="button wc-forward">ดูตะกร้าสินค้า</a>
-                                            <a href="checkout.html" class="button checkout wc-forward">ชำระเงิน</a>
+                                            <a href="/checkout" class="button checkout wc-forward">ชำระเงิน</a>
                                         </p>
                                     </div>
                                     <!-- .widget_shopping_cart_content -->
@@ -215,20 +226,24 @@
                 <div class="handheld-header-links">
                     <ul class="columns-3">
                         <li class="my-account">
-                            <a href="login-and-register.html" class="has-icon">
-                                <i class="tm tm-login-register"></i>
+                            @if(auth()->check())
+                                <a href="{{ route('profile.index') }}" class="has-icon">
+                                    <i class="tm tm-login-register"></i>
+                                </a>
+                            @else
+                                <a href="{{ route('login') }}" class="has-icon">
+                                    <i class="tm tm-login-register"></i>
+                                </a>
+                            @endif
+                        </li>
+                        <li>
+                            <a href="{{ route('payment') }}" class="has-icon">
+                                <i class="tm tm-dollar"></i>
                             </a>
                         </li>
-                        <li class="wishlist">
-                            <a href="wishlist.html" class="has-icon">
-                                <i class="tm tm-favorites"></i>
-                                <span class="count">3</span>
-                            </a>
-                        </li>
-                        <li class="compare">
-                            <a href="compare.html" class="has-icon">
-                                <i class="tm tm-compare"></i>
-                                <span class="count">3</span>
+                        <li>
+                            <a href="{{ route('history') }}" class="has-icon">
+                                <i class="tm tm-order-tracking"></i>
                             </a>
                         </li>
                     </ul>
@@ -245,7 +260,7 @@
                             <span>Menu</span>
                         </button>
                         <div class="handheld-navigation-menu">
-                            <span class="tmhm-close">Close</span>
+                            <span class="tmhm-close"></span>
                             <ul id="menu-departments-menu-1" class="nav">
                                 <li class="highlight menu-item animate-dropdown">
                                     <a title="สินค้ายอดนิยม" href="shop.html">สินค้ายอดนิยม</a>
@@ -268,9 +283,9 @@
                     <!-- .handheld-navigation -->
                     <div class="site-search">
                         <div class="widget woocommerce widget_product_search">
-                            <form role="search" method="get" class="woocommerce-product-search" action="/l">
+                            <form role="search" method="get" class="woocommerce-product-search" action="{{ route('product.index') }}">
                                 <label class="screen-reader-text" for="woocommerce-product-search-field-0">Search for:</label>
-                                <input type="search" id="woocommerce-product-search-field-0" class="search-field" placeholder="Search products&hellip;" value="" name="s" />
+                                <input type="search" id="woocommerce-product-search-field-0" class="search-field" placeholder="ค้นหาสินค้า" value="" name="keyword" />
                                 <input type="submit" value="Search" />
                                 <input type="hidden" name="post_type" value="product" />
                             </form>
@@ -278,10 +293,32 @@
                         <!-- .widget -->
                     </div>
                     <!-- .site-search -->
-                    <a class="handheld-header-cart-link has-icon" href="cart.html" title="View your shopping cart">
+                    <a class="handheld-header-cart-link has-icon" href="#" data-toggle="dropdown" title="View your shopping cart">
                         <i class="tm tm-shopping-bag"></i>
-                        <span class="count">2</span>
+                        <span class="count total-count"></span>
                     </a>
+                    <ul class="dropdown-menu dropdown-menu-mini-cart transform-0" style="width: 100vw;">
+                        <li>
+                            <div class="widget woocommerce widget_shopping_cart">
+                                <div class="widget_shopping_cart_content">
+                                    <ul class="woocommerce-mini-cart cart_list product_list_widget show-cart">
+                                    </ul>
+                                    <!-- .cart_list -->
+                                    <p class="woocommerce-mini-cart__total total">
+                                        <strong>ราคารวม :</strong>
+                                        <span class="woocommerce-Price-amount amount">
+                                                            <span class="total-cart"></span> บาท</span>
+                                    </p>
+                                    <p class="woocommerce-mini-cart__buttons buttons">
+                                        <a href="/checkout" class="button checkout wc-forward">ชำระเงิน</a>
+                                    </p>
+                                </div>
+                                <!-- .widget_shopping_cart_content -->
+                            </div>
+                            <!-- .widget_shopping_cart -->
+                        </li>
+                    </ul>
+                    <!-- .dropdown-menu-mini-cart -->
                 </div>
                 <!-- /.row -->
             </div>
