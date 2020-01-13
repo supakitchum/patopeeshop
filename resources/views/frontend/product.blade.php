@@ -169,7 +169,7 @@
                 <div class="widget widget_techmarket_products_carousel_widget">
                     <section id="single-sidebar-carousel" class="section-products-carousel">
                         <header class="section-header">
-                            <h2 class="section-title">Latest Products</h2>
+                            <h2 class="section-title">สินค้าแนะนำ</h2>
                             <nav class="custom-slick-nav"></nav>
                         </header>
                         <!-- .section-header -->
@@ -178,138 +178,29 @@
                             <div class="container-fluid">
                                 <div class="woocommerce columns-1">
                                     <div class="products">
-                                        <div class="landscape-product-widget product">
-                                            <a class="woocommerce-LoopProduct-link"
-                                               href="single-product-fullwidth.html">
-                                                <div class="media">
-                                                    <img class="wp-post-image" src="assets/images/products/sm-1.jpg"
-                                                         alt="">
-                                                    <div class="media-body">
+                                        @foreach($recommend_products as $product)
+                                            <div class="landscape-product-widget product">
+                                                <a class="woocommerce-LoopProduct-link"
+                                                   href="{{ route('product.show',['id' => $product->id]) }}">
+                                                    <div class="media">
+                                                        <img class="wp-post-image" src="{{ asset($product->path) }}"
+                                                             alt="">
+                                                        <div class="media-body">
                                                                     <span class="price">
                                                                         <ins>
-                                                                            <span class="amount"> 50.99</span>
+                                                                            <span class="amount"> {{ number_format($product->price,2) }}</span>
                                                                         </ins>
-                                                                        <del>
-                                                                            <span class="amount">26.99</span>
-                                                                        </del>
                                                                     </span>
-                                                        <!-- .price -->
-                                                        <h2 class="woocommerce-loop-product__title">S100 Wireless
-                                                            Bluetooth Speaker – Neon Green</h2>
-                                                        <div class="techmarket-product-rating">
-                                                            <div title="Rated 0 out of 5" class="star-rating">
-                                                                            <span style="width:0%">
-                                                                                <strong class="rating">0</strong> out of 5</span>
-                                                            </div>
-                                                            <span class="review-count">(0)</span>
+                                                            <!-- .price -->
+                                                            <h2 class="woocommerce-loop-product__title">{{ $product->name }}</h2>
                                                         </div>
-                                                        <!-- .techmarket-product-rating -->
+                                                        <!-- .media-body -->
                                                     </div>
-                                                    <!-- .media-body -->
-                                                </div>
-                                                <!-- .media -->
-                                            </a>
-                                            <!-- .woocommerce-LoopProduct-link -->
-                                        </div>
-                                        <div class="landscape-product-widget product">
-                                            <a class="woocommerce-LoopProduct-link"
-                                               href="single-product-fullwidth.html">
-                                                <div class="media">
-                                                    <img class="wp-post-image" src="assets/images/products/sm-2.jpg"
-                                                         alt="">
-                                                    <div class="media-body">
-                                                                    <span class="price">
-                                                                        <ins>
-                                                                            <span class="amount"> 50.99</span>
-                                                                        </ins>
-                                                                        <del>
-                                                                            <span class="amount">26.99</span>
-                                                                        </del>
-                                                                    </span>
-                                                        <!-- .price -->
-                                                        <h2 class="woocommerce-loop-product__title">S100 Wireless
-                                                            Bluetooth Speaker – Neon Green</h2>
-                                                        <div class="techmarket-product-rating">
-                                                            <div title="Rated 0 out of 5" class="star-rating">
-                                                                            <span style="width:0%">
-                                                                                <strong class="rating">0</strong> out of 5</span>
-                                                            </div>
-                                                            <span class="review-count">(0)</span>
-                                                        </div>
-                                                        <!-- .techmarket-product-rating -->
-                                                    </div>
-                                                    <!-- .media-body -->
-                                                </div>
-                                                <!-- .media -->
-                                            </a>
-                                            <!-- .woocommerce-LoopProduct-link -->
-                                        </div>
-                                        <div class="landscape-product-widget product">
-                                            <a class="woocommerce-LoopProduct-link"
-                                               href="single-product-fullwidth.html">
-                                                <div class="media">
-                                                    <img class="wp-post-image" src="assets/images/products/sm-3.jpg"
-                                                         alt="">
-                                                    <div class="media-body">
-                                                                    <span class="price">
-                                                                        <ins>
-                                                                            <span class="amount"> 50.99</span>
-                                                                        </ins>
-                                                                        <del>
-                                                                            <span class="amount">26.99</span>
-                                                                        </del>
-                                                                    </span>
-                                                        <!-- .price -->
-                                                        <h2 class="woocommerce-loop-product__title">S100 Wireless
-                                                            Bluetooth Speaker – Neon Green</h2>
-                                                        <div class="techmarket-product-rating">
-                                                            <div title="Rated 0 out of 5" class="star-rating">
-                                                                            <span style="width:0%">
-                                                                                <strong class="rating">0</strong> out of 5</span>
-                                                            </div>
-                                                            <span class="review-count">(0)</span>
-                                                        </div>
-                                                        <!-- .techmarket-product-rating -->
-                                                    </div>
-                                                    <!-- .media-body -->
-                                                </div>
-                                                <!-- .media -->
-                                            </a>
-                                            <!-- .woocommerce-LoopProduct-link -->
-                                        </div>
-                                        <div class="landscape-product-widget product">
-                                            <a class="woocommerce-LoopProduct-link"
-                                               href="single-product-fullwidth.html">
-                                                <div class="media">
-                                                    <img class="wp-post-image" src="assets/images/products/sm-4.jpg"
-                                                         alt="">
-                                                    <div class="media-body">
-                                                                    <span class="price">
-                                                                        <ins>
-                                                                            <span class="amount"> 50.99</span>
-                                                                        </ins>
-                                                                        <del>
-                                                                            <span class="amount">26.99</span>
-                                                                        </del>
-                                                                    </span>
-                                                        <!-- .price -->
-                                                        <h2 class="woocommerce-loop-product__title">S100 Wireless
-                                                            Bluetooth Speaker – Neon Green</h2>
-                                                        <div class="techmarket-product-rating">
-                                                            <div title="Rated 0 out of 5" class="star-rating">
-                                                                            <span style="width:0%">
-                                                                                <strong class="rating">0</strong> out of 5</span>
-                                                            </div>
-                                                            <span class="review-count">(0)</span>
-                                                        </div>
-                                                        <!-- .techmarket-product-rating -->
-                                                    </div>
-                                                    <!-- .media-body -->
-                                                </div>
-                                                <!-- .media -->
-                                            </a>
-                                            <!-- .woocommerce-LoopProduct-link -->
-                                        </div>
+                                                    <!-- .media -->
+                                                </a>
+                                                <!-- .woocommerce-LoopProduct-link -->
+                                            </div>
+                                        @endforeach
                                     </div>
                                     <!-- .products -->
                                 </div>

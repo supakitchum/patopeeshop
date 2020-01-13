@@ -75,21 +75,21 @@
                 <div class="box-footer">
                     <div class="row">
                         <div class="col text-center" style="border-right: 1px solid #f4f4f4">
-                            <input type="text" class="knob" data-readonly="true" value="{{ $stats['order_from_facebook'] }}" data-width="60" data-height="60"
+                            <input type="text" class="knob" data-readonly="true" value="{{ $stats['order_from_facebook'] ?:0  }}" data-width="60" data-height="60"
                                    data-fgColor="#7460ee">
 
                             <div class="knob-label">Facebook</div>
                         </div>
                         <!-- ./col -->
                         <div class="col text-center" style="border-right: 1px solid #f4f4f4">
-                            <input type="text" class="knob" data-readonly="true" value="{{ $stats['order_from_line'] }}" data-width="60" data-height="60"
+                            <input type="text" class="knob" data-readonly="true" value="{{ $stats['order_from_line']?: 0 }}" data-width="60" data-height="60"
                                    data-fgColor="#7460ee">
 
                             <div class="knob-label">Line</div>
                         </div>
                         <!-- ./col -->
                         <div class="col text-center">
-                            <input type="text" class="knob" data-readonly="true" value="{{ $stats['order_from_website'] }}" data-width="60" data-height="60"
+                            <input type="text" class="knob" data-readonly="true" value="{{ $stats['order_from_website']?: 0 }}" data-width="60" data-height="60"
                                    data-fgColor="#7460ee">
 
                             <div class="knob-label">Web Store</div>

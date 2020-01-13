@@ -44,6 +44,15 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $recommend_products= $this->product
+            ->leftjoin('product_images','products.id','=','product_images.pid')
+            ->leftjoin('product_details','products.id','=','product_details.pid')
+            ->where('recommend',true)
+            ->groupBy('products.id')
+            ->inRandomOrder()
+            ->select('products.*','product_images.path','product_details.price')
+            ->limit(6)
+            ->get();
         $results = $this->product->leftjoin('product_details','products.id','=','product_details.pid')
             ->leftjoin('product_images','product_details.pid','=','product_images.pid')
             ->leftjoin('product_catalogs','product_details.pid','=','product_catalogs.pid');
@@ -78,7 +87,8 @@ class ProductController extends Controller
                 'images' => $this->product,
                 'catalogs' => $catalogs,
                 'colors' => $colors,
-                'sizes' => $sizes
+                'sizes' => $sizes,
+                'recommend_products' => $recommend_products
             ]
         );
     }
@@ -117,13 +127,25 @@ class ProductController extends Controller
         $catalogs = $this->catalog->all();
         $results = $this->product->details($id);
         $images = $this->productImage->where('pid',$id)->get();
+        $catalog_now = $this->product_catalog->leftjoin('catalogs','product_catalogs.cid','=','catalogs.id')->where('pid',$id)->first();
+        $recommend_products= $this->product
+            ->leftjoin('product_images','products.id','=','product_images.pid')
+            ->leftjoin('product_details','products.id','=','product_details.pid')
+            ->where('recommend',true)
+            ->groupBy('products.id')
+            ->inRandomOrder()
+            ->select('products.*','product_images.path','product_details.price')
+            ->limit(6)
+            ->get();
         return view('frontend.product-detail')->with(
             [
                 'colors' => $colors,
                 'sizes' => $sizes,
                 'catalogs' => $catalogs,
                 'results' => $results,
-                'images' => $images
+                'images' => $images,
+                'recommend_products' => $recommend_products,
+                'catalog_now' => $catalog_now
             ]);
     }
 

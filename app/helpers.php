@@ -4,10 +4,10 @@ if (!function_exists('get_title')) {
     {
         $title = View::getSection('title');
         if ($title){
-            return $title." : ประตูผี";
+            return $title." : Solarnature";
         }
         else{
-            return "INETCV";
+            return "Solarnature";
         }
     }
 }

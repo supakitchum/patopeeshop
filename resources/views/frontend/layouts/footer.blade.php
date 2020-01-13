@@ -29,7 +29,7 @@
                                 <ul id="menu-footer-menu-3" class="menu">
                                     @foreach($catalogs as $index=>$catalog)
                                         <li class="menu-item">
-                                            <a href="{{ route('product.show',['id' => $catalog->id]) }}">{{ $catalog->name }}</a>
+                                            <a href="{{ route('product.index',['catalog' => $catalog->id]) }}">{{ $catalog->name }}</a>
                                         </li>
                                     @endforeach
                                 </ul>
