@@ -1,7 +1,7 @@
 <html>
 
 <head lang="th" dir="ltr">
-    <title>PatooPhee</title>
+    <title>Solar Nature</title>
     <link href="https://fonts.googleapis.com/css?family=Kanit&display=swap" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <style>
@@ -81,10 +81,10 @@
                 </td>
                 <td style="text-align: left">
                     <p style="margin-left: 20px;font-size:20px">
-                        <b>ชื่อ</b> บริษัท ประตูผี จำกัด (สำนักงานใหญ่)<br>
-                        <b>ที่อยู่</b> 733 หมู่ 8 ตำบลเวียงใต้<br>
-                        อ.ปาย จ.แม่ฮ่องสอน 58130<br>
-                        <b>เบอร์โทร.</b> 081-1690901<br>
+                        <b>ชื่อ</b> บริษัท โซล่าเนเจอร์เทค จำกัด<br>
+                        <b>ที่อยู่</b> 28/12 ต.ต้นเปา<br>
+                        อ.สันกำแพง จ.เชียงใหม่ 50130 เยื้องตลาดเจริญ เจริญ<br>
+                        <b>เบอร์โทร.</b> 090-980-3053<br>
                     </p>
                 </td>
             </tr>
@@ -96,7 +96,7 @@
     @if(auth()->guard('admin')->check())
         <hr>
     @endif
-    <h1> ประตูผี </h1>
+    <h1> Solar Nature </h1>
     <h2>รายการสินค้า</h2>
 </div>
 <table width="100%" style="width:100%" border="1">

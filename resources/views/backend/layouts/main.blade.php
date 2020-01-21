@@ -74,16 +74,18 @@
                 <small>@yield('sub_page_name')</small>
             </h1>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/"><i class="fa fa-dashboard"></i> หน้าแรก</a></li>
-                <?php $segments = ''; ?>
-                @foreach(Request::segments() as $segment)
-                    @if($segment != 'backend')
-                        <?php
-                        $segments .= '/' . $segment;
-                        ?>
-                        <li class="breadcrumb-item active"><a href="{{ "/backend".$segments }}">{{$segment}}</a></li>
-                    @endif
-                @endforeach
+                <li class="breadcrumb-item"><a href="/backend/dashboard"><i class="fa fa-dashboard"></i> หน้าแรก</a></li>
+                @if(!Request::is('backend/dashboard'))
+                    <?php $segments = ''; ?>
+                    @foreach(Request::segments() as $segment)
+                        @if($segment != 'backend')
+                            <?php
+                            $segments .= '/' . $segment;
+                            ?>
+                            <li class="breadcrumb-item active"><a href="{{ "/backend".$segments }}">{{ __('menu.'.$segment)}}</a></li>
+                        @endif
+                    @endforeach
+                @endif
             </ol>
         </section>
 
@@ -182,7 +184,7 @@
 <!-- mínimo_admin App -->
 <script src="{{ asset('js/template.js') }}"></script>
 
-@if(Request::is('backend'))
+@if(Request::is('backend/*'))
     <!-- mínimo_admin dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('js/pages/dashboard.js') }}"></script>
 @endif

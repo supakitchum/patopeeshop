@@ -52,11 +52,18 @@ class HistoryController extends Controller
             return abort(404);
         $details = OrderDetail::where('order_id', $order->id)->get();
         $senders = Sender::all();
+        $address = District::where(
+            [
+                'district_code' => $order->district,
+                'amphoe_code' => $order->amphoe,
+                'province_code' => $order->province
+            ])->first();
 
         $pdf = PDF::loadView('frontend.pdf', [
             'details' => $details,
             'order' => $order,
-            'senders' => $senders
+            'senders' => $senders,
+            'address' => $address
         ]);
         return $pdf->stream();
     }

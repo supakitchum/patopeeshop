@@ -87,15 +87,15 @@
                         <span>All Departments</span>
                     </button>
                     <ul id="menu-departments-menu" class="dropdown-menu yamm departments-menu-dropdown">
-                        <li class="highlight menu-item animate-dropdown">
-                            <a title="สินค้ายอดนิยม" href="shop.html">สินค้ายอดนิยม</a>
-                        </li>
-                        <li class="highlight menu-item animate-dropdown">
-                            <a title="สินค้ามาใหม่" href="shop.html">สินค้ามาใหม่</a>
-                        </li>
-                        <li class="highlight menu-item animate-dropdown">
-                            <a title="สินค้าแนะนำ" href="shop.html">สินค้าแนะนำ</a>
-                        </li>
+{{--                        <li class="highlight menu-item animate-dropdown">--}}
+{{--                            <a title="สินค้ายอดนิยม" href="shop.html">สินค้ายอดนิยม</a>--}}
+{{--                        </li>--}}
+{{--                        <li class="highlight menu-item animate-dropdown">--}}
+{{--                            <a title="สินค้ามาใหม่" href="shop.html">สินค้ามาใหม่</a>--}}
+{{--                        </li>--}}
+{{--                        <li class="highlight menu-item animate-dropdown">--}}
+{{--                            <a title="สินค้าแนะนำ" href="shop.html">สินค้าแนะนำ</a>--}}
+{{--                        </li>--}}
                         @foreach($catalogs as $catalog)
                             <li class="menu-item animate-dropdown">
                                 <a title="{{ $catalog->name }}" href="{{ route('product.index',['catalog' => $catalog->id]) }}">{{ $catalog->name }}</a>

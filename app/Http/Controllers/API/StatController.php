@@ -14,7 +14,7 @@ class StatController extends Controller
         $results = [];
         $year = Carbon::now()->year;
         for ($i = 0;$i < 12;$i++){
-            $sum = Order::where('status','>',2)->whereMonth('created_at',$i+1)->sum('total');
+            $sum = Order::where('status','>',2)->whereMonth('created_at',$i+1)->whereYear('created_at',$year)->sum('total');
             $results[] = [
                 'm' => $year.'-'.($i+1 > 9 ? $i+1:'0'.($i+1)),
                 'item1' => $sum

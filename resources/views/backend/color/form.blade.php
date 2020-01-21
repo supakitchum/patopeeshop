@@ -9,7 +9,7 @@
         <div class="box">
             <div class="box-header">
                 <div class="row">
-                    <div class="col-lg-6 col-sm-12">
+                    <div class="col-lg-10 col-sm-12 mb-2">
                         @if(Request::is('*edit'))
                         <h3 class="box-title">แก้ไขกำลังไฟ</h3>
                         @else
@@ -17,8 +17,8 @@
                         @endif
 
                     </div>
-                    <div class="col-lg-6 col-sm-12" align="right">
-                        <a class="btn btn-rounded text-white btn-primary" href="{{ route('backend.powers.index') }}">
+                    <div class="col-lg-2 col-sm-12" align="right">
+                        <a class="btn btn-rounded text-white btn-primary w-100" href="{{ route('backend.powers.index') }}">
                             <i class="fa fa-list"></i> รายการกำลังไฟ
                         </a>
                     </div>

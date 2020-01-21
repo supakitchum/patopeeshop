@@ -9,11 +9,11 @@
             <div class="box">
                 <div class="box-header">
                     <div class="row">
-                        <div class="col-lg-6 col-sm-12">
+                        <div class="col-lg-10 col-sm-12 mb-2">
                             <h3 class="box-title">รายละเอียดสินค้า</h3>
                         </div>
-                        <div class="col-lg-6 col-sm-12" align="right">
-                            <a class="btn btn-rounded text-white btn-primary"
+                        <div class="col-lg-2 col-sm-12" align="right">
+                            <a class="btn btn-rounded text-white btn-primary w-100"
                                href="{{ route('backend.products.index') }}">
                                 <i class="fa fa-list"></i> รายการ
                             </a>
@@ -64,7 +64,7 @@
                                             <div id="detail-{{ $index+1 }}">
                                                 <input type="hidden" name="detail_id[]" value="{{ $result->detail_id }}">
                                             </div>
-                                            <div class="col-3">
+                                            <div class="col-lg-3 col-sm-12">
                                                 <div class="form-group">
                                                     <label>ขนาด</label>
                                                     <select class="form-control" name="size[]">
@@ -75,7 +75,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-3">
+                                            <div class="col-lg-3 col-sm-12">
                                                 <div class="form-group">
                                                     <label>กำลังไฟ</label>
                                                     <select class="form-control" name="color[]">
@@ -86,7 +86,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-3">
+                                            <div class="col-lg-3 col-sm-12">
                                                 <div class="form-group">
                                                     <label>จำนวน</label>
                                                     <input id="feature-{{ $index+1 }}-quality" type="number"
@@ -94,7 +94,7 @@
                                                            class="form-control" required placeholder="0">
                                                 </div>
                                             </div>
-                                            <div class="col-2">
+                                            <div class="col-lg-2 col-sm-12">
                                                 <label>ราคา</label>
                                                 <div class="input-group">
                                                     <input id="feature-{{ $index+1 }}-amount" type="number"
@@ -103,8 +103,8 @@
                                                     <span class="input-group-addon">บาท</span>
                                                 </div>
                                             </div>
-                                            <div class="col-1 pt-25">
-                                                <button class="btn btn-rounded btn-danger" type="button"
+                                            <div class="col-lg-1 col-sm-12 pt-25">
+                                                <button class="btn btn-rounded btn-danger w-100" type="button"
                                                         onclick="remove({{ $index+1 }},false,{{ $result->detail_id }})">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
@@ -113,7 +113,7 @@
                                     @endforeach
                                 @else
                                     <div class="row" id="feature-1">
-                                        <div class="col-3">
+                                        <div class="col-lg-3 col-sm-12">
                                             <div class="form-group">
                                                 <label>ขนาด</label>
                                                 <select class="form-control" name="size[]">
@@ -123,7 +123,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col-lg-3 col-sm-12">
                                             <div class="form-group">
                                                 <label>กำลังไฟ</label>
                                                 <select class="form-control" name="color[]">
@@ -133,14 +133,14 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col-lg-3 col-sm-12">
                                             <div class="form-group">
                                                 <label>จำนวน</label>
                                                 <input id="feature-1-quality" type="number" name="quality[]"
                                                        class="form-control" required placeholder="0">
                                             </div>
                                         </div>
-                                        <div class="col-2">
+                                        <div class="col-lg-2 col-sm-12">
                                             <label>ราคา</label>
                                             <div class="input-group">
                                                 <input id="feature-1-amount" type="number" name="amount[]"
@@ -148,8 +148,8 @@
                                                 <span class="input-group-addon">บาท</span>
                                             </div>
                                         </div>
-                                        <div class="col-1 pt-25">
-                                            <button class="btn btn-rounded btn-danger" type="button"
+                                        <div class="col-lg-1 col-sm-12 pt-25">
+                                            <button class="btn btn-rounded btn-danger w-100" type="button"
                                                     onclick="remove(1,true,null)">
                                                 <i class="fa fa-trash"></i>
                                             </button>
@@ -157,9 +157,9 @@
                                     </div>
                                 @endif
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 pt-2">
                                 <div class="form-group">
-                                    <button type="button" onclick="add();" class="btn btn-rounded btn-primary"><i
+                                    <button type="button" onclick="add();" class="btn btn-rounded btn-primary w-100"><i
                                             class="fa fa-plus"></i> เพิ่มคุณลักษณะ
                                     </button>
                                 </div>
@@ -212,7 +212,7 @@
 @section('script')
     <script type="text/html" id="template">
         <div class="row" id="feature-id">
-            <div class="col-3">
+            <div class="col-lg-3 col-sm-12">
                 <div class="form-group">
                     <label>ขนาด</label>
                     <select class="form-control" name="size[]">
@@ -222,7 +222,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-lg-3 col-sm-12">
                 <div class="form-group">
                     <label>กำลังไฟ</label>
                     <select class="form-control" name="color[]">
@@ -232,14 +232,14 @@
                     </select>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-lg-3 col-sm-12">
                 <div class="form-group">
                     <label>จำนวน</label>
                     <input id="feature-id-quality" type="number" name="quality[]"
                            class="form-control" required placeholder="0">
                 </div>
             </div>
-            <div class="col-2">
+            <div class="col-lg-2 col-sm-12">
                 <label>ราคา</label>
                 <div class="input-group">
                     <input id="feature-id-amount" type="number" name="amount[]"
@@ -247,8 +247,8 @@
                     <span class="input-group-addon">บาท</span>
                 </div>
             </div>
-            <div class="col-1 pt-25">
-                <button class="btn btn-rounded btn-danger" type="button"
+            <div class="col-lg-1 col-sm-12 pt-25">
+                <button class="btn btn-rounded btn-danger w-100" type="button"
                         onclick="remove()">
                     <i class="fa fa-trash"></i>
                 </button>

@@ -8,12 +8,12 @@
             <div class="box">
                 <div class="box-header with-border">
                     <div class="row">
-                        <div class="col-lg-6 col-sm-12">
+                        <div class="col-lg-10 col-sm-12 mb-2">
                             <h3 class="box-title">ข้อมูลของสมาชิก</h3>
                         </div>
 
-                        <div class="col-lg-6 col-sm-12" align="right">
-                            <a class="btn btn-primary btn-rounded text-white"
+                        <div class="col-lg-2 col-sm-12" align="right">
+                            <a class="btn btn-primary btn-rounded text-white w-100"
                                href="{{ route('backend.customers.index') }}">
                                 <i class="fa fa-list"></i> รายการ
                             </a>

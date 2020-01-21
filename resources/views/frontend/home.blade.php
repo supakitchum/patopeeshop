@@ -336,7 +336,7 @@
                 @foreach($random_products as $product)
                     <div class="widget widget_techmarket_banner_widget">
                         <div class="banner">
-                            <a href="shop.html">
+                            <a href="{{ route('product.show',['id' => $product->id]) }}">
                                 <div style="background-size: cover; background-position: center center; background-image: url( {{ asset($product->path) }} ); height: 207px;" class="banner-bg">
                                     <div class="caption">
                                         <div class="banner-info">

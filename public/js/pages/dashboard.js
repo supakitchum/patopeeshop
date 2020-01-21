@@ -174,7 +174,7 @@ $(function () {
     // Sales chart
     var line;
     var months = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."];
-    $.get('api/stat/line-chart').done(function (data) {
+    $.get('/api/stat/line-chart').done(function (data) {
         line = new Morris.Line({
             element: 'line-chart',
             resize: true,

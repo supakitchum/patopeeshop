@@ -50,11 +50,11 @@
             <div class="box">
                 <div class="box-header">
                     <div class="row">
-                        <div class="col-lg-6 col-sm-12">
+                        <div class="col-lg-10 col-sm-12">
                             <h3 class="box-title">รายการสินค้า</h3>
                         </div>
-                        <div class="col-lg-6 col-sm-12" align="right">
-                            <a class="btn btn-rounded text-white" style="background-color: #00be00;"
+                        <div class="col-lg-2 col-sm-12" align="right">
+                            <a class="btn btn-rounded text-white w-100" style="background-color: #00be00;"
                                href="{{ route('backend.products.create') }}">
                                 <i class="fa fa-plus"></i> เพิ่ม
                             </a>

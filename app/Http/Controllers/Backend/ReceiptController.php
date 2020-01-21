@@ -82,12 +82,6 @@ class ReceiptController extends Controller
             'address' => $address
         ]);
         return $pdf->stream();
-        // return view('frontend.pdf')->with([
-        //     'details' => $details,
-        //     'order' => $order,
-        //     'user' => $user,
-        //     'senders' => $senders
-        // ]);
     }
 
     /**

@@ -74,11 +74,11 @@
             <div class="box">
                 <div class="box-header">
                     <div class="row">
-                        <div class="col-lg-6 col-sm-12">
+                        <div class="col-lg-10 col-sm-12 mb-2">
                             <h3 class="box-title">รายการสินค้า</h3>
                         </div>
-                        <div class="col-lg-6 col-sm-12" align="right">
-                            <a class="btn btn-rounded text-white" style="background-color: #00be00;"
+                        <div class="col-lg-2 col-sm-12" align="right">
+                            <a class="btn btn-rounded text-white w-100" style="background-color: #00be00;"
                                href="{{ route('backend.products.create') }}">
                                 <i class="fa fa-plus"></i> เพิ่ม
                             </a>
@@ -134,11 +134,11 @@
                             result.push(json[i]['created_at']);
                             result.push(json[i]['updated_at']);
                             result.push('<div class="row">\n' +
-                                '                                    <div class="col-lg-6 col-md-12">\n' +
+                                '                                    <div class="col-md-12 mb-2">\n' +
                                 '                                        <a href="/backend/products/'+json[i]['id']+'/edit"\n' +
                                 '                                            class="btn btn-warning btn-rounded w-100"><i class="fa fa-edit"></i></a>\n' +
                                 '                                    </div>\n' +
-                                '                                    <div class="col-lg-6 col-md-12">\n' +
+                                '                                    <div class="col-md-12 mb-2">\n' +
                                 '                                        <form action="/backend/products/'+json[i]['id']+'"\n' +
                                 '                                            method="post">\n' +
                                 '                                            @csrf\n' +

@@ -9,11 +9,11 @@
             <div class="box">
                 <div class="box-header">
                     <div class="row">
-                        <div class="col-lg-6 col-sm-12">
+                        <div class="col-lg-10 col-sm-12 mb-2">
                             <h3 class="box-title">รายละเอียดรายการคำสั่งซื้อ</h3>
                         </div>
-                        <div class="col-lg-6" align="right">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart"><i class="fa fa-shopping-cart"></i> รถเข็นของฉัน (<span
+                        <div class="col-lg-2 col-sm-12" align="right">
+                            <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#cart"><i class="fa fa-shopping-cart"></i> รถเข็นของฉัน (<span
                                     class="total-count"></span>)
                             </button>
                         </div>

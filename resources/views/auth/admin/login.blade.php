@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../images/favicon.ico">
 
-    <title>mínimo admin - Log in </title>
+    <title>Solar Nature Admin - Log in </title>
 
     <!-- Bootstrap v4.0.0-beta -->
     <link rel="stylesheet" href="{{ asset('assets/vendor_components/bootstrap/dist/css/bootstrap.min.css') }}">
@@ -35,31 +35,34 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
-
+        <p class="login-box-msg">เข้าสู่ระบบจัดการสินค้า</p>
+        @if ($errors->any())
+            <div class="alert alert-warning">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form method="post" class="form-element">
             @csrf
             <div class="form-group has-feedback">
-                <input type="email" name="email" class="form-control" placeholder="Email">
+                <input type="email" required name="email" class="form-control" placeholder="Email">
                 <span class="ion ion-email form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" name="password" class="form-control" placeholder="Password">
+                <input type="password" required name="password" class="form-control" placeholder="Password">
                 <span class="ion ion-locked form-control-feedback"></span>
             </div>
             <div class="row">
                 <div class="col-6">
                     <div class="checkbox">
                         <input type="checkbox" id="basic_checkbox_1">
-                        <label for="basic_checkbox_1">Remember Me</label>
+                        <label for="basic_checkbox_1">จดจำฉัน</label>
                     </div>
                 </div>
                 <!-- /.col -->
-                <div class="col-6">
-                    <div class="fog-pwd">
-                        <a href="javascript:void(0)"><i class="ion ion-locked"></i> Forgot pwd?</a><br>
-                    </div>
-                </div>
                 <div class="col-12" style="margin-left: 2%;">
                     @if(env('GOOGLE_RECAPTCHA_KEY'))
                         <script src="https://www.google.com/recaptcha/api.js?hl=th"></script>
@@ -70,7 +73,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-12 text-center">
-                    <button type="submit" class="btn btn-info btn-block btn-flat margin-top-10">SIGN IN</button>
+                    <button type="submit" class="btn btn-info btn-block btn-flat margin-top-10">เข้าสู่ระบบ</button>
                 </div>
             <!-- /.col -->
             </div>
