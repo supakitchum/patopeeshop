@@ -36,16 +36,13 @@ Route::post('backend', ['as'=>'admin-login','uses'=>'Auth\AdminLoginController@l
 Route::get('backend/logout','Auth\AdminLoginController@logout')->name('backend.logout');
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::resource('checkout','Frontend\CheckoutController');
-Route::resource('profile','Frontend\ProfileController');
-Route::resource('report','Frontend\ReportController');
-Route::get('logout',function (){
-    Auth::logout();
-    return redirect('/');
-});
+Route::resource('checkout', 'Frontend\CheckoutController');
+Route::resource('profile', 'Frontend\ProfileController');
+Route::resource('report', 'Frontend\ReportController');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::resource('/product', 'Frontend\ProductController');
-Route::get('/payment','Frontend\PaymentController@index')->name('payment');
-Route::post('/payment','Frontend\PaymentController@store');
-Route::get('/history','Frontend\HistoryController@index')->name('history');
-Route::get('/history/{id}','Frontend\HistoryController@detail');
-Route::get('/receipt/{id}','Frontend\HistoryController@receipt');
+Route::get('/payment', 'Frontend\PaymentController@index')->name('payment');
+Route::post('/payment', 'Frontend\PaymentController@store');
+Route::get('/history', 'Frontend\HistoryController@index')->name('history');
+Route::get('/history/{id}', 'Frontend\HistoryController@detail');
+Route::get('/receipt/{id}', 'Frontend\HistoryController@receipt');

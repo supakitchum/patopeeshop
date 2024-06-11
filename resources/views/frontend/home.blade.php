@@ -303,17 +303,17 @@
                                             <div class="woocommerce columns-1">
                                                 <div class="products">
                                                     <div class="tab-product-featured product">
-                                                        <a class="woocommerce-LoopProduct-link" href="{{ route('product.show',['id' => $recommend_products[0]->id]) }}">
-                                                            <img width="600" height="600" alt="" class="attachment-shop_single size-shop_single wp-post-image" src="{{ $recommend_products[0]->path }}">
+                                                        <a class="woocommerce-LoopProduct-link" href="{{ route('product.show',['id' => $recommend_products[0]->id ?? 1]) }}">
+                                                            <img width="600" height="600" alt="" class="attachment-shop_single size-shop_single wp-post-image" src="{{ $recommend_products[0]->path ?? '' }}">
                                                             <span class="price">
                                                                         <ins>
                                                                             <span class="woocommerce-Price-amount amount">
-                                                                                {{ number_format($recommend_products[0]->price,2) }}</span>
+                                                                                {{ number_format($recommend_products[0]->price ?? 0,2) }}</span>
                                                                         </ins>
                                                                     </span>
-                                                            <h2 class="woocommerce-loop-product__title">{{ $recommend_products[0]->name }}</h2>
+                                                            <h2 class="woocommerce-loop-product__title">{{ $recommend_products[0]->name ?? '' }}</h2>
                                                         </a>
-                                                        <a class="button add_to_cart_button" href="{{ route('product.show',['id' => $recommend_products[0]->id]) }}">ดูสินค้า</a>
+                                                        <a class="button add_to_cart_button" href="{{ route('product.show',['id' => $recommend_products[0]->id ?? 1]) }}">ดูสินค้า</a>
                                                     </div>
                                                 </div>
                                             </div>

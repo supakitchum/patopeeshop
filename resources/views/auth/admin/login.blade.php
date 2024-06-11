@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../images/favicon.ico">
 
-    <title>Solar Nature Admin - Log in </title>
+    <title>mínimo admin - Log in </title>
 
     <!-- Bootstrap v4.0.0-beta -->
     <link rel="stylesheet" href="{{ asset('assets/vendor_components/bootstrap/dist/css/bootstrap.min.css') }}">
@@ -48,11 +48,11 @@
         <form method="post" class="form-element">
             @csrf
             <div class="form-group has-feedback">
-                <input type="email" required name="email" class="form-control" placeholder="Email">
+                <input type="email" required name="email" {{ env("APP_ENV",'local') === "local" ? 'value=admin@test.com' : '' }} class="form-control" placeholder="Email">
                 <span class="ion ion-email form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" required name="password" class="form-control" placeholder="Password">
+                <input type="password" required name="password" {{ env("APP_ENV",'local') === "local" ? 'value=1234' : '' }} class="form-control" placeholder="Password">
                 <span class="ion ion-locked form-control-feedback"></span>
             </div>
             <div class="row">
