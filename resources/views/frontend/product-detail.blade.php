@@ -109,6 +109,9 @@
 @endsection
 @section('script')
     <script>
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
         function getAll(){
             color.attr('disabled',true);
             color.html('')
@@ -120,7 +123,7 @@
             });
             $.get("/api/product/{{ $results[0]->id }}/true",function (sizes) {
                 size.html('');
-                size.append($("<option>").attr('value',0).text('โปรดเลือกขนาด'));
+                size.append($("<option>").attr('value',0).text('โปรดเลือกตัวเลือกหลัก'));
                 $(sizes).each(function() {
                     size.append($("<option>").attr('value',this.size_id).text(this.size_name));
                 });
@@ -139,7 +142,7 @@
                 amount.val();
                 $('#total').html('0')
                 price.val(0)
-                color.append($("<option>").attr('value', 0).text('โปรดเลือกสี'));
+                color.append($("<option>").attr('value', 0).text('โปรดเลือกตัวเลือกรอง'));
                 $(detail).each(function () {
                     color.attr('disabled', false);
                     color.append($("<option>").attr('value', this.color_id).text(this.color_name));
@@ -156,8 +159,8 @@
                 $('#aid').val(detail[0].id)
                 $('#total').html(detail[0].price)
                 price.val(detail[0].price)
-                $('#price').html(detail[0].price)
-                $('#quality').html(detail[0].quality)
+                $('#price').html(numberWithCommas(detail[0].price))
+                $('#quality').html(numberWithCommas(detail[0].quality))
             })
         });
     </script>

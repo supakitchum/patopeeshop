@@ -16,16 +16,16 @@ use App\Http\Controllers\Controller;
 class ProductController extends Controller
 {
 
-    private $product, $color, $size, $catalog, $product_detail, $product_catalog,$productImage;
+    private $product, $color, $size, $catalog, $product_detail, $product_catalog, $productImage;
 
     public function __construct(
-        Product $product,
-        Size $size,
-        Color $color,
-        Catalog $catalog,
-        ProductDetail $product_detail,
+        Product        $product,
+        Size           $size,
+        Color          $color,
+        Catalog        $catalog,
+        ProductDetail  $product_detail,
         ProductCatalog $product_catalog,
-        ProductImage $productImage
+        ProductImage   $productImage
     )
     {
         $this->product = $product;
@@ -44,33 +44,34 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $results = $this->product->leftjoin('product_details','products.id','=','product_details.pid')
-            ->leftjoin('product_images','product_details.pid','=','product_images.pid')
-            ->leftjoin('product_catalogs','product_details.pid','=','product_catalogs.pid');
-        if (isset(\request()->keyword)){
-                $results = $results->where('products.name','like','%'.\request()->keyword.'%');
+        $results = $this->product->leftjoin('product_details', 'products.id', '=', 'product_details.pid')
+            ->leftjoin('product_images', 'product_details.pid', '=', 'product_images.pid')
+            ->leftjoin('product_catalogs', 'product_details.pid', '=', 'product_catalogs.pid');
+        if (isset(\request()->keyword)) {
+            $results = $results->where('products.name', 'like', '%' . \request()->keyword . '%');
         }
-        if (isset(\request()->catalog)){
-            $results = $results->where('product_catalogs.cid',\request()->catalog);
+        if (isset(\request()->catalog)) {
+            $results = $results->where('product_catalogs.cid', \request()->catalog);
         }
-        if (isset(\request()->size)){
-            $results = $results->where('product_details.size',\request()->size);
+        if (isset(\request()->size)) {
+            $results = $results->where('product_details.size', \request()->size);
         }
-        if (isset(\request()->color)){
-            $results = $results->where('product_details.color',\request()->color);
+        if (isset(\request()->color)) {
+            $results = $results->where('product_details.color', \request()->color);
         }
-        $results = $results->select('products.*','product_details.price','product_images.path')
+        $results = $results->select('products.*', 'product_details.price', 'product_images.path')
             ->groupBy('products.id')
             ->paginate(9);
         $catalogs = $this->catalog
-            ->leftjoin('product_catalogs','catalogs.id','=','product_catalogs.cid')
-            ->join('products','product_catalogs.pid','=','products.id')
+            ->leftjoin('product_catalogs', 'catalogs.id', '=', 'product_catalogs.cid')
+            ->join('products', 'product_catalogs.pid', '=', 'products.id')
             ->whereNull('products.deleted_at')
-            ->select('catalogs.*',\DB::raw('count(catalogs.id) as total'))
+            ->select('catalogs.*', \DB::raw('count(catalogs.id) as total'))
             ->groupBy('catalogs.id')
             ->get();
         $colors = $this->color->all();
         $sizes = $this->size->all();
+        $current_catalog = $this->catalog->find(\request()->catalog);
         return view(
             'frontend.product',
             [
@@ -78,7 +79,8 @@ class ProductController extends Controller
                 'images' => $this->product,
                 'catalogs' => $catalogs,
                 'colors' => $colors,
-                'sizes' => $sizes
+                'sizes' => $sizes,
+                'current_catalog' => $current_catalog
             ]
         );
     }
@@ -116,7 +118,7 @@ class ProductController extends Controller
         $sizes = $this->size->all();
         $catalogs = $this->catalog->all();
         $results = $this->product->details($id);
-        $images = $this->productImage->where('pid',$id)->get();
+        $images = $this->productImage->where('pid', $id)->get();
         return view('frontend.product-detail')->with(
             [
                 'colors' => $colors,

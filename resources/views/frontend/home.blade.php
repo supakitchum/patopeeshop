@@ -2,9 +2,11 @@
 @section('title','หน้าแรก')
 @section('content')
     <!-- Home slide -->
-    <div class="home-slide3 owl-carousel nav-style3 nav-center-center" data-animateout="fadeOut" data-animatein="fadeIn" data-items="1" data-nav="true" data-dots="false" data-loop="true" data-autoplay="true">
+    <div class="home-slide3 owl-carousel nav-style3 nav-center-center" data-animateout="fadeOut" data-animatein="fadeIn"
+         data-items="1" data-nav="true" data-dots="false" data-loop="true" data-autoplay="true">
         <img src="{{ asset('images/header1.png') }}" alt="">
         <img src="{{ asset('images/header2.png') }}" alt="">
+        <img src="{{ asset('images/header3.png') }}" alt="">
     </div>
     <!-- ./Home slide -->
     <div class="container">
@@ -33,21 +35,30 @@
                 <div class="tab-content">
                     <div class="tab-container">
                         <div id="tab-1" class="tab-panel active">
-                            <ul class="tab-list owl-carousel nav-style7 nav-center-center" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="30" data-responsive='{"0":{"items":1},"600":{"items":2},"1000":{"items":4}}'>
+                            <ul class="tab-list owl-carousel nav-style7 nav-center-center" data-nav="true"
+                                data-autoplay="false" data-dots="false" data-loop="true" data-margin="30"
+                                data-responsive='{"0":{"items":1},"600":{"items":2},"1000":{"items":4}}'>
                                 @foreach($recommend_products as $product)
                                     <li class="product-item">
                                         <div class="product-inner">
-                                            <div class="product-thumb has-back-image" style="max-height: 390px;overflow-y: hidden">
-                                                <a href="{{ route('product.show',['id' => $product->id]) }}"><img src="{{ asset($product->path) }}" alt=""></a>
-                                                <a class="back-image" href="{{ route('product.show',['id' => $product->id]) }}"><img src="{{ asset($product->path) }}" alt=""></a>
+                                            <div class="product-thumb has-back-image"
+                                                 style="max-height: 390px;overflow-y: hidden">
+                                                <a href="{{ route('product.show',['id' => $product->id]) }}"><img
+                                                            src="{{ asset($product->path) }}" alt=""></a>
+                                                <a class="back-image"
+                                                   href="{{ route('product.show',['id' => $product->id]) }}"><img
+                                                            src="{{ asset($product->path) }}" alt=""></a>
                                                 <div class="gorup-button">
-                                                    <a href="{{ route('product.show',['id' => $product->id]) }}" class="quick-view"><i class="fa fa-search"></i></a>
+                                                    <a href="{{ route('product.show',['id' => $product->id]) }}"
+                                                       class="quick-view"><i class="fa fa-search"></i></a>
                                                 </div>
                                             </div>
                                             <div class="product-info">
-                                                <h3 class="product-name"><a href="{{ route('product.show',['id' => $product->id]) }}">{{ $product->name }}</a></h3>
+                                                <h3 class="product-name"><a
+                                                            href="{{ route('product.show',['id' => $product->id]) }}">{{ $product->name }}</a>
+                                                </h3>
                                                 <span class="price">
-											<ins>{{ $product->price }} บาท</ins>
+											<ins>{{ number_format($product->price,2) }} บาท</ins>
 										</span>
                                                 <a href="#" data-toggle="modal"
                                                    data-title="{{ $product->name }}"
@@ -61,21 +72,30 @@
                             </ul>
                         </div>
                         <div id="tab-2" class="tab-panel">
-                            <ul class="tab-list owl-carousel nav-style7 nav-center-center" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="30" data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":4}}'>
+                            <ul class="tab-list owl-carousel nav-style7 nav-center-center" data-nav="true"
+                                data-autoplay="false" data-dots="false" data-loop="true" data-margin="30"
+                                data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":4}}'>
                                 @foreach($products as $product)
                                     <li class="product-item">
                                         <div class="product-inner">
-                                            <div class="product-thumb has-back-image" style="max-height: 390px;overflow-y: hidden">
-                                                <a href="{{ route('product.show',['id' => $product->id]) }}"><img src="{{ asset($product->path) }}" alt=""></a>
-                                                <a class="back-image" href="{{ route('product.show',['id' => $product->id]) }}"><img src="{{ asset($product->path) }}" alt=""></a>
+                                            <div class="product-thumb has-back-image"
+                                                 style="max-height: 390px;overflow-y: hidden">
+                                                <a href="{{ route('product.show',['id' => $product->id]) }}"><img
+                                                            src="{{ asset($product->path) }}" alt=""></a>
+                                                <a class="back-image"
+                                                   href="{{ route('product.show',['id' => $product->id]) }}"><img
+                                                            src="{{ asset($product->path) }}" alt=""></a>
                                                 <div class="gorup-button">
-                                                    <a href="{{ route('product.show',['id' => $product->id]) }}" class="quick-view"><i class="fa fa-search"></i></a>
+                                                    <a href="{{ route('product.show',['id' => $product->id]) }}"
+                                                       class="quick-view"><i class="fa fa-search"></i></a>
                                                 </div>
                                             </div>
                                             <div class="product-info">
-                                                <h3 class="product-name"><a href="{{ route('product.show',['id' => $product->id]) }}">{{ $product->name }}</a></h3>
+                                                <h3 class="product-name"><a
+                                                            href="{{ route('product.show',['id' => $product->id]) }}">{{ $product->name }}</a>
+                                                </h3>
                                                 <span class="price">
-											<ins>{{ $product->price }} บาท</ins>
+											<ins>{{ number_format($product->price,2) }} บาท</ins>
 										</span>
                                                 <a href="#" data-toggle="modal"
                                                    data-title="{{ $product->name }}"
@@ -101,7 +121,9 @@
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-7">
-                    <ul class="category-menu category-carousel pull-left owl-carousel nav-style7 nav-center-center" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="30" data-responsive='{"0":{"items":1},"600":{"items":4},"1000":{"items":4}}'>
+                    <ul class="category-menu category-carousel pull-left owl-carousel nav-style7 nav-center-center"
+                        data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="30"
+                        data-responsive='{"0":{"items":1},"600":{"items":4},"1000":{"items":4}}'>
                         @foreach($catalogs as $catalog)
                             <li>
                                 <a href="{{ route('product.index',['catalog'=> $catalog->id]) }}">
@@ -116,7 +138,9 @@
         </div>
         <div class="margin-top-60 section-lasttest-blog">
             <div class="section-title text-center"><h3>บทความของเรา</h3></div>
-            <div class="lastest-blog owl-carousel nav-center-center nav-style7" data-nav="true" data-dots="false" data-loop="true" data-margin="30" data-responsive='{"0":{"items":1},"600":{"items":1},"1000":{"items":2}}'>
+            <div class="lastest-blog owl-carousel nav-center-center nav-style7" data-nav="true" data-dots="false"
+                 data-loop="true" data-margin="30"
+                 data-responsive='{"0":{"items":1},"600":{"items":1},"1000":{"items":2}}'>
                 @for($i=0;$i < 3;$i++)
                     <div class="item-blog">
                         <div class="left">
@@ -132,7 +156,8 @@
                             </div>
                         </div>
                         <div class="right">
-                            <a class="banner-border" href="#"><img src="{{ asset('images/blog'.($i+1).'.png') }}" alt=""></a>
+                            <a class="banner-border" href="#"><img src="{{ asset('images/blog'.($i+1).'.png') }}"
+                                                                   alt=""></a>
                         </div>
                     </div>
                 @endfor
@@ -140,7 +165,9 @@
         </div>
 
         <div class="section-brand-slide">
-            <div class="brands-slide owl-carousel nav-center-center nav-style7" data-nav="true" data-dots="false" data-loop="true" data-margin="60" data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":5}}'>
+            <div class="brands-slide owl-carousel nav-center-center nav-style7" data-nav="true" data-dots="false"
+                 data-loop="true" data-margin="60"
+                 data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":5}}'>
                 <a href="#"><img src="{{ asset('images/free1.png') }}" alt=""></a>
                 <a href="#"><img src="{{ asset('images/free2.png') }}" alt=""></a>
                 <a href="#"><img src="{{ asset('images/free3.png') }}" alt=""></a>

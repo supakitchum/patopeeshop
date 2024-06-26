@@ -135,11 +135,11 @@
                             result.push(json[i]['updated_at']);
                             result.push('<div class="row">\n' +
                                 '                                    <div class="col-lg-6 col-md-12">\n' +
-                                '                                        <a href="/backend/products/'+json[i]['id']+'/edit"\n' +
+                                '                                        <a href="/backend/products/products/'+json[i]['id']+'/edit"\n' +
                                 '                                            class="btn btn-warning btn-rounded w-100"><i class="fa fa-edit"></i></a>\n' +
                                 '                                    </div>\n' +
                                 '                                    <div class="col-lg-6 col-md-12">\n' +
-                                '                                        <form action="/backend/products/'+json[i]['id']+'"\n' +
+                                '                                        <form action="/backend/products/products/'+json[i]['id']+'"\n' +
                                 '                                            method="post">\n' +
                                 '                                            @csrf\n' +
                                 '                                            @method("delete")\n' +

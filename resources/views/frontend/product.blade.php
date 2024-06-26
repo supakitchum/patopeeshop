@@ -11,8 +11,8 @@
                         <ul class="product-categories">
                             @foreach($catalogs as $index=>$catalog)
                                 <li class="{{ $catalog->id == request()->catalog ? 'current-cat':'' }}"><a
-                                        href="product?catalog={{ $catalog->id }}">{{ $catalog->name }}</a><span
-                                        class="count-item">({{ $catalog->total }})</span></li>
+                                            href="product?catalog={{ $catalog->id }}">{{ $catalog->name }}</a><span
+                                            class="count-item">({{ $catalog->total }})</span></li>
                             @endforeach
                         </ul>
                     </div>
@@ -24,7 +24,7 @@
                             @foreach($colors as $color)
                                 <a class="{{ request()->color == $color->id ? 'active': '' }}"
                                    href="/product?catalog={{ request()->catalog ? request()->catalog:1 }}&size={{ request()->size ? request()->size:'' }}{{ '&color='.$color->id }}"><span
-                                        style="background-color:{{ $color->code }};border: 1px solid black;"></span></a>
+                                            style="background-color:{{ $color->code }};border: 1px solid black;"></span></a>
                             @endforeach
                         </div>
                     </div>
@@ -42,28 +42,33 @@
                     <!-- ./By color -->
                 </div>
                 <div class="main-content col-sm-8 col-md-9">
-                    <div class="shop-top">
-                        <div class="shop-top-left">
+                    <div class="row m-0">
+                        <div class="col-12 mb-2 p-0">
+                            <img src="{{ asset($current_catalog->photo) }}">
+                        </div>
+                        <div class="col-12 mb-2 p-0">
                             <span class="woocommerce-result-count">แสดงสินค้าจำนวนชิ้นที่ {{ $results->firstItem() == $results->lastItem() ? $results->lastItem() : $results->firstItem().'-'.$results->lastItem() }} จาก {{ $results->total() }} ชิ้น</span>
                         </div>
                     </div>
-                    <ul class="product-list-grid desktop-columns-3 tablet-columns-2 mobile-columns-1 row flex-flow">
+                    <ul class="product-list-grid desktop-columns-3 tablet-columns-2 mobile-columns-1 row m-0 flex-flow">
                         @if(sizeof($results) > 0)
                             @foreach($results as $result)
                                 <li class="product-item style3 col-sm-6 col-md-4">
                                     <div class="product-inner">
-                                        <div class="product-thumb has-back-image" style="max-height: 390px;overflow-y: hidden">
+                                        <div class="product-thumb has-back-image"
+                                             style="max-height: 390px;overflow-y: hidden">
                                             <a><img src="{{ asset($result->path) }}" alt=""></a>
                                             <a class="back-image"><img src="{{ asset($result->path) }}" alt=""></a>
                                             <div class="gorup-button">
-                                                <a href="/product/{{ $result->id }}" class="quick-view"><i class="fa fa-search"></i></a>
+                                                <a href="/product/{{ $result->id }}" class="quick-view"><i
+                                                            class="fa fa-search"></i></a>
                                             </div>
                                         </div>
                                         <div class="product-info">
                                             <h3 class="product-name"><a
-                                                    href="/product/{{ $result->id }}">{{ $result->name }}</a></h3>
+                                                        href="/product/{{ $result->id }}">{{ $result->name }}</a></h3>
                                             <span class="price">
-									<ins>{{ $result->price }}</ins>
+									<ins>{{ number_format($result->price,2) }}</ins>
 								</span>
                                             <a href="/product/{{ $result->id }}" class="button add_to_cart_button">ดูรายละเอียด</a>
                                         </div>

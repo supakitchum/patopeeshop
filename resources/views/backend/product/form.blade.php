@@ -51,7 +51,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="file-loading">
-                                    <input id="input-pd" name="input-pd[]" type="file" accept="image/*" multiple>
+                                    <input id="input-pd" name="input-pd[]" type="file" multiple>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -62,7 +62,8 @@
                                     @foreach($results as $index=>$result)
                                         <div class="row" id="feature-{{ $index+1 }}">
                                             <div id="detail-{{ $index+1 }}">
-                                                <input type="hidden" name="detail_id[]" value="{{ $result->detail_id }}">
+                                                <input type="hidden" name="detail_id[]"
+                                                       value="{{ $result->detail_id }}">
                                             </div>
                                             <div class="col-3">
                                                 <div class="form-group">
@@ -258,23 +259,25 @@
     <script>
         let id = {{ isset($results) ? sizeof($results):1 }}
 
-        function remove(rid,is_new,did) {
+            function
+        remove(rid, is_new, did)
+        {
             if (is_new)
                 $('#feature-' + rid).html('')
             else
-                $('#feature-' + rid).html('<input type="hidden" name="remove[]" value="'+did+'">')
+                $('#feature-' + rid).html('<input type="hidden" name="remove[]" value="' + did + '">')
         }
 
         function add() {
-            if ($('#feature-' + id).html() != ''){
-                let template = $('#template').html().replace(/feature-id/g,'feature-' + (id + 1)).replace('remove()',`remove(${id+1},true,null)`);
+            if ($('#feature-' + id).html() != '') {
+                let template = $('#template').html().replace(/feature-id/g, 'feature-' + (id + 1)).replace('remove()', `remove(${id + 1},true,null)`);
                 $('#feature').append(template);
                 $('#feature-' + (id + 1) + '-amount').val($('#feature-' + id + '-amount').val())
                 $('#feature-' + (id + 1) + '-quality').val($('#feature-' + id + '-quality').val())
                 $('#detail-' + (id + 1)).html('')
                 id++
-            }else{
-                let template = $('#template').html().replace(/feature-id/g,'feature-' + (id + 1)).replace('remove()',`remove(${id+1},true,null)`);
+            } else {
+                let template = $('#template').html().replace(/feature-id/g, 'feature-' + (id + 1)).replace('remove()', `remove(${id + 1},true,null)`);
                 $('#feature').append(template);
                 id++
             }
@@ -289,7 +292,7 @@
             language: 'th',
             uploadUrl: "/api/image/add/{{ $id }}",
             maxFileCount: 10,
-            allowedFileExtensions: ['jpg', 'png', 'gif'],
+            allowedFileExtensions: ['jpg', 'png', 'gif','webp'],
             overwriteInitial: false,
             enableResumableUpload: true,
             @if(isset($images))
