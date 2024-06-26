@@ -52,18 +52,20 @@
                             @foreach($results as $result)
                                 <li class="product-item style3 col-sm-6 col-md-4">
                                     <div class="product-inner">
-                                        <div class="product-thumb has-back-image" style="max-height: 390px;overflow-y: hidden">
+                                        <div class="product-thumb has-back-image"
+                                             style="max-height: 390px;overflow-y: hidden">
                                             <a><img src="{{ asset($result->path) }}" alt=""></a>
                                             <a class="back-image"><img src="{{ asset($result->path) }}" alt=""></a>
                                             <div class="gorup-button">
-                                                <a href="/product/{{ $result->id }}" class="quick-view"><i class="fa fa-search"></i></a>
+                                                <a href="/product/{{ $result->id }}" class="quick-view"><i
+                                                        class="fa fa-search"></i></a>
                                             </div>
                                         </div>
                                         <div class="product-info">
                                             <h3 class="product-name"><a
                                                     href="/product/{{ $result->id }}">{{ $result->name }}</a></h3>
                                             <span class="price">
-									<ins>{{ $result->price }}</ins>
+									<ins>{{ number_format($result->price,2) }}</ins>
 								</span>
                                             <a href="/product/{{ $result->id }}" class="button add_to_cart_button">ดูรายละเอียด</a>
                                         </div>

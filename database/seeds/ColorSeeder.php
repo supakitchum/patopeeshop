@@ -14,22 +14,28 @@ class ColorSeeder extends Seeder
     {
 
         Color::create([
-            'name' => 'แดง'
+            'name' => 'แดง',
+            'code' => '#A93226'
         ]);
         Color::create([
-            'name' => 'ดำ'
+            'name' => 'ดำ',
+            'code' => '#000000'
         ]);
         Color::create([
-            'name' => 'ขาว'
+            'name' => 'ขาว',
+            'code' => '#FFFFFF'
         ]);
         Color::create([
-            'name' => 'เทา'
+            'name' => 'เทา',
+            'code' => '#808B96'
         ]);
         Color::create([
-            'name' => 'เหลือง'
+            'name' => 'เหลือง',
+            'code' => '#F4D03F'
         ]);
         Color::create([
-            'name' => 'เขียว'
+            'name' => 'เขียว',
+            'code' => '#2ECC71'
         ]);
     }
 }

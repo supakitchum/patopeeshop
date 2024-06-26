@@ -14,7 +14,7 @@ class AddDeletedAtToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->timestamp('deleted_at');
+            $table->softDeletes();
         });
     }
 
@@ -26,7 +26,7 @@ class AddDeletedAtToProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('deleted_at');
+            $table->dropSoftDeletes();
         });
     }
 }

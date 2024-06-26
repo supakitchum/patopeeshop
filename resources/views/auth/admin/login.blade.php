@@ -40,11 +40,11 @@
         <form method="post" class="form-element">
             @csrf
             <div class="form-group has-feedback">
-                <input type="email" name="email" class="form-control" placeholder="Email">
+                <input type="email" name="email" class="form-control" {{ env('APP_ENV','local') === 'local' ? 'value=admin@test.com' : '' }} placeholder="Email">
                 <span class="ion ion-email form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" name="password" class="form-control" placeholder="Password">
+                <input type="password" name="password" class="form-control" {{ env('APP_ENV','local') === 'local' ? 'value=1234' : '' }} placeholder="Password">
                 <span class="ion ion-locked form-control-feedback"></span>
             </div>
             <div class="row">

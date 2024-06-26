@@ -34,7 +34,7 @@
                                 <span class="count-review">( 2 <span>Reviews</span> )</span>
                             </div>
                             <span class="price">
-                    <ins><span id="price">{{ number_format($results[0]->price) }}</span> บาท</ins>
+                    <ins><span id="price">{{ number_format($results[0]->price,2) }}</span> บาท</ins>
                 </span>
                             <div class="meta">
                                 คงเหลือ : <span id="quality"> {{ $results[0]->quality }}</span>

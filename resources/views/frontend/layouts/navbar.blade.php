@@ -1,137 +1,277 @@
-<div id="box-mobile-menu" class="box-mobile-menu full-height full-width">
-    <div class="box-inner">
-        <span class="close-menu"><span class="icon pe-7s-close"></span></span>
-    </div>
-</div>
-<div id="header-ontop" class="is-sticky"></div>
-<header id="header" class="header style3">
+<div id="top-nav" class="top-nav">
+    <!-- BEGIN container -->
     <div class="container">
-        <div class="d-none d-lg-table topbar">
-            <ul class="boutique-nav topbar-menu left">
-                <li><a href="#"><i class="fa fa-phone"></i>เบอร์โทร. : 081-169-0901</a></li>
-                <li><a href="#"><i class="fa fa-envelope"></i>info@demo.com</a></li>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown dropdown-hover">
+                    <a href="#" data-bs-toggle="dropdown"><img src="../assets/img/flag/flag-english.png" class="flag-img" alt="" /> English <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="dropdown-item"><img src="../assets/img/flag/flag-english.png" class="flag-img" alt="" /> English</a></li>
+                        <li><a href="#" class="dropdown-item"><img src="../assets/img/flag/flag-german.png" class="flag-img" alt="" /> German</a></li>
+                        <li><a href="#" class="dropdown-item"><img src="../assets/img/flag/flag-spanish.png" class="flag-img" alt="" /> Spanish</a></li>
+                        <li><a href="#" class="dropdown-item"><img src="../assets/img/flag/flag-french.png" class="flag-img" alt="" /> French</a></li>
+                        <li><a href="#" class="dropdown-item"><img src="../assets/img/flag/flag-chinese.png" class="flag-img" alt="" /> Chinese</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Customer Care</a></li>
+                <li><a href="#">Order Tracker</a></li>
             </ul>
-            <ul class="boutique-nav topbar-menu right">
-                @isset(auth()->user()->id)
-                    <li class="menu-item-has-children">
-                        <a href="#"><i class="fa fa-user"></i> {{ auth()->user()->email }}</a>
-                        <ul class="sub-menu">
-                            <li><a href="/history"><i class="fa fa-list"></i><span>ประวัติการสั่งซื้อ</span></a></li>
-                            <li><a href="{{ route('profile.index') }}"><i class="fa fa-user"
-                                                                          aria-hidden="true"></i><span> บัญชีของฉัน</span></a>
-                            </li>
-                            <li><a href="/payment"><i class="fa fa-money"></i><span>แจ้งชำระเงิน</span></a></li>
-                            <li><a href="/logout"><i class="fa fa-sign-out"></i><span>ออกจากระบบ</span></a></li>
-                        </ul>
-                    </li>
-                @else
-                    <li class="menu-item">
-                        <a href="#" data-toggle="modal" data-target="#loginModal">เข้าสู่ระบบ | สมัครสมาชิก</a>
-                    </li>
-                @endisset
+            <ul class="nav navbar-nav navbar-end">
+                <li><a href="#">Career</a></li>
+                <li><a href="#">Our Forum</a></li>
+                <li><a href="#">Newsletter</a></li>
+                <li><a href="#"><i class="fab fa-facebook-f f-s-14"></i></a></li>
+                <li><a href="#"><i class="fab fa-twitter f-s-14"></i></a></li>
+                <li><a href="#"><i class="fab fa-instagram f-s-14"></i></a></li>
+                <li><a href="#"><i class="fab fa-dribbble f-s-14"></i></a></li>
+                <li><a href="#"><i class="fab fa-google f-s-14"></i></a></li>
             </ul>
         </div>
-        <div class="main-menu-wapper">
-            <div class="row">
-                <div class="col-sm-12 col-md-3 logo-wapper">
-                </div>
-                <div class="col-sm-12 col-md-9 menu-wapper">
-                    <div class="top-header">
-                        <span class="mobile-navigation"><i class="fa fa-bars"></i></span>
+    </div>
+    <!-- END container -->
+</div>
 
-{{--                        <div class="slogan">"ประตูผี"</div>--}}
-                        <div class="box-control">
-                            <form class="box-search" method="get" action="/product">
-                                <div class="inner">
-                                    <input type="text" class="search" name="keyword" value="{{ isset(request()->keyword) ? request()->keyword:'' }}" placeholder="ค้นหาสินค้า">
-                                    <button class="button-search"><span class="pe-7s-search"></span></button>
-                                </div>
-                            </form>
-                            <div class="mini-cart d-md-block d-lg-none text-center">
-                                <ul class="boutique-nav topbar-menu right">
-                                    @isset(auth()->user()->id)
-                                        <li class="menu-item-has-children">
-                                            <a href="#"><i class="fa fa-fw fa-user fa-2x" style="margin-right: -10px;margin-bottom: -15px;"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="/history"><i class="fa fa-list"></i><span>ประวัติการสั่งซื้อ</span></a></li>
-                                                <li><a href="{{ route('profile.index') }}"><i class="fa fa-user"
-                                                                                              aria-hidden="true"></i><span> บัญชีของฉัน</span></a>
-                                                </li>
-                                                <li><a href="/payment"><i class="fa fa-money"></i><span>แจ้งชำระเงิน</span></a></li>
-                                                <li><a href="/logout"><i class="fa fa-sign-out"></i><span>ออกจากระบบ</span></a></li>
-                                            </ul>
-                                        </li>
-                                    @else
-                                        <li class="menu-item">
-                                            <a class="cart-link" data-toggle="modal" data-target="#loginModal">
-                                                <span class="icon pe-7s-user"></span>
-                                            </a>
-                                        </li>
-                                    @endisset
-                                </ul>
-                            </div>
-                            <div class="mini-cart">
-                                <a class="cart-link" href="#"><span class="icon pe-7s-cart"></span> <span
-                                        class="count total-count"></span>
-                                    <span class="total-cart"></span> บาท</a>
-                                <div class="show-shopping-cart">
-                                    <h3 class="title">คุณมีสินค้า (<span class="total-count"></span> ชิ้น) ในรถเข็น
-                                    </h3>
-                                    <ul class="list-product show-cart">
-                                    </ul>
-                                    <div class="sub-total">
-                                        ราคารวม : <span class="total-cart"></span> บาท
+<!-- BEGIN #header -->
+<div id="header" class="header">
+    <!-- BEGIN container -->
+    <div class="container">
+        <!-- BEGIN header-container -->
+        <div class="header-container">
+            <!-- BEGIN navbar-toggle -->
+            <button type="button" class="navbar-toggle collapsed" data-bs-toggle="collapse" data-bs-target="#navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- END navbar-toggle -->
+            <!-- BEGIN header-logo -->
+            <div class="header-logo">
+                <a href="index.html">
+                    <span class="brand-logo"></span>
+                    <span class="brand-text">
+								<span>Color</span>Admin
+								<small>e-commerce frontend theme</small>
+							</span>
+                </a>
+            </div>
+            <!-- END header-logo -->
+            <!-- BEGIN header-nav -->
+            <div class="header-nav">
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <ul class="nav justify-content-center">
+                        <li class="active"><a href="index.html">Home</a></li>
+                        <li class="dropdown dropdown-full-width dropdown-hover">
+                            <a href="#" data-bs-toggle="dropdown">
+                                Our Store
+                                <b class="caret"></b>
+                                <span class="arrow top"></span>
+                            </a>
+                            <!-- BEGIN dropdown-menu -->
+                            <div class="dropdown-menu p-0">
+                                <!-- BEGIN dropdown-menu-container -->
+                                <div class="dropdown-menu-container">
+                                    <!-- BEGIN dropdown-menu-sidebar -->
+                                    <div class="dropdown-menu-sidebar">
+                                        <h4 class="title">Shop By Categories</h4>
+                                        <ul class="dropdown-menu-list">
+                                            <li><a href="product.html">Mobile Phone</a></li>
+                                            <li><a href="product.html">Tablet</a></li>
+                                            <li><a href="product.html">Laptop</a></li>
+                                            <li><a href="product.html">Desktop</a></li>
+                                            <li><a href="product.html">TV</a></li>
+                                            <li><a href="product.html">Speaker</a></li>
+                                            <li><a href="product.html">Gadget</a></li>
+                                        </ul>
                                     </div>
-                                    <div class="group-button">
-{{--                                        <a href="#" class="button">ตะกร้าสินค้า</a>--}}
-                                        <a href="/checkout" class="check-out button">ชำระเงิน</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="boutique-nav main-menu clone-main-menu">
-                        <li class="{{ Request::is('/') ? 'active':'' }} menu-item-has-children item-megamenu">
-                            <a href="/">หน้าแรก</a>
-                        </li>
-                        <li class="{{ Request::is('*product*') ? 'active':'' }} menu-item-has-children item-megamenu">
-                            <a href="{{ route('product.index') }}">สินค้า</a>
-                            <div style="width:820px; background-image:url('images/bg-megamenu.png'); "
-                                 class="sub-menu megamenu megamenu-bg">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <div class="mega-custom-menu">
-                                            <h2 class="title">หมวดหมู่</h2>
-                                            <ul>
-                                                @foreach($catalogs as $catalog)
-                                                    <li><a href="{{ route('product.index',['catalog' => $catalog->id]) }}">{{ $catalog->name }}</a></li>
-                                                @endforeach
-                                            </ul>
+                                    <!-- END dropdown-menu-sidebar -->
+                                    <!-- BEGIN dropdown-menu-content -->
+                                    <div class="dropdown-menu-content">
+                                        <h4 class="title">Shop By Popular Phone</h4>
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <ul class="dropdown-menu-list">
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 7</a></li>
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 6s</a></li>
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 6</a></li>
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 5s</a></li>
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> iPhone 5</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <ul class="dropdown-menu-list">
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy S7</a></li>
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy A9</a></li>
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy J3</a></li>
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy Note 5</a></li>
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Galaxy S7</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <ul class="dropdown-menu-list">
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 730</a></li>
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 735</a></li>
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 830</a></li>
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia 820</a></li>
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Lumia Icon</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <ul class="dropdown-menu-list">
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia X</a></li>
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia Z5</a></li>
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia M5</a></li>
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia C5</a></li>
+                                                    <li><a href="product_detail.html"><i class="fa fa-fw fa-angle-right text-muted"></i> Xperia C4</a></li>
+                                                </ul>
+                                            </div>
                                         </div>
+                                        <h4 class="title">Shop By Brand</h4>
+                                        <ul class="dropdown-brand-list mb-0">
+                                            <li><a href="product.html"><img src="../assets/img/brand/brand-apple.png" alt="" /></a></li>
+                                            <li><a href="product.html"><img src="../assets/img/brand/brand-samsung.png" alt="" /></a></li>
+                                            <li><a href="product.html"><img src="../assets/img/brand/brand-htc.png" alt="" /></a></li>
+                                            <li><a href="product.html"><img src="../assets/img/brand/brand-microsoft.png" alt="" /></a></li>
+                                            <li><a href="product.html"><img src="../assets/img/brand/brand-nokia.png" alt="" /></a></li>
+                                            <li><a href="product.html"><img src="../assets/img/brand/brand-blackberry.png" alt="" /></a></li>
+                                            <li><a href="product.html"><img src="../assets/img/brand/brand-sony.png" alt="" /></a></li>
+                                        </ul>
                                     </div>
-                                    <div class="col-sm-9">
-                                        <div class="mega-custom-menu">
-                                            <h2 class="title">สินค้าที่มี</h2>
-                                            <ul>
-                                                @foreach($products_nav as $product)
-                                                    <li><a href="{{ route('product.show',['id' => $product->id]) }}">{{ $product->name }}</a></li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    <!-- END dropdown-menu-content -->
                                 </div>
+                                <!-- END dropdown-menu-container -->
+                            </div>
+                            <!-- END dropdown-menu -->
+                        </li>
+                        <li class="dropdown dropdown-hover">
+                            <a href="#" data-bs-toggle="dropdown">
+                                Accessories
+                                <b class="caret"></b>
+                                <span class="arrow top"></span>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="product.html">Mobile Phone</a>
+                                <a class="dropdown-item" href="product.html">Tablet</a>
+                                <a class="dropdown-item" href="product.html">TV</a>
+                                <a class="dropdown-item" href="product.html">Desktop</a>
+                                <a class="dropdown-item" href="product.html">Laptop</a>
+                                <a class="dropdown-item" href="product.html">Speaker</a>
+                                <a class="dropdown-item" href="product.html">Gadget</a>
                             </div>
                         </li>
-                        <li class="menu-item-has-children item-megamenu">
-                            <a href="#">เกี่ยวกับเรา</a>
+                        <li><a href="product.html">New Arrival</a></li>
+                        <li class="dropdown dropdown-hover">
+                            <a href="#" data-bs-toggle="dropdown">
+                                Pages
+                                <b class="caret"></b>
+                                <span class="arrow top"></span>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="index.html">Home (Default)</a>
+                                <a class="dropdown-item" href="index_fixed_header.html">Home (Fixed Header)</a>
+                                <a class="dropdown-item" href="index_inverse_header.html">Home (Inverse Header)</a>
+                                <a class="dropdown-item" href="search_results.html">Search Results</a>
+                                <a class="dropdown-item" href="product.html">Product Page</a>
+                                <a class="dropdown-item" href="product_detail.html">Product Details Page</a>
+                                <a class="dropdown-item" href="checkout_cart.html">Checkout Cart</a>
+                                <a class="dropdown-item" href="checkout_info.html">Checkout Shipping</a>
+                                <a class="dropdown-item" href="checkout_payment.html">Checkout Payment</a>
+                                <a class="dropdown-item" href="checkout_complete.html">Checkout Complete</a>
+                                <a class="dropdown-item" href="my_account.html">My Account</a>
+                                <a class="dropdown-item" href="contact_us.html">Contact Us</a>
+                                <a class="dropdown-item" href="about_us.html">About Us</a>
+                                <a class="dropdown-item" href="faq.html">FAQ</a>
+                            </div>
                         </li>
-                        <li class="{{ Request::is('*report*') ? 'active':'' }} menu-item-has-children">
-                            <a href="{{ route('report.index') }}">แจ้งปัญหา</a>
+                        <li class="dropdown dropdown-hover">
+                            <a href="#" data-bs-toggle="dropdown">
+                                <i class="fa fa-search search-btn"></i>
+                                <span class="arrow top"></span>
+                            </a>
+                            <div class="dropdown-menu p-15px">
+                                <form action="search_results.html" method="POST" name="search_form">
+                                    <div class="input-group">
+                                        <input type="text" placeholder="Search" class="form-control bg-light" />
+                                        <button class="btn btn-dark" type="submit"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </form>
+                            </div>
                         </li>
                     </ul>
                 </div>
             </div>
+            <!-- END header-nav -->
+            <!-- BEGIN header-nav -->
+            <div class="header-nav">
+                <ul class="nav justify-content-end">
+                    <li class="dropdown dropdown-hover">
+                        <a href="#" class="header-cart" data-bs-toggle="dropdown">
+                            <i class="fa fa-shopping-bag"></i>
+                            <span class="total">2</span>
+                            <span class="arrow top"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-cart p-0">
+                            <div class="cart-header">
+                                <h4 class="cart-title">Shopping Bag (1) </h4>
+                            </div>
+                            <div class="cart-body">
+                                <ul class="cart-item">
+                                    <li>
+                                        <div class="cart-item-image"><img src="../assets/img/product/product-ipad.jpg" alt="" /></div>
+                                        <div class="cart-item-info">
+                                            <h4>iPad Pro Wi-Fi 128GB - Silver</h4>
+                                            <p class="price">$699.00</p>
+                                        </div>
+                                        <div class="cart-item-close">
+                                            <a href="#" data-bs-toggle="tooltip" data-bs-title="Remove">&times;</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="cart-item-image"><img src="../assets/img/product/product-imac.jpg" alt="" /></div>
+                                        <div class="cart-item-info">
+                                            <h4>21.5-inch iMac</h4>
+                                            <p class="price">$1299.00</p>
+                                        </div>
+                                        <div class="cart-item-close">
+                                            <a href="#" data-bs-toggle="tooltip" data-bs-title="Remove">&times;</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="cart-item-image"><img src="../assets/img/product/product-iphone.png" alt="" /></div>
+                                        <div class="cart-item-info">
+                                            <h4>iPhone 6s 16GB - Silver</h4>
+                                            <p class="price">$649.00</p>
+                                        </div>
+                                        <div class="cart-item-close">
+                                            <a href="#" data-bs-toggle="tooltip" data-bs-title="Remove">&times;</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="cart-footer">
+                                <div class="row gx-2">
+                                    <div class="col-6">
+                                        <a href="checkout_cart.html" class="btn btn-default btn-theme d-block">View Cart</a>
+                                    </div>
+                                    <div class="col-6">
+                                        <a href="checkout_cart.html" class="btn btn-dark btn-theme d-block">Checkout</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="my_account.html">
+                            <img src="../assets/img/user/user-1.jpg" class="user-img" alt="" />
+                            <span class="d-none d-xl-inline">Login / Register</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- END header-nav -->
         </div>
+        <!-- END header-container -->
     </div>
-</header>
-
+    <!-- END container -->
+</div>
+<!-- END #header -->

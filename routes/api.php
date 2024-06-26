@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
 // api สำหรับที่อยู่
 Route::get('/province', 'API\DistrictController@provinces');
 Route::get('/province/{province_code}/amphoe', 'API\DistrictController@amphoes');

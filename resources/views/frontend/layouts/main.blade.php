@@ -6,9 +6,9 @@
     <title>{{ get_title() }}</title>
     @include('frontend.layouts.css')
 </head>
-<body class="home">
-@include('frontend.layouts.navbar')
-<div style="width: 100vw;overflow-x: hidden">
+<body>
+<div id="page-container" class="fade show">
+    @include('frontend.layouts.navbar')
     @yield('content')
     @include('frontend.layouts.footer')
 </div>

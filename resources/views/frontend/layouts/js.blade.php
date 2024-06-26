@@ -1,18 +1,5 @@
-<script type="text/javascript" src="{{ asset('js/frontend/jquery-2.1.4.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/frontend/bootstrap.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/frontend/owl.carousel.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/frontend/chosen.jquery.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/frontend/Modernizr.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/frontend/jquery-ui.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/frontend/lightbox.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/frontend/masonry.pkgd.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/frontend/imagesloaded.pkgd.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/frontend/isotope.pkgd.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/frontend/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/frontend/jquery.parallax-1.1.3.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/frontend/jquery.magnific-popup.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/frontend/masonry.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/frontend/functions.js') }}"></script>
+<script src="../assets/js/e-commerce/vendor.min.js"></script>
+<script src="../assets/js/e-commerce/app.min.js"></script>
 <script src="{{ asset('js/frontend/sweetalert2.all.js') }}" type="text/javascript"></script>
 <script src="{{ asset("js/cart.js") }}" type="text/javascript"></script>
 <script>
@@ -89,5 +76,3 @@
         })
     });
 </script>
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v5.0&appId=260246377791645&autoLogAppEvents=1"></script>

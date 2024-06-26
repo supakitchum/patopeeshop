@@ -17,17 +17,19 @@ Route::get('/callback/{provider}', 'SocialController@callback');
 Route::name('backend.')->middleware('auth:admin')->prefix('backend')->group(function () {
     Route::get('/','Backend\HomeController@index')->name('dashboard');
     Route::get('stocks','Backend\StockController@index')->name('stocks');
-    Route::resource('catalogs','Backend\CatalogController');
-    Route::resource('colors','Backend\ColorController');
+    Route::prefix('products')->group(function (){
+        Route::resource('products','Backend\ProductController');
+        Route::resource('catalogs','Backend\CatalogController');
+        Route::resource('colors','Backend\ColorController');
+        Route::resource('sizes','Backend\SizeController');
+    });
     Route::resource('orders','Backend\OrderController');
     Route::resource('payments','Backend\PaymentController');
-    Route::resource('products','Backend\ProductController');
     Route::resource('receipts','Backend\ReceiptController');
     Route::resource('reports','Backend\ReportController');
     Route::resource('senders','Backend\SenderController');
     Route::resource('profile','Backend\ProfileController');
     Route::resource('customers','Backend\CustomerController');
-    Route::resource('sizes','Backend\SizeController');
 });
 
 Auth::routes();
@@ -39,10 +41,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::resource('checkout','Frontend\CheckoutController');
 Route::resource('profile','Frontend\ProfileController');
 Route::resource('report','Frontend\ReportController');
-Route::get('logout',function (){
-    Auth::logout();
-    return redirect('/');
-});
+Route::get('logout','\App\Http\Controllers\Auth\LoginController@logout');
 Route::resource('/product', 'Frontend\ProductController');
 Route::get('/payment','Frontend\PaymentController@index');
 Route::post('/payment','Frontend\PaymentController@store');
