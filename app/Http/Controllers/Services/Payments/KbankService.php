@@ -9,21 +9,6 @@ use App\Http\Controllers\Controller;
 
 class KbankService extends Controller
 {
-    public function inquiry(Request $request)
-    {
-        switch ($request->functionName) {
-            case "BillLookup":
-                return $this->BillLookup($request);
-            case "BillPayment":
-                return $this->BillPayment($request);
-            default:
-                return response()->json([
-                    "code" => 1000,
-                    "message" => "Method Error"
-                ], 400);
-        }
-    }
-
     public function BillLookupError($responseCode, $responseDescription)
     {
         return response()->json([
@@ -57,7 +42,7 @@ class KbankService extends Controller
         ]);
     }
 
-    public function BillLookup($request)
+    public function BillLookup(Request $request)
     {
         if (!isset($request->reference1)) {
             return $this->BillLookupError("0001", "Invalid Payment reference number");
@@ -257,7 +242,7 @@ class KbankService extends Controller
         return response()->json($response);
     }
 
-    public function BillPayment($request)
+    public function BillPayment(Request $request)
     {
         if (isset($request->isRetry) && (int)$request->isRetry === 1) {
             $response = [
