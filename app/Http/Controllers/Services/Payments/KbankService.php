@@ -25,7 +25,7 @@ class KbankService extends Controller
     function BillLookup($request)
     {
         $response = [
-            "functionName " => "BillLookupResponse",
+            "functionName" => "BillLookupResponse",
             "transactionId" => $request->transactionId,
             "transactionDateTime" => Carbon::now(),
             "billerTransactionId" => $request->transactionId,
