@@ -35,4 +35,6 @@ Route::post('checkout', 'API\CheckoutController@checkout');
 Route::get('check-stock/{aid}', 'API\CheckoutController@checkout');
 
 //stat api
-Route::get('stat/line-chart','API\StatController@lineChart');
+Route::get('stat/line-chart', 'API\StatController@lineChart');
+
+Route::post('payments/kbank/bill-payment/inquiry', '\App\Http\Controllers\Services\Payments\KbankService@inquiry');
