@@ -67,7 +67,7 @@
                 ราคารวม : <span id="total">0</span>บาท
                 <button type="button" data-name="test" data-dismiss="modal" data-price="0"
                         class="btn btn-info waves-effect add-to-cart"><i
-                        class="fa fa-shopping-cart"></i> เพิ่มลงรถเข็น
+                            class="fa fa-shopping-cart"></i> เพิ่มลงรถเข็น
                 </button>
             </div>
         </div>
@@ -91,15 +91,15 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-sm-12 text-center">
-                        <p>
-                            <a href="{{ url('/auth/redirect/facebook') }}" class="btn btn-primary"
-                               style="width: 70%"><i class="fa fa-facebook"></i> เข้าสู่ระบบด้วย Facebook</a>
-                        </p>
-                        <p>
-                            <a href="{{ url('/auth/redirect/google') }}" class="btn btn-danger"
-                               style="width: 70%"><i class="fa fa-google"></i> เข้าสู่ระบบด้วย Google</a>
-                        </p>
+                    <div class="col-12 text-center pl-3 pr-3 mb-2">
+                        <a href="{{ url('/auth/redirect/facebook') }}" class="btn btn-primary w-100">
+                            <i class="fa fa-facebook"></i> เข้าสู่ระบบด้วย Facebook
+                        </a>
+                    </div>
+                    <div class="col-12 text-center pl-3 pr-3 mb-2">
+                        <a href="{{ url('/auth/redirect/google') }}" class="btn btn-danger w-100">
+                            <i class="fa fa-google"></i> เข้าสู่ระบบด้วย Google
+                        </a>
                         <hr>
                     </div>
                     <div class="col-sm-12 text-center">
@@ -117,31 +117,25 @@
                         <form action="/login" method="post">
                             @csrf
                             <div class="row">
-                                <h5>ระบบสมาชิกประตูผี</h5>
+                                <h5>ระบบสมาชิก {{ env('APP_NAME') }}</h5>
                             </div>
-                            <div class="row" style="margin-top: 10px;">
-                                <div class="col-sm-4">
-                                    <label>อีเมล</label>
+                            <div class="row mb-3">
+                                <div class="col-sm-12 mb-2">
+                                    <label><i class="fa fa-user"></i> อีเมล</label>
+                                    <input type="email" name="email" class="w-100 rounded-2">
                                 </div>
-                                <div class="col-sm-8">
-                                    <input type="email" name="email" style="width: 100%;">
-                                </div>
-                            </div>
-                            <div class="row" style="margin-top: 10px;">
-                                <div class="col-sm-4">
-                                    <label>รหัสผ่าน</label>
-                                </div>
-                                <div class="col-sm-8">
+                                <div class="col-sm-12">
+                                    <label><i class="fa fa-key"></i> รหัสผ่าน</label>
                                     <input type="password" name="password" style="width: 100%;">
                                 </div>
                             </div>
-                            <div class="row" style="margin-top: 10px;">
-                                <div class="col-sm-12 text-right">
-                                    <button class="btn btn-success" type="submit">เข้าสู่ระบบ</button>
-                                    <span><a href="">ลืมรหัสผ่าน</a> </span>
+                            <div class="row mb-2">
+                                <div class="col-sm-12 text-center">
+                                    <button class="btn btn-success mb-2" type="submit">เข้าสู่ระบบ</button>
                                 </div>
                                 <div class="col-sm-12">
                                     <hr>
+                                    <a href="">ลืมรหัสผ่าน ?</a>
                                     <p>ยังไม่มีบัญชี ? <a href="#" data-toggle="modal" data-dismiss="modal"
                                                           data-target="#registerModal">สมัครสมาชิก</a></p>
                                 </div>
@@ -185,7 +179,7 @@
                     <div class="col-sm-12 text-center">
                         <form id="register-form" action="/register" method="post">
                             <div class="row">
-                                <h5>สมัครสมาชิกประตูผี</h5>
+                                <h5>สมัครสมาชิก {{ env("APP_NAME") }}</h5>
                             </div>
                             @csrf
                             @if ($errors->any() && session('page') == "register")
@@ -242,7 +236,7 @@
                                 </div>
                             </div>
                             <div class="row" style="margin-top: 10px;">
-                                <div class="col-sm-12 text-right">
+                                <div class="col-sm-12 text-center">
                                     <button class="btn btn-success" type="submit">ยืนยัน</button>
                                 </div>
                                 <div class="col-sm-12 text-center">

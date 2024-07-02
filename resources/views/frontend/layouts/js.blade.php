@@ -16,6 +16,10 @@
 <script src="{{ asset('js/frontend/sweetalert2.all.js') }}" type="text/javascript"></script>
 <script src="{{ asset("js/cart.js") }}" type="text/javascript"></script>
 <script>
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
     let details = [];
     let detail = [];
     var size = $('#size');
@@ -30,7 +34,7 @@
             $("#amount").val(quality)
             amount = quality;
         }
-        $("#total").html(amount * price)
+        $("#total").html(numberWithCommas(amount * price))
     }
     $(document).ready(function () {
         size.on('change',function () {

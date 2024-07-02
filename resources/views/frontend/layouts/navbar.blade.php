@@ -26,7 +26,10 @@
                     </li>
                 @else
                     <li class="menu-item">
-                        <a href="#" data-toggle="modal" data-target="#loginModal">เข้าสู่ระบบ | สมัครสมาชิก</a>
+                        <a href="#" data-toggle="modal" data-target="#loginModal">เข้าสู่ระบบ </a>
+                        |
+                        <a href="#" data-toggle="modal" data-dismiss="modal"
+                           data-target="#registerModal">สมัครสมาชิก</a>
                     </li>
                 @endisset
             </ul>

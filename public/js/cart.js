@@ -144,7 +144,7 @@ var shoppingCart = (function () {
 // Triggers / Events
 // *****************************************
 // Add item
-function add_item(){
+function add_item() {
     var size = $('#size option:selected').text();
     var color = $('#color option:selected').text();
     var name = $('#name_product').html();
@@ -159,7 +159,7 @@ function add_item(){
             '',
             'warning'
         );
-    }else{
+    } else {
         $("#total").html(amount * price)
         shoppingCart.addItemToCart(name, price, amount, aid, photo);
         Swal.fire(
@@ -170,6 +170,7 @@ function add_item(){
         displayCart();
     }
 }
+
 $('.add-to-cart').click(function (event) {
     event.preventDefault();
     var size = $('#size option:selected').text();
@@ -211,42 +212,42 @@ function displayCart() {
             + "<input type='number' name='amount[]' class='item-count form-control' data-name='" + cartArray[i].aid + "' value='" + cartArray[i].count + "'>"
             + "<button class='delete-item btn btn-danger' data-name='" + cartArray[i].aid + "'><i class='fa fa-trash'></i></button></div></td>"
             + " = "
-            + "<td>" + cartArray[i].total + "</td>"
+            + "<td>" + numberWithCommas(cartArray[i].total) + "</td>"
             + "</tr>";
         output2 += "<li>"
             + "<div class='thumb'>"
-            + "<img src='"+ cartArray[i].photo +"' alt='"+cartArray[i].name+"'>"
+            + "<img src='" + cartArray[i].photo + "' alt='" + cartArray[i].name + "'>"
             + "</div>"
             + "<div class='info'>"
             + "<h4 class='product-name'><a href='#'>" + cartArray[i].name + "</a></h4>"
-            + "<span class='price'>" + cartArray[i].count + "x" + cartArray[i].price + "</span>"
-            + "<button style='border: none;background-color: transparent;' class='remove-item' onclick='deleteItem("+cartArray[i].aid +")' data-name='" + cartArray[i].aid + "'><i class='fa fa-close'></i></button>"
+            + "<span class='price'>" + cartArray[i].count + " x " + numberWithCommas(cartArray[i].price) + "</span>"
+            + "<button style='border: none;background-color: transparent;' class='remove-item' onclick='deleteItem(" + cartArray[i].aid + ")' data-name='" + cartArray[i].aid + "'><i class='fa fa-close'></i></button>"
             + "</div>"
             + "</li>";
         output3 += "<tr>"
             + "<input type='hidden' value='" + cartArray[i].aid + "' name='aid[]' >"
             + "<input type='hidden' value='" + cartArray[i].count + "' name='amount[]' >"
-            + '<td class="product-name">'+ cartArray[i].name +' x '+cartArray[i].count+'</td>'
-            + '<td class="total"><span class="price">'+ (cartArray[i].count * cartArray[i].price)  +'</span></td>'
+            + '<td class="product-name">' + cartArray[i].name + ' x ' + cartArray[i].count + '</td>'
+            + '<td class="total"><span class="price">' + (cartArray[i].count * cartArray[i].price) + '</span></td>'
             + "</tr>";
     }
     $('.show-cart').html(output);
-    if ($("#order-detail")){
+    if ($("#order-detail")) {
         output3 += '<tr>'
             + '<td class="product-name">ค่าจัดส่ง</td>'
             + '<td class="total"><span class="price">ฟรี</span></td>'
             + '</tr>'
             + '<tr class="order-total">'
             + '<td class="subtotal">ราคารวม</td>'
-            + '<td class="total">'+shoppingCart.totalCart()+' บาท</td>'
+            + '<td class="total">' + numberWithCommas(shoppingCart.totalCart()) + ' บาท</td>'
             + '</tr>';
         $("#order-detail").html(output3);
     }
-    if ($('.list-product')){
+    if ($('.list-product')) {
         $('.list-product').html(output2);
     }
-    $('.total-cart').html(shoppingCart.totalCart());
-    $('.total-count').html(shoppingCart.totalCount());
+    $('.total-cart').html(numberWithCommas(shoppingCart.totalCart()));
+    $('.total-count').html(numberWithCommas(shoppingCart.totalCount()));
 }
 
 // Delete item button
@@ -257,7 +258,7 @@ $('.show-cart').on("click", ".delete-item", function (event) {
     displayCart();
 })
 
-function deleteItem(name){
+function deleteItem(name) {
     shoppingCart.removeItemFromCartAll(name);
     displayCart();
 }
@@ -284,5 +285,9 @@ $('.show-cart').on("change", ".item-count", function (event) {
     shoppingCart.setCountForItem(name, count);
     displayCart();
 });
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 displayCart();

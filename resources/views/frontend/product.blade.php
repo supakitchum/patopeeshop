@@ -44,7 +44,9 @@
                 <div class="main-content col-sm-8 col-md-9">
                     <div class="row m-0">
                         <div class="col-12 mb-2 p-0">
-                            <img src="{{ asset($current_catalog->photo) }}">
+                            @if(isset($current_catalog->photo))
+                                <img src="{{ asset($current_catalog->photo) }}">
+                            @endif
                         </div>
                         <div class="col-12 mb-2 p-0">
                             <span class="woocommerce-result-count">แสดงสินค้าจำนวนชิ้นที่ {{ $results->firstItem() == $results->lastItem() ? $results->lastItem() : $results->firstItem().'-'.$results->lastItem() }} จาก {{ $results->total() }} ชิ้น</span>
