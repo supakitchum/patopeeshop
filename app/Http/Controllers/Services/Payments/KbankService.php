@@ -164,79 +164,80 @@ class KbankService extends Controller
                 ];
             }
         }
-
-        $new_bill = KbankApiLog::create([
-            'transactionId' => $request->transactionId,
-            'channelCode' => $request->channelCode,
-            'tranAmount' => $request->tranAmount,
-            'reference1' => $request->reference1,
-            'reference2' => $request->reference2,
-            'status' => false
-        ]);
-        if ($new_bill) {
-            if ($request->language === "EN") {
-                $response = [
-                    "functionName" => "BillLookupResponse",
-                    "transactionId" => $request->transactionId ?? "",
-                    "transactionDateTime" => Carbon::now(),
-                    "billerTransactionId" => $request->transactionId ?? "",
-                    "responseCode" => "0000",
-                    "responseDescription" => "Success",
-                    "billerType" => $request->billerType ?? "",
-                    "billerId" => $request->billerId ?? "",
-                    "terminalNo" => $request->terminalNo ?? "",
-                    "promptPayTransactionId" => "",
-                    "typeofReceiver" => "",
-                    "reference1" => $request->reference1 ?? "",
-                    "reference2" => $request->reference2 ?? "",
-                    "reference3" => "",
-                    "info1" => "Customer Name EN",
-                    "info2" => "Product Information EN",
-                    "info3" => "Other Information EN",
-                    "additional" => [
-                        "rsAppId" => "",
-                        "toBillerAccountName" => "",
-                        "toBillerServiceName" => "",
-                        "payerFee" => "",
-                        "settlementDate" => "",
-                        "receiverTaxID" => "",
-                        "dueDate" => "",
-                        "rtpReference" => ""
-                    ]
-                ];
+        else{
+            $new_bill = KbankApiLog::create([
+                'transactionId' => $request->transactionId,
+                'channelCode' => $request->channelCode,
+                'tranAmount' => $request->tranAmount,
+                'reference1' => $request->reference1,
+                'reference2' => $request->reference2,
+                'status' => false
+            ]);
+            if ($new_bill) {
+                if ($request->language === "EN") {
+                    $response = [
+                        "functionName" => "BillLookupResponse",
+                        "transactionId" => $request->transactionId ?? "",
+                        "transactionDateTime" => Carbon::now(),
+                        "billerTransactionId" => $request->transactionId ?? "",
+                        "responseCode" => "0000",
+                        "responseDescription" => "Success",
+                        "billerType" => $request->billerType ?? "",
+                        "billerId" => $request->billerId ?? "",
+                        "terminalNo" => $request->terminalNo ?? "",
+                        "promptPayTransactionId" => "",
+                        "typeofReceiver" => "",
+                        "reference1" => $request->reference1 ?? "",
+                        "reference2" => $request->reference2 ?? "",
+                        "reference3" => "",
+                        "info1" => "Customer Name EN",
+                        "info2" => "Product Information EN",
+                        "info3" => "Other Information EN",
+                        "additional" => [
+                            "rsAppId" => "",
+                            "toBillerAccountName" => "",
+                            "toBillerServiceName" => "",
+                            "payerFee" => "",
+                            "settlementDate" => "",
+                            "receiverTaxID" => "",
+                            "dueDate" => "",
+                            "rtpReference" => ""
+                        ]
+                    ];
+                } else {
+                    $response = [
+                        "functionName" => "BillLookupResponse",
+                        "transactionId" => $request->transactionId ?? "",
+                        "transactionDateTime" => Carbon::now(),
+                        "billerTransactionId" => $request->transactionId ?? "",
+                        "responseCode" => "0000",
+                        "responseDescription" => "Success",
+                        "billerType" => $request->billerType ?? "",
+                        "billerId" => $request->billerId ?? "",
+                        "terminalNo" => $request->terminalNo ?? "",
+                        "promptPayTransactionId" => "",
+                        "typeofReceiver" => "",
+                        "reference1" => $request->reference1 ?? "",
+                        "reference2" => $request->reference2 ?? "",
+                        "reference3" => "",
+                        "info1" => "ชื่อลูกค้า",
+                        "info2" => "ชื่อสินค้า",
+                        "info3" => "อื่นๆ",
+                        "additional" => [
+                            "rsAppId" => "",
+                            "toBillerAccountName" => "",
+                            "toBillerServiceName" => "",
+                            "payerFee" => "",
+                            "settlementDate" => "",
+                            "receiverTaxID" => "",
+                            "dueDate" => "",
+                            "rtpReference" => ""
+                        ]
+                    ];
+                }
             } else {
-                $response = [
-                    "functionName" => "BillLookupResponse",
-                    "transactionId" => $request->transactionId ?? "",
-                    "transactionDateTime" => Carbon::now(),
-                    "billerTransactionId" => $request->transactionId ?? "",
-                    "responseCode" => "0000",
-                    "responseDescription" => "Success",
-                    "billerType" => $request->billerType ?? "",
-                    "billerId" => $request->billerId ?? "",
-                    "terminalNo" => $request->terminalNo ?? "",
-                    "promptPayTransactionId" => "",
-                    "typeofReceiver" => "",
-                    "reference1" => $request->reference1 ?? "",
-                    "reference2" => $request->reference2 ?? "",
-                    "reference3" => "",
-                    "info1" => "ชื่อลูกค้า",
-                    "info2" => "ชื่อสินค้า",
-                    "info3" => "อื่นๆ",
-                    "additional" => [
-                        "rsAppId" => "",
-                        "toBillerAccountName" => "",
-                        "toBillerServiceName" => "",
-                        "payerFee" => "",
-                        "settlementDate" => "",
-                        "receiverTaxID" => "",
-                        "dueDate" => "",
-                        "rtpReference" => ""
-                    ]
-                ];
+                return $this->BillLookupError("0001", "Invalid Payment reference number");
             }
-        } else {
-            return $this->BillLookupError("0001", "Invalid Payment reference number");
         }
 
         return response()->json($response);
