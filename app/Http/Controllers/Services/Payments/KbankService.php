@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 class KbankService extends Controller
 {
-    public function BillLookupError($responseCode, $responseDescription)
+    public function BillLookupError($responseCode, $responseDescription,$request)
     {
         return response()->json([
             "functionName" => "BillLookupResponse",
@@ -45,7 +45,7 @@ class KbankService extends Controller
     public function BillLookup(Request $request)
     {
         if (!isset($request->reference1)) {
-            return $this->BillLookupError("0001", "Invalid Payment reference number");
+            return $this->BillLookupError("0001", "Invalid Payment reference number", $request);
         }
 
         if ($request->reference1) {
@@ -89,15 +89,15 @@ class KbankService extends Controller
         }
 
         if (!ctype_digit($request->reference1) || !ctype_digit($request->reference2)) {
-            return $this->BillLookupError("0001", "Invalid Payment reference number");
+            return $this->BillLookupError("0001", "Invalid Payment reference number", $request);
         }
 
         if (!preg_match('/^\d+(\.\d{1,2})?$/', $request->tranAmount) || $request->tranAmount > 1000) {
-            return $this->BillLookupError("0004", "Invalid payment amount");
+            return $this->BillLookupError("0004", "Invalid payment amount", $request);
         }
 
         if ($request->transactionId === "98099310720200530183382105") {
-            return $this->BillLookupError("1000", "Other Merchant Error");
+            return $this->BillLookupError("1000", "Other Merchant Error", $request);
         }
 
         if (isset($check_paid) && sizeof($check_paid) > 0) {
@@ -235,7 +235,7 @@ class KbankService extends Controller
                     ];
                 }
             } else {
-                return $this->BillLookupError("0001", "Invalid Payment reference number");
+                return $this->BillLookupError("0001", "Invalid Payment reference number", $request);
             }
         }
 
