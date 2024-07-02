@@ -101,7 +101,7 @@ class KbankService extends Controller
         }
 
         if (isset($check_paid) && sizeof($check_paid) > 0) {
-            if ($check_paid->status) {
+            if ($check_paid[0]->status) {
                 $response = [
                     "functionName" => "BillLookupResponse",
                     "transactionId" => $request->transactionId ?? "",
@@ -163,8 +163,7 @@ class KbankService extends Controller
                     ]
                 ];
             }
-        }
-        else{
+        } else {
             $new_bill = KbankApiLog::create([
                 'transactionId' => $request->transactionId,
                 'channelCode' => $request->channelCode,
