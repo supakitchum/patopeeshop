@@ -258,7 +258,11 @@ class KbankService extends Controller
                     "rsAppId" => ""
                 ]
             ];
-        }else{
+        } else {
+            KbankApiLog::where('transactionId', '=', $request->transactionId)->update([
+                "status" => true
+            ]);
+
             $response = [
                 "functionName" => "BillPaymentResponse",
                 "transactionId" => $request->transactionId ?? "",
