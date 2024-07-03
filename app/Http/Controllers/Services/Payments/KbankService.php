@@ -389,7 +389,7 @@ class KbankService extends Controller
             "responseCode" => "0000",
             "responseDescription" => "Success",
             "terminalNo" => $request->terminalNo ?? "",
-            "promptPayTransactionId" => $request->promptPayTransactionId ?? "",
+            "promptPayTransactionId" => $request->promptPayReferenceNumber ?? "",
             "additional" => [
                 "settlementDate" => "",
                 "rsAppId" => ""
