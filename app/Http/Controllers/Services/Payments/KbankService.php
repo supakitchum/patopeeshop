@@ -41,7 +41,7 @@ class KbankService extends Controller
         ]);
     }
 
-    public function BillLookupSuccess($request, $responseCode, $responseDescription, $amount, $reference2 = "")
+    public function BillLookupSuccess($request, $responseCode, $responseDescription, $amount, $reference2 = "", $info = true)
     {
         if (isset($request->language) && $request->language === "EN") {
             // Inquiry Info EN Language (8)
@@ -61,9 +61,9 @@ class KbankService extends Controller
                 "reference2" => $request->reference2 ?? $reference2,
                 "reference3" => "",
                 "tranAmount" => $amount,
-                "info1" => "Customer Name EN",
-                "info2" => "Product Information EN",
-                "info3" => "Other Information EN",
+                "info1" => $info ? "Customer Name EN" : "",
+                "info2" => $info ? "Product Information EN" : "",
+                "info3" => $info ? "Other Information EN" : "",
                 "additional" => [
                     "rsAppId" => "",
                     "toBillerAccountName" => "",
@@ -93,9 +93,9 @@ class KbankService extends Controller
                 "reference2" => $request->reference2 ?? $reference2,
                 "reference3" => "",
                 "tranAmount" => $amount,
-                "info1" => "ชื่อลูกค้า",
-                "info2" => "ชื่อสินค้า",
-                "info3" => "อื่นๆ",
+                "info1" => $info ? "ชื่อลูกค้า" : "",
+                "info2" => $info ? "ชื่อสินค้า" : "",
+                "info3" => $info ? "อื่นๆ" : "",
                 "additional" => [
                     "rsAppId" => "",
                     "toBillerAccountName" => "",
@@ -231,7 +231,7 @@ class KbankService extends Controller
                 ->where('reference1', '=', $request->reference1)->first();
             if (isset($check_bill->id)) {
                 // Inquiry Reference 1 for return Reference 2 and amount Success (10)
-                return $this->BillLookupSuccess($request, "0000", "Success", $check_bill->tranAmount, $check_bill->reference2);
+                return $this->BillLookupSuccess($request, "0000", "Success", $check_bill->tranAmount, $check_bill->reference2, false);
             } else {
                 return $this->BillLookupError($request, "0001", "Invalid Payment reference number");
             }
