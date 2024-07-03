@@ -155,7 +155,7 @@ class KbankService extends Controller
                 "billerType" => $request->billerType ?? "",
                 "billerId" => $request->billerId ?? "",
                 "terminalNo" => $request->terminalNo ?? "",
-                "promptPayTransactionId" => $request->promptPayTransactionId ?? "",
+                "promptPayTransactionId" => $request->promptPayReferenceNumber ?? "",
                 "typeOfReceiver" => "C",
                 "reference1" => $request->reference1 ?? "",
                 "reference2" => $request->reference2 ?? $reference2,
