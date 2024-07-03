@@ -15,11 +15,13 @@ class CreateKbankApiLogsTable extends Migration
     {
         Schema::create('kbank_api_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('transactionId');
-            $table->string('channelCode');
-            $table->string('tranAmount');
-            $table->string('reference1');
-            $table->string('reference2');
+            $table->string('transactionId')->nullable();
+            $table->string('channelCode')->nullable();
+            $table->string('billerType')->nullable();
+            $table->string('billerId')->nullable();
+            $table->string('tranAmount')->nullable();
+            $table->string('reference1')->nullable();
+            $table->string('reference2')->nullable();
             $table->boolean('status')->default(0);
             $table->timestamps();
         });

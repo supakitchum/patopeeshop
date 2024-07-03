@@ -9,6 +9,7 @@ class KbankApiLog extends Model
     protected $fillable = [
         'transactionId',
         'channelCode',
+        'billerType',
         'tranAmount',
         'reference1',
         'reference2',
