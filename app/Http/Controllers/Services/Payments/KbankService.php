@@ -245,8 +245,8 @@ class KbankService extends Controller
         $check_bill = KbankApiLog::where('transactionId', '=', $request->transactionId)
             ->where('reference1', '=', $request->reference1)
             ->where('reference2', '=', $request->reference2)
-            ->get();
-        if (sizeof($check_bill) > 0) {
+            ->first();
+        if (isset($check_bill->id)) {
             if (!isset($check_bill->transactionId)) {
                 KbankApiLog::where('id', '=', $check_bill->id)->update([
                     'transactionId' => $request->transactionId
@@ -339,8 +339,8 @@ class KbankService extends Controller
         $check_bill = KbankApiLog::where('transactionId', '=', $request->transactionId)
             ->where('reference1', '=', $request->reference1)
             ->where('reference2', '=', $request->reference2)
-            ->get();
-        if (sizeof($check_bill) > 0) {
+            ->first();
+        if (isset($check_bill->id)) {
             if (!isset($check_bill->transactionId)) {
                 KbankApiLog::where('id', '=', $check_bill->id)->update([
                     'transactionId' => $request->transactionId
