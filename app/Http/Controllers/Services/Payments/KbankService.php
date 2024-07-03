@@ -227,7 +227,8 @@ class KbankService extends Controller
         }
 
         if (!isset($request->reference2)) {
-            $check_bill = KbankApiLog::where('reference1', '=', $request->reference1)->first();
+            $check_bill = KbankApiLog::where('transactionId', '=', $request->transactionId)
+                ->where('reference1', '=', $request->reference1)->first();
             if (isset($check_bill->id)) {
                 // Inquiry Reference 1 for return Reference 2 and amount Success (10)
                 return $this->BillLookupSuccess($request, "0000", "Success", $check_bill->tranAmount, $check_bill->reference2);
@@ -241,7 +242,8 @@ class KbankService extends Controller
             return $this->BillLookupError($request, "0001", "Invalid Payment reference number");
         }
 
-        $check_bill = KbankApiLog::where('reference1', '=', $request->reference1)
+        $check_bill = KbankApiLog::where('transactionId', '=', $request->transactionId)
+            ->where('reference1', '=', $request->reference1)
             ->where('reference2', '=', $request->reference2)
             ->get();
         if (sizeof($check_bill) > 0) {
@@ -318,7 +320,9 @@ class KbankService extends Controller
         }
 
         if (!isset($request->reference2)) {
-            $check_bill = KbankApiLog::where('reference1', '=', $request->reference1)->first();
+            $check_bill = KbankApiLog::where('transactionId', '=', $request->transactionId)
+                ->where('reference1', '=', $request->reference1)
+                ->first();
             if (isset($check_bill->id)) {
                 // Inquiry Reference 1 for return Reference 2 and amount Success (10)
                 return $this->BillLookupPromptPaySuccess($request, "0000", "Success", $check_bill->tranAmount, $check_bill->reference2);
@@ -332,7 +336,8 @@ class KbankService extends Controller
             return $this->BillLookupPromptPayError($request, "0001", "Invalid Payment reference number");
         }
 
-        $check_bill = KbankApiLog::where('reference1', '=', $request->reference1)
+        $check_bill = KbankApiLog::where('transactionId', '=', $request->transactionId)
+            ->where('reference1', '=', $request->reference1)
             ->where('reference2', '=', $request->reference2)
             ->get();
         if (sizeof($check_bill) > 0) {
