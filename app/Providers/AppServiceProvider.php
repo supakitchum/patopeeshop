@@ -33,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
         Carbon::setLocale(config('app.locale'));
         Validator::extend('recaptcha', 'App\\Validators\\ReCaptcha@validate');
         Schema::defaultStringLength(191);
+        date_default_timezone_set('Asia/Bangkok');
         view()->composer(
             '*',
             function ($view) {
