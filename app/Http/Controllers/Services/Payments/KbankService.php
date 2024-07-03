@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 class KbankService extends Controller
 {
-    public function BillLookupError($responseCode, $responseDescription,$request)
+    public function BillLookupError($responseCode, $responseDescription, $request)
     {
         return response()->json([
             "functionName" => "BillLookupResponse",
@@ -92,7 +92,7 @@ class KbankService extends Controller
             return $this->BillLookupError("0001", "Invalid Payment reference number", $request);
         }
 
-        if (!preg_match('/^\d+(\.\d{1,2})?$/', $request->tranAmount) || $request->tranAmount > 1000) {
+        if (!preg_match('/^\d+(\.\d{1,2})?$/', $request->tranAmount) || $request->tranAmount <= 1000) {
             return $this->BillLookupError("0004", "Invalid payment amount", $request);
         }
 
