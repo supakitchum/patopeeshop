@@ -138,33 +138,33 @@
                 </div>
             </div>
         </div>
-        <div class="margin-top-60 section-lasttest-blog">
-            <div class="section-title text-center"><h3>บทความของเรา</h3></div>
-            <div class="lastest-blog owl-carousel nav-center-center nav-style7" data-nav="true" data-dots="false"
-                 data-loop="true" data-margin="30"
-                 data-responsive='{"0":{"items":1},"600":{"items":1},"1000":{"items":2}}'>
-                @for($i=0;$i < 3;$i++)
-                    <div class="item-blog">
-                        <div class="left">
-                            <div class="blog-date">
-                                <span class="day">7</span>
-                                <span class="month">/SEP</span><br>
-                                <span class="year">2015</span>
-                            </div>
-                            <h3 class="blog-title"><a href="#">We're the best Designers from UK</a></h3>
-                            <div class="meta">
-                                <span class="author">John Doe</span>
-                                <span class="comment"><i class="fa fa-comment"></i> 36 comments</span>
-                            </div>
-                        </div>
-                        <div class="right">
-                            <a class="banner-border" href="#"><img src="{{ asset('images/blog'.($i+1).'.png') }}"
-                                                                   alt=""></a>
-                        </div>
-                    </div>
-                @endfor
-            </div>
-        </div>
+{{--        <div class="margin-top-60 section-lasttest-blog">--}}
+{{--            <div class="section-title text-center"><h3>บทความของเรา</h3></div>--}}
+{{--            <div class="lastest-blog owl-carousel nav-center-center nav-style7" data-nav="true" data-dots="false"--}}
+{{--                 data-loop="true" data-margin="30"--}}
+{{--                 data-responsive='{"0":{"items":1},"600":{"items":1},"1000":{"items":2}}'>--}}
+{{--                @for($i=0;$i < 3;$i++)--}}
+{{--                    <div class="item-blog">--}}
+{{--                        <div class="left">--}}
+{{--                            <div class="blog-date">--}}
+{{--                                <span class="day">7</span>--}}
+{{--                                <span class="month">/SEP</span><br>--}}
+{{--                                <span class="year">2015</span>--}}
+{{--                            </div>--}}
+{{--                            <h3 class="blog-title"><a href="#">We're the best Designers from UK</a></h3>--}}
+{{--                            <div class="meta">--}}
+{{--                                <span class="author">John Doe</span>--}}
+{{--                                <span class="comment"><i class="fa fa-comment"></i> 36 comments</span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="right">--}}
+{{--                            <a class="banner-border" href="#"><img src="{{ asset('images/blog'.($i+1).'.png') }}"--}}
+{{--                                                                   alt=""></a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                @endfor--}}
+{{--            </div>--}}
+{{--        </div>--}}
 
 {{--        <div class="section-brand-slide">--}}
 {{--            <div class="brands-slide owl-carousel nav-center-center nav-style7" data-nav="true" data-dots="false"--}}
