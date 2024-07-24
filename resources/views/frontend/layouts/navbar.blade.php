@@ -9,7 +9,7 @@
         <div class="d-none d-lg-table topbar">
             <ul class="boutique-nav topbar-menu left">
                 <li><a href="#"><i class="fa fa-phone"></i>เบอร์โทร. : 093-112-6499</a></li>
-                <li><a href="#"><i class="fa fa-envelope"></i></a></li>
+{{--                <li><a href="#"><i class="fa fa-envelope"></i></a></li>--}}
             </ul>
             <ul class="boutique-nav topbar-menu right">
                 @isset(auth()->user()->id)
