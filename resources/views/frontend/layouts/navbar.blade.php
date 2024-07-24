@@ -8,8 +8,8 @@
     <div class="container">
         <div class="d-none d-lg-table topbar">
             <ul class="boutique-nav topbar-menu left">
-                <li><a href="#"><i class="fa fa-phone"></i>เบอร์โทร. : 081-169-0901</a></li>
-                <li><a href="#"><i class="fa fa-envelope"></i>info@demo.com</a></li>
+                <li><a href="#"><i class="fa fa-phone"></i>เบอร์โทร. : 093-112-6499</a></li>
+                <li><a href="#"><i class="fa fa-envelope"></i></a></li>
             </ul>
             <ul class="boutique-nav topbar-menu right">
                 @isset(auth()->user()->id)
@@ -42,11 +42,13 @@
                     <div class="top-header">
                         <span class="mobile-navigation"><i class="fa fa-bars"></i></span>
 
-{{--                        <div class="slogan">"ประตูผี"</div>--}}
+                        {{--                        <div class="slogan">"ประตูผี"</div>--}}
                         <div class="box-control">
                             <form class="box-search" method="get" action="/product">
                                 <div class="inner">
-                                    <input type="text" class="search" name="keyword" value="{{ isset(request()->keyword) ? request()->keyword:'' }}" placeholder="ค้นหาสินค้า">
+                                    <input type="text" class="search" name="keyword"
+                                           value="{{ isset(request()->keyword) ? request()->keyword:'' }}"
+                                           placeholder="ค้นหาสินค้า">
                                     <button class="button-search"><span class="pe-7s-search"></span></button>
                                 </div>
                             </form>
@@ -54,14 +56,18 @@
                                 <ul class="boutique-nav topbar-menu right">
                                     @isset(auth()->user()->id)
                                         <li class="menu-item-has-children">
-                                            <a href="#"><i class="fa fa-fw fa-user fa-2x" style="margin-right: -10px;margin-bottom: -15px;"></i></a>
+                                            <a href="#"><i class="fa fa-fw fa-user fa-2x"
+                                                           style="margin-right: -10px;margin-bottom: -15px;"></i></a>
                                             <ul class="sub-menu">
-                                                <li><a href="/history"><i class="fa fa-list"></i><span>ประวัติการสั่งซื้อ</span></a></li>
+                                                <li><a href="/history"><i class="fa fa-list"></i><span>ประวัติการสั่งซื้อ</span></a>
+                                                </li>
                                                 <li><a href="{{ route('profile.index') }}"><i class="fa fa-user"
                                                                                               aria-hidden="true"></i><span> บัญชีของฉัน</span></a>
                                                 </li>
-                                                <li><a href="/payment"><i class="fa fa-money"></i><span>แจ้งชำระเงิน</span></a></li>
-                                                <li><a href="/logout"><i class="fa fa-sign-out"></i><span>ออกจากระบบ</span></a></li>
+                                                <li><a href="/payment"><i
+                                                            class="fa fa-money"></i><span>แจ้งชำระเงิน</span></a></li>
+                                                <li><a href="/logout"><i
+                                                            class="fa fa-sign-out"></i><span>ออกจากระบบ</span></a></li>
                                             </ul>
                                         </li>
                                     @else
@@ -86,7 +92,7 @@
                                         ราคารวม : <span class="total-cart"></span> บาท
                                     </div>
                                     <div class="group-button">
-{{--                                        <a href="#" class="button">ตะกร้าสินค้า</a>--}}
+                                        {{--                                        <a href="#" class="button">ตะกร้าสินค้า</a>--}}
                                         <a href="/checkout" class="check-out button">ชำระเงิน</a>
                                     </div>
                                 </div>
@@ -107,7 +113,9 @@
                                             <h2 class="title">หมวดหมู่</h2>
                                             <ul>
                                                 @foreach($catalogs as $catalog)
-                                                    <li><a href="{{ route('product.index',['catalog' => $catalog->id]) }}">{{ $catalog->name }}</a></li>
+                                                    <li>
+                                                        <a href="{{ route('product.index',['catalog' => $catalog->id]) }}">{{ $catalog->name }}</a>
+                                                    </li>
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -117,7 +125,9 @@
                                             <h2 class="title">สินค้าที่มี</h2>
                                             <ul>
                                                 @foreach($products_nav as $product)
-                                                    <li><a href="{{ route('product.show',['id' => $product->id]) }}">{{ $product->name }}</a></li>
+                                                    <li>
+                                                        <a href="{{ route('product.show',['id' => $product->id]) }}">{{ $product->name }}</a>
+                                                    </li>
                                                 @endforeach
                                             </ul>
                                         </div>

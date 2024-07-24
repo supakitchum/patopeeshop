@@ -148,5 +148,41 @@
         transform: rotate(45deg);
 
     } */
+
+    .qr-container {
+        background-color: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        width: 100%;
+        padding: 0;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        overflow: hidden; /* เพื่อให้มุมโค้งของคอนเทนเนอร์แสดงผลถูกต้อง */
+    }
+
+    .qr-header {
+        background-color: #0e3e68; /* สีพื้นหลังฟ้าของส่วนหัว */
+        padding: 10px;
+    }
+
+    .qr-header img {
+        width: 100%;
+    }
+
+    .promptpay-logo img {
+        width: 30%;
+        margin: 10px 0;
+    }
+
+    .qr-code img {
+        width: 40%;
+        margin: 20px 0;
+    }
+
+    .qr-description {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 10px 0 20px 0;
+    }
 </style>
 <link rel="stylesheet" href="{{ asset('css/frontend/sweetalert2.css') }}"/>

@@ -28,14 +28,9 @@
                 <div class="col-xs-12 col-sm-12 col-md-4 footer-sidebar">
                     <div class="widget contact-info">
                         <h3>ช่องทางการติดต่อ</h3>
-                        <div class="fb-page"
-                             data-href="https://www.facebook.com/pratoopee/"
-                             data-width="380"
-                             data-hide-cover="false"
-                             data-show-facepile="false"></div>
                         <div class="content margin-top-10">
-                            <p class="address">2 อาคารศูนย์การค้าเซ็นทรัลแอร์พอร์ต พลาซ่า ชั้น 2 ถนนมหิดล ตำบลหายยา เทศบาลนครเชียงใหม่ 50100</p>
-                            <p class="phone"><i class="fa fa-phone"></i> 081-169-0901</p>
+                            <p class="address">199/46 ถนนนวลจันทร์ แขวงนวลจันทร์ เขตบึงกุ่ม กรุงเทพมหานคร 10230</p>
+                            <p class="phone"><i class="fa fa-phone"></i> 093-112-6499</p>
                         </div>
                     </div>
                 </div>
@@ -46,7 +41,7 @@
         <div class="container">
             <div class="row flex-flow">
                 <div class="col-sm-12 text-center">
-                    <h5>Copyright © rock.in.th 2019</h5>
+                    <h5>Copyright © ks inter shop 2019</h5>
                 </div>
             </div>
         </div>

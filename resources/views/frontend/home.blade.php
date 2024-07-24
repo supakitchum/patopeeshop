@@ -123,14 +123,16 @@
                 <div class="col-sm-12 col-md-12 col-lg-7">
                     <ul class="category-menu category-carousel pull-left owl-carousel nav-style7 nav-center-center"
                         data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="30"
-                        data-responsive='{"0":{"items":1},"600":{"items":4},"1000":{"items":4}}'>
-                        @foreach($catalogs as $catalog)
-                            <li>
-                                <a href="{{ route('product.index',['catalog'=> $catalog->id]) }}">
-                                    <img src="{{ asset($catalog->photo) }}" alt="">
-                                    {{ $catalog->name }}
-                                </a>
-                            </li>
+                        data-responsive='{"0":{"items":1},"600":{"items":2},"1000":{"items":2}}'>
+                        @foreach($catalogs as $index => $catalog)
+                            @if($index <= 1)
+                                <li>
+                                    <a href="{{ route('product.index',['catalog'=> $catalog->id]) }}">
+                                        <img src="{{ asset($catalog->photo) }}" alt="">
+                                        {{ $catalog->name }}
+                                    </a>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
                 </div>
@@ -164,39 +166,39 @@
             </div>
         </div>
 
-        <div class="section-brand-slide">
-            <div class="brands-slide owl-carousel nav-center-center nav-style7" data-nav="true" data-dots="false"
-                 data-loop="true" data-margin="60"
-                 data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":5}}'>
-                <a href="#"><img src="{{ asset('images/free1.png') }}" alt=""></a>
-                <a href="#"><img src="{{ asset('images/free2.png') }}" alt=""></a>
-                <a href="#"><img src="{{ asset('images/free3.png') }}" alt=""></a>
-                <a href="#"><img src="{{ asset('images/free4.png') }}" alt=""></a>
-                <a href="#"><img src="{{ asset('images/free5.png') }}" alt=""></a>
-                <a href="#"><img src="{{ asset('images/free6.png') }}" alt=""></a>
-            </div>
-        </div>
-        <div class="margin-top-60">
-            <div class="row">
-                <div class="col-sm-12 col-md-7">
-                    <div class="video video-lightbox">
-                        <img src="{{ asset('images/vdo.png') }}" alt="">
-                        <div class="overlay"></div>
-                        <a href="#"  class="link-lightbox button-play" data-videoid="134060140" data-videosite="vimeo"></a>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-5">
-                    <div class="newsletter">
-                        <div class="section-title text-center"><h3>ติดตามข่าวสาร</h3></div>
-                        <i class="newsletter-info">สมัครเพื่อรับข้อมูลข่าวสารและโปรโมชัน</i>
-                        <form class="form-newsletter">
-                            <input type="text" name="newsletter" placeholder="ใส่อีเมลของคุณ" value="">
-                            <span><button class="newsletter-submit" type="submit">สมัคร</button></span>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+{{--        <div class="section-brand-slide">--}}
+{{--            <div class="brands-slide owl-carousel nav-center-center nav-style7" data-nav="true" data-dots="false"--}}
+{{--                 data-loop="true" data-margin="60"--}}
+{{--                 data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":5}}'>--}}
+{{--                <a href="#"><img src="{{ asset('images/free1.png') }}" alt=""></a>--}}
+{{--                <a href="#"><img src="{{ asset('images/free2.png') }}" alt=""></a>--}}
+{{--                <a href="#"><img src="{{ asset('images/free3.png') }}" alt=""></a>--}}
+{{--                <a href="#"><img src="{{ asset('images/free4.png') }}" alt=""></a>--}}
+{{--                <a href="#"><img src="{{ asset('images/free5.png') }}" alt=""></a>--}}
+{{--                <a href="#"><img src="{{ asset('images/free6.png') }}" alt=""></a>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <div class="margin-top-60">--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-sm-12 col-md-7">--}}
+{{--                    <div class="video video-lightbox">--}}
+{{--                        <img src="{{ asset('images/vdo.png') }}" alt="">--}}
+{{--                        <div class="overlay"></div>--}}
+{{--                        <a href="#"  class="link-lightbox button-play" data-videoid="134060140" data-videosite="vimeo"></a>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-sm-12 col-md-5">--}}
+{{--                    <div class="newsletter">--}}
+{{--                        <div class="section-title text-center"><h3>ติดตามข่าวสาร</h3></div>--}}
+{{--                        <i class="newsletter-info">สมัครเพื่อรับข้อมูลข่าวสารและโปรโมชัน</i>--}}
+{{--                        <form class="form-newsletter">--}}
+{{--                            <input type="text" name="newsletter" placeholder="ใส่อีเมลของคุณ" value="">--}}
+{{--                            <span><button class="newsletter-submit" type="submit">สมัคร</button></span>--}}
+{{--                        </form>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
         <div class="margin-top-60 margin-bottom-30">
             <div class="row">
                 <div class="col-sm-12 col-md-4">

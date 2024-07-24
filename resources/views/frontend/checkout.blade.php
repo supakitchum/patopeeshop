@@ -29,7 +29,8 @@
                                             </p>
                                         </div>
                                         <div class="col-sm-12" align="left">
-                                            <a href="{{ route('profile.index') }}" type="button" class="btn btn-primary"><i class="fa fa-edit"></i>
+                                            <a href="{{ route('profile.index') }}" type="button"
+                                               class="btn btn-primary"><i class="fa fa-edit"></i>
                                                 แก้ไขที่อยู่นี้
                                             </a>
                                             <button type="button" class="btn btn-success" onclick="useAddress()"><i
@@ -147,12 +148,18 @@
                                 <h5 class="form-title">วิธีการชำระเงิน</h5>
 
                                 <div class="payment_methods">
-
                                     <div class="payment_method">
-                                        <label><input checked name="payment_method" type="radio" value="1">โอนผ่านธนาคาร</label>
+                                        <label><input checked name="payment_method" type="radio" value="2">ชำระผ่าน Mobile
+                                            Banking Application</label>
                                         <div class="payment_box">
-                                            <p><img src="https://rock.in.th/65467176_372895336917578_4910815737381126144_n.png"></p>
-                                            กรุณาโอนเงินมาที่ : 051-8-51290-0 (บจก. ประตูผี) <br>
+                                            บริการชำระเงินผ่าน Mobile Banking Application ด้วย Thai QR Promptpay
+                                        </div>
+                                    </div>
+                                    <div class="payment_method">
+                                        <label><input name="payment_method" type="radio" value="1">โอนผ่านธนาคาร</label>
+                                        <div class="payment_box">
+                                            {{--                                            <p><img src="https://rock.in.th/65467176_372895336917578_4910815737381126144_n.png"></p>--}}
+                                            กรุณาโอนเงินมาที่ : 123-4-56789-0 (บจก. 123 ทดสอบ) <br>
                                             เมื่อโอนเงินสำเร็จกรุณาแจ้งชำระเงินพร้อมหลักฐานที่ : <a href="/payment">แจ้งชำระเงิน</a>
                                         </div>
                                     </div>

@@ -9,394 +9,197 @@ use App\Http\Controllers\Controller;
 
 class KbankService extends Controller
 {
-    public function BillLookupError($request, $responseCode, $responseDescription)
+    public $base_api = "https://openapi-sandbox.kasikornbank.com";
+    public $cusumer_id = "IZhWbQjXtRc7n4nAmdWa424ZpeBwatZ2";
+    public $consumer_secret = "9PXcgwm2xW57AWDU";
+
+    public function getToken()
     {
-        return response()->json([
-            "functionName" => "BillLookupResponse",
-            "transactionId" => $request->transactionId ?? "",
-            "transactionDateTime" => Carbon::now(),
-            "billerTransactionId" => $request->transactionId ?? "",
-            "responseCode" => $responseCode,
-            "responseDescription" => $responseDescription,
-            "billerType" => $request->billerType ?? "",
-            "billerId" => $request->billerId ?? "",
-            "terminalNo" => $request->terminalNo ?? "",
-            "typeofReceiver" => "",
-            "reference1" => $request->reference1 ?? "",
-            "reference2" => $request->reference2 ?? "",
-            "reference3" => "",
-            "info1" => "",
-            "info2" => "",
-            "info3" => "",
-            "additional" => [
-                "rsAppId" => "",
-                "toBillerAccountName" => "",
-                "toBillerServiceName" => "",
-                "payerFee" => "",
-                "settlementDate" => "",
-                "receiverTaxID" => "",
-                "dueDate" => "",
-                "rtpReference" => ""
-            ]
-        ]);
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $this->base_api . '/v2/oauth/token');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "grant_type=client_credentials");
+
+        $headers = array();
+        $headers[] = 'Accept: */*';
+        $headers[] = 'Accept-Language: en-US,en;q=0.9,th;q=0.8,my;q=0.7';
+        $headers[] = 'Authorization: Basic ' . base64_encode($this->cusumer_id . ":" . $this->consumer_secret);
+        $headers[] = 'Cache-Control: no-cache';
+        $headers[] = 'Connection: keep-alive';
+        $headers[] = 'Content-Type: application/x-www-form-urlencoded';
+        $headers[] = 'Pragma: no-cache';
+        $headers[] = 'Sec-Fetch-Dest: empty';
+        $headers[] = 'Sec-Fetch-Mode: cors';
+        $headers[] = 'Sec-Fetch-Site: same-site';
+        $headers[] = 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
+        $headers[] = 'Env-Id: OAUTH2';
+        $headers[] = 'X-Test-Mode: true';
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }
+        curl_close($ch);
+
+        return json_decode($result, true);
     }
 
-    public function BillLookupSuccess($request, $responseCode, $responseDescription, $amount, $reference2 = "", $info = true)
+    public function createThaiQr()
     {
-        if (isset($request->language) && $request->language === "EN") {
-            // Inquiry Info EN Language (8)
-            $response = [
-                "functionName" => "BillLookupResponse",
-                "transactionId" => $request->transactionId ?? "",
-                "transactionDateTime" => Carbon::now(),
-                "billerTransactionId" => $request->transactionId ?? "",
-                "responseCode" => $responseCode,
-                "responseDescription" => $responseDescription,
-                "billerType" => $request->billerType ?? "",
-                "billerId" => $request->billerId ?? "",
-                "terminalNo" => $request->terminalNo ?? "",
-                "promptPayTransactionId" => "",
-                "typeofReceiver" => "",
-                "reference1" => $request->reference1 ?? "",
-                "reference2" => $request->reference2 ?? $reference2,
-                "reference3" => "",
-                "tranAmount" => $amount,
-                "info1" => $info ? "Customer Name EN" : "",
-                "info2" => $info ? "Product Information EN" : "",
-                "info3" => $info ? "Other Information EN" : "",
-                "additional" => [
-                    "rsAppId" => "",
-                    "toBillerAccountName" => "",
-                    "toBillerServiceName" => "",
-                    "payerFee" => "",
-                    "settlementDate" => "",
-                    "receiverTaxID" => "",
-                    "dueDate" => "",
-                    "rtpReference" => ""
-                ]
-            ];
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://openapi-sandbox.kasikornbank.com/v1/qrpayment/request');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"partnerTxnUid\":\"PARTNERTEST0001\",\"partnerId\":\"PTR1051673\",\"partnerSecret\":\"d4bded59200547bc85903574a293831b\",\"merchantId\":\"KB102057149704\",\"qrType\":3,\"txnAmount\":\"120.00\",\"txnCurrencyCode\":\"THB\",\"requestDt\":\"2024-07-08T13:40:56+07:00\",\"reference1\":\"INV001\",\"reference2\":\"HELLOWORLD\",\"reference3\":\"INV001\",\"reference4\":\"INV001\"}");
+
+        $headers = array();
+        $headers[] = 'Accept: */*';
+        $headers[] = 'Accept-Language: en-US,en;q=0.9,th;q=0.8,my;q=0.7';
+        $headers[] = 'Authorization: Bearer iBKvlEsariXd9lkgAy23N3tbclpd';
+        $headers[] = 'Cache-Control: no-cache';
+        $headers[] = 'Connection: keep-alive';
+        $headers[] = 'Content-Type: application/json';
+        $headers[] = 'Origin: https://apiportal.kasikornbank.com';
+        $headers[] = 'Pragma: no-cache';
+        $headers[] = 'Sec-Fetch-Dest: empty';
+        $headers[] = 'Sec-Fetch-Mode: cors';
+        $headers[] = 'Sec-Fetch-Site: same-site';
+        $headers[] = 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
+        $headers[] = 'Env-Id: QR002';
+        $headers[] = 'Sec-Ch-Ua: \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"126\", \"Google Chrome\";v=\"126\"';
+        $headers[] = 'Sec-Ch-Ua-Mobile: ?0';
+        $headers[] = 'Sec-Ch-Ua-Platform: \"macOS\"';
+        $headers[] = 'X-Test-Mode: true';
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }
+        curl_close($ch);
+    }
+
+    public function createCreditQr()
+    {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://openapi-sandbox.kasikornbank.com/v1/qrpayment/request');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"merchantId\":\"KB102057149704\",\"partnerId\":\"PTR1051673\",\"partnerSecret\":\"d4bded59200547bc85903574a293831b\",\"partnerTxnUid\":\"PARTNERTEST0001-2\",\"qrType\":4,\"reference1\":\"INV001\",\"reference2\":\"HELLOWORLD\",\"reference3\":\"INV001\",\"reference4\":\"INV001\",\"requestDt\":\"2024-07-08T13:40:56+07:00\",\"txnAmount\":\"120.00\",\"txnCurrencyCode\":\"THB\"}");
+
+        $headers = array();
+        $headers[] = 'Accept: */*';
+        $headers[] = 'Accept-Language: en-US,en;q=0.9,th;q=0.8,my;q=0.7';
+        $headers[] = 'Authorization: Bearer iBKvlEsariXd9lkgAy23N3tbclpd';
+        $headers[] = 'Cache-Control: no-cache';
+        $headers[] = 'Connection: keep-alive';
+        $headers[] = 'Content-Type: application/json';
+        $headers[] = 'Origin: https://apiportal.kasikornbank.com';
+        $headers[] = 'Pragma: no-cache';
+        $headers[] = 'Sec-Fetch-Dest: empty';
+        $headers[] = 'Sec-Fetch-Mode: cors';
+        $headers[] = 'Sec-Fetch-Site: same-site';
+        $headers[] = 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
+        $headers[] = 'Env-Id: QR003';
+        $headers[] = 'Sec-Ch-Ua: \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"126\", \"Google Chrome\";v=\"126\"';
+        $headers[] = 'Sec-Ch-Ua-Mobile: ?0';
+        $headers[] = 'Sec-Ch-Ua-Platform: \"macOS\"';
+        $headers[] = 'X-Test-Mode: true';
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }
+        curl_close($ch);
+    }
+
+    public function getStatus()
+    {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://openapi-sandbox.kasikornbank.com/v1/qrpayment/v4/inquiry');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "{\"partnerId\":\"PTR1051673\",\"partnerSecret\":\"d4bded59200547bc85903574a293831b\",\"merchantId\":\"KB102057149704\",\"partnerTxnUid\":\"PARTNERTEST0002\",\"origPartnerTxnUid\":\"PARTNERTEST0001\",\"requestDt\":\"2024-07-08T13:40:56+07:00\"}");
+
+        $headers = array();
+        $headers[] = 'Accept: */*';
+        $headers[] = 'Accept-Language: en-US,en;q=0.9,th;q=0.8,my;q=0.7';
+        $headers[] = 'Authorization: Bearer iBKvlEsariXd9lkgAy23N3tbclpd';
+        $headers[] = 'Cache-Control: no-cache';
+        $headers[] = 'Connection: keep-alive';
+        $headers[] = 'Content-Type: application/json';
+        $headers[] = 'Origin: https://apiportal.kasikornbank.com';
+        $headers[] = 'Pragma: no-cache';
+        $headers[] = 'Sec-Fetch-Dest: empty';
+        $headers[] = 'Sec-Fetch-Mode: cors';
+        $headers[] = 'Sec-Fetch-Site: same-site';
+        $headers[] = 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
+        $headers[] = 'Env-Id: QR004';
+        $headers[] = 'Sec-Ch-Ua: \"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"126\", \"Google Chrome\";v=\"126\"';
+        $headers[] = 'Sec-Ch-Ua-Mobile: ?0';
+        $headers[] = 'Sec-Ch-Ua-Platform: \"macOS\"';
+        $headers[] = 'X-Test-Mode: true';
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }
+        curl_close($ch);
+    }
+
+    public function sendApi($method, $url, $env_id = "", $data = [])
+    {
+        $cusumer_id = "IZhWbQjXtRc7n4nAmdWa424ZpeBwatZ2";
+        $consumer_secret = "9PXcgwm2xW57AWDU";
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $this->base_api . $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        if ($method === "POST") {
+            curl_setopt($ch, CURLOPT_POST, 1);
+
+            if (sizeof($data) > 0) {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            }
+        }
+
+        $headers = array();
+        if ($env_id === "OAUTH2") {
+            $headers[] = 'Content-Type: application/x-www-form-urlencoded';
         } else {
-            // Inquiry Info TH Language (9)
-            $response = [
-                "functionName" => "BillLookupResponse",
-                "transactionId" => $request->transactionId ?? "",
-                "transactionDateTime" => Carbon::now(),
-                "billerTransactionId" => $request->transactionId ?? "",
-                "responseCode" => $responseCode,
-                "responseDescription" => $responseDescription,
-                "billerType" => $request->billerType ?? "",
-                "billerId" => $request->billerId ?? "",
-                "terminalNo" => $request->terminalNo ?? "",
-                "promptPayTransactionId" => "",
-                "typeofReceiver" => "",
-                "reference1" => $request->reference1 ?? "",
-                "reference2" => $request->reference2 ?? $reference2,
-                "reference3" => "",
-                "tranAmount" => $amount,
-                "info1" => $info ? "ชื่อลูกค้า" : "",
-                "info2" => $info ? "ชื่อสินค้า" : "",
-                "info3" => $info ? "อื่นๆ" : "",
-                "additional" => [
-                    "rsAppId" => "",
-                    "toBillerAccountName" => "",
-                    "toBillerServiceName" => "",
-                    "payerFee" => "",
-                    "settlementDate" => "",
-                    "receiverTaxID" => "",
-                    "dueDate" => "",
-                    "rtpReference" => ""
-                ]
-            ];
+            $headers[] = 'Content-Type: application/x-www-form-urlencoded';
         }
+        $headers[] = 'x-test-mode: true';
+        $headers[] = 'env-id: ' . $env_id;
+        $headers[] = 'Authorization: Basic ' . base64_encode($cusumer_id . ":" . $consumer_secret);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-        return response()->json($response);
+        $result = curl_exec($ch);
+        if (curl_errno($ch)) {
+            echo 'Error:' . curl_error($ch);
+        }
+        curl_close($ch);
+
+        return json_decode($result, true);
     }
 
-    public function BillLookupPromptPaySuccess($request, $responseCode, $responseDescription, $amount, $reference2 = "")
-    {
-        if (isset($request->language) && $request->language === "EN") {
-            $response = [
-                "functionName" => "BillLookupResponse",
-                "transactionId" => $request->transactionId ?? "",
-                "transactionDateTime" => Carbon::now(),
-                "billerTransactionId" => $request->transactionId ?? "",
-                "responseCode" => $responseCode,
-                "responseDescription" => $responseDescription,
-                "billerType" => $request->billerType ?? "",
-                "billerId" => $request->billerId ?? "",
-                "terminalNo" => $request->terminalNo ?? "",
-                "promptPayTransactionId" => $request->promptPayReferenceNumber ?? "",
-                "typeofReceiver" => "C",
-                "reference1" => $request->reference1 ?? "",
-                "reference2" => $request->reference2 ?? $reference2,
-                "reference3" => "",
-                "info1" => "Customer Name EN",
-                "info2" => "Product Information EN",
-                "info3" => "Other Information EN",
-                "additional" => [
-                    "toBillerAccountName" => "",
-                    "toBillerServiceName" => "",
-                    "payerFee" => "",
-                    "settlementDate" => "",
-                    "receiverTaxID" => "",
-                    "dueDate" => "",
-                    "qrReference" => "",
-                    "mAppId" => ""
-                ]
-            ];
-        } else {
-            $response = [
-                "functionName" => "BillLookupResponse",
-                "transactionId" => $request->transactionId ?? "",
-                "transactionDateTime" => Carbon::now(),
-                "billerTransactionId" => $request->transactionId ?? "",
-                "responseCode" => $responseCode,
-                "responseDescription" => $responseDescription,
-                "billerType" => $request->billerType ?? "",
-                "billerId" => $request->billerId ?? "",
-                "terminalNo" => $request->terminalNo ?? "",
-                "promptPayTransactionId" => $request->promptPayReferenceNumber ?? "",
-                "typeOfReceiver" => "C",
-                "reference1" => $request->reference1 ?? "",
-                "reference2" => $request->reference2 ?? $reference2,
-                "reference3" => "",
-                "info1" => "ชื่อลูกค้า",
-                "info2" => "ชื่อสินค้า",
-                "info3" => "อื่นๆ",
-                "additional" => [
-                    "toBillerAccountName" => "",
-                    "toBillerServiceName" => "",
-                    "payerFee" => "",
-                    "settlementDate" => "",
-                    "receiverTaxID" => "",
-                    "dueDate" => "",
-                    "qrReference" => "",
-                    "mAppId" => ""
-                ]
-            ];
-        }
+}
 
-        return response()->json($response);
-    }
+vq4vHj3XsM2TFuloK8ZSq6dxNal2
 
-    public function BillLookupPromptPayError($request, $responseCode, $responseDescription)
-    {
-        return response()->json([
-            "functionName" => "BillLookupResponse",
-            "transactionId" => $request->transactionId ?? "",
-            "transactionDateTime" => Carbon::now(),
-            "billerTransactionId" => $request->transactionId ?? "",
-            "responseCode" => $responseCode,
-            "responseDescription" => $responseDescription,
-            "billerType" => $request->billerType ?? "",
-            "billerId" => $request->billerId ?? "",
-            "terminalNo" => $request->terminalNo ?? "",
-            "promptPayTransactionId" => $request->promptPayReferenceNumber ?? "",
-            "typeofReceiver" => "C",
-            "reference1" => $request->reference1 ?? "",
-            "reference2" => $request->reference2 ?? "",
-            "reference3" => "",
-            "info1" => "",
-            "info2" => "",
-            "info3" => "",
-            "additional" => [
-                "toBillerAccountName" => "",
-                "toBillerServiceName" => "",
-                "payerFee" => "",
-                "settlementDate" => "",
-                "receiverTaxID" => "",
-                "dueDate" => "",
-                "qrReference" => "",
-                "mAppId" => ""
-            ]
-        ]);
-    }
-
-    public function BillLookup(Request $request)
-    {
-        if (isset($request->billerType) && $request->billerType === "BILLERID")
-            return $this->BillLookupPromptpay($request);
-
-        if (!isset($request->reference1)) {
-            return $this->BillLookupError($request, "0001", "Invalid Payment reference number");
-        }
-
-        if (!ctype_digit($request->reference1)) {
-            // Inquiry Invalid Ref 1 (4)
-            return $this->BillLookupError($request, "0001", "Invalid Payment reference number");
-        }
-
-        if (!isset($request->reference2)) {
-            $check_bill = KbankApiLog::where('transactionId', '=', $request->transactionId)
-                ->where('reference1', '=', $request->reference1)->first();
-            if (isset($check_bill->id)) {
-                // Inquiry Reference 1 for return Reference 2 and amount Success (10)
-                return $this->BillLookupSuccess($request, "0000", "Success", $check_bill->tranAmount, $check_bill->reference2, false);
-            } else {
-                return $this->BillLookupError($request, "0001", "Invalid Payment reference number");
-            }
-        }
-
-        if (!ctype_digit($request->reference2)) {
-            // Inquiry Invalid Ref 1 and 2 (5)
-            return $this->BillLookupError($request, "0001", "Invalid Payment reference number");
-        }
-
-        $check_bill = KbankApiLog::where('transactionId', '=', $request->transactionId)
-            ->where('reference1', '=', $request->reference1)
-            ->where('reference2', '=', $request->reference2)
-            ->first();
-        if (isset($check_bill->id)) {
-            if (!isset($check_bill->transactionId)) {
-                KbankApiLog::where('id', '=', $check_bill->id)->update([
-                    'transactionId' => $request->transactionId
-                ]);
-            }
-
-            if (!preg_match('/^\d+(\.\d{1,2})?$/', $request->tranAmount) || $request->tranAmount !== $check_bill->tranAmount) {
-                // Inquiry Invalid Amount (6)
-                return $this->BillLookupError($request, "0004", "Invalid payment amount");
-            }
-
-            //  Inquiry Other Merchant Error (Fixed Response) (7)
-            if ($request->transactionId === "98099310720200530183382105") {
-                return $this->BillLookupError($request, "1000", "Other Merchant Error");
-            }
-
-            //  ชำระเงินแล้ว
-            if ($check_bill->status) {
-                // Inquiry Already Paid (3)
-                return $this->BillLookupSuccess($request, "0002", "Already paid", $check_bill->tranAmount);
-            }
-
-            //  Inquiry Success (1)
-            return $this->BillLookupSuccess($request, "0000", "Success", $check_bill->tranAmount);
-
-        }
-
-        return $this->BillLookupError($request, "0001", "Invalid Payment reference number");
-    }
-
-    public function BillPayment(Request $request)
-    {
-        if (isset($request->billerType) && $request->billerType === "BILLERID")
-            return $this->BillPaymentPromptpay($request);
-
-        if (!isset($request->isRetry) || (int)$request->isRetry !== 1) {
-            // BillPayment Success (2)
-            KbankApiLog::where('transactionId', '=', $request->transactionId)->update([
-                "status" => true
-            ]);
-
-        }
-
-        // BillPayment Reference 1 for return Reference 2 and amount Success (11)
-        $response = [
-            "functionName" => "BillPaymentResponse",
-            "transactionId" => $request->transactionId ?? "",
-            "responseDateTime" => Carbon::now(),
-            "billerTransactionId" => $request->transactionId ?? "",
-            "responseCode" => "0000",
-            "responseDescription" => "Success",
-            "terminalNo" => $request->terminalNo ?? "",
-            "additional" => [
-                "settlementDate" => "",
-                "rsAppId" => ""
-            ]
-        ];
-
-        return response()->json($response);
-    }
-
-    public function BillLookupPromptpay($request)
-    {
-        if (!isset($request->reference1)) {
-            return $this->BillLookupPromptPayError($request, "0001", "Invalid Payment reference number");
-        }
-
-        if (!ctype_digit($request->reference1)) {
-            // PromptPay Inquiry Invalid Ref 1 (15)
-            return $this->BillLookupPromptPayError($request, "0001", "Invalid Payment reference number");
-        }
-
-        if (!isset($request->reference2)) {
-            $check_bill = KbankApiLog::where('transactionId', '=', $request->transactionId)
-                ->where('reference1', '=', $request->reference1)
-                ->first();
-            if (isset($check_bill->id)) {
-                // Inquiry Reference 1 for return Reference 2 and amount Success (10)
-                return $this->BillLookupPromptPaySuccess($request, "0000", "Success", $check_bill->tranAmount, $check_bill->reference2);
-            } else {
-                return $this->BillLookupPromptPayError($request, "0001", "Invalid Payment reference number");
-            }
-        }
-
-        if (!ctype_digit($request->reference2)) {
-            // PromptPay Inquiry Invalid Ref 1 and 2 (16)
-            return $this->BillLookupPromptPayError($request, "0001", "Invalid Payment reference number");
-        }
-
-        $check_bill = KbankApiLog::where('transactionId', '=', $request->transactionId)
-            ->where('reference1', '=', $request->reference1)
-            ->where('reference2', '=', $request->reference2)
-            ->first();
-        if (isset($check_bill->id)) {
-            if (!isset($check_bill->transactionId)) {
-                KbankApiLog::where('id', '=', $check_bill->id)->update([
-                    'transactionId' => $request->transactionId
-                ]);
-            }
-
-            if (!preg_match('/^\d+(\.\d{1,2})?$/', $request->tranAmount) || $request->tranAmount !== $check_bill->tranAmount) {
-                // PromptPay Inquiry Invalid Amount (17)
-                return $this->BillLookupPromptPayError($request, "0004", "Invalid payment amount");
-            }
-
-            //  PromptPay Inquiry Other Merchant Error (Fixed Response) (18)
-            if ($request->transactionId === "KBNK_20191009_000000000000105") {
-                return $this->BillLookupPromptPayError($request, "1000", "Other Merchant Error");
-            }
-
-            //  ชำระเงินแล้ว
-            if ($check_bill->status) {
-                // PromptPay Inquiry Already Paid (14)
-                return $this->BillLookupPromptPaySuccess($request, "0002", "Already paid", $check_bill->tranAmount);
-            }
-
-            //  PromptPay Inquiry Success (12)
-            return $this->BillLookupPromptPaySuccess($request, "0000", "Success", $check_bill->tranAmount);
-
-        }
-
-        return $this->BillLookupPromptPayError($request, "0001", "Invalid Payment reference number");
-    }
-
-    public function BillPaymentPromptpay(Request $request)
-    {
-        if (!isset($request->isRetry) || (int)$request->isRetry !== 1) {
-            KbankApiLog::where('transactionId', '=', $request->transactionId)->update([
-                "status" => true
-            ]);
-
-        }
-
-        // PromptPay BillPayment Success (13)
-        $response = [
-            "functionName" => "BillPaymentResponse",
-            "transactionId" => $request->transactionId ?? "",
-            "responseDateTime" => Carbon::now(),
-            "billerTransactionId" => $request->transactionId ?? "",
-            "responseCode" => "0000",
-            "responseDescription" => "Success",
-            "terminalNo" => $request->terminalNo ?? "",
-            "promptPayTransactionId" => $request->promptPayReferenceNumber ?? "",
-            "additional" => [
-                "settlementDate" => "",
-                "rsAppId" => ""
-            ]
-        ];
-
-        return response()->json($response);
-    }
-
+{
+    "partnerId": "PTR1051673",
+  "partnerSecret": "d4bded59200547bc85903574a293831b",
+  "merchantId": "KB102057149704",
+    "partnerTxnUid": "PARTNERTEST0003",
+  "origPartnerTxnUid" : "TESTCANCELQR001",
+  "requestDt" : "2024-07-08T13:40:56+07:00"
 }

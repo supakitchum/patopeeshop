@@ -6,9 +6,8 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="text-border">
-                        <div class="row margin-bottom-60">
-                            <p><h1 class="text-success"><i class="fa fa-check-circle"></i> ยืนยันคำสั่งซื้อ #{{ $order->reference }} สำเร็จ</h1></p>
-                        </div>
+                        <h1 class="text-success"><i class="fa fa-check-circle"></i> ยืนยันคำสั่งซื้อ
+                            #{{ $order->reference }} สำเร็จ</h1>
                     </div>
                 </div>
                 <div class="col-sm-8">
@@ -29,8 +28,9 @@
                         @foreach($details as $index=>$detail)
                             <tr>
                                 <td class="d-none d-md-table-cell">{{ $index+1 }}</td>
-                                <td class="d-none d-md-table-cell"><img src="{{ asset($detail->image) }}" width="150px" height="150px"> </td>
-                                <td >{{ $detail->product_name  }}</td>
+                                <td class="d-none d-md-table-cell"><img src="{{ asset($detail->image) }}" width="150px"
+                                                                        height="150px"></td>
+                                <td>{{ $detail->product_name  }}</td>
                                 <td>
                                     <p>สี : {{ $detail->color }}</p>
                                     <p>ขนาด : {{ $detail->size }}</p>
@@ -66,12 +66,13 @@
                         <tr>
                             <td>ที่อยู่</td>
                             <td>
-                                ​​{{ $order->address }} ต.{{ $address->district }} อ. {{ $address->amphoe }} จ.{{ $address->provice }} {{ $order->zip_code }}
+                                ​​{{ $order->address }} ต.{{ $address->district }} อ. {{ $address->amphoe }}
+                                จ.{{ $address->provice }} {{ $order->zip_code }}
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <p><a class="btn btn-primary w-100" href="/payment?reference={{$order->reference}}">แจ้งชำระเงิน</a></p>
+                                <a class="btn btn-primary w-100" href="/payment?reference={{$order->reference}}">แจ้งชำระเงิน</a>
                             </td>
                         </tr>
                     </table>
@@ -79,9 +80,45 @@
             </div>
         </div>
     </div>
+    <div id="paymentQrModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <div class="row">
+                        <div class="col-sm-12 text-center" style="position: absolute;">
+                            <h4 class="modal-title" id="name_product">ชำระเงิน</h4>
+                        </div>
+                        <div class="col-sm-12 text-right">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="qr-container">
+                        <div class="qr-header">
+                            <img style="width: 30%" src="{{ asset('images/thai-qr.png') }}" alt="Thai QR Payment">
+                        </div>
+                        <div class="promptpay-logo">
+                            <img src="{{ asset('images/prompt-pay-logo.png') }}" alt="PromptPay">
+                        </div>
+                        <div class="qr-code">
+                            <img src="{{ asset('images/test-qr.png') }}" alt="QR Code">
+                        </div>
+                        <div class="qr-description">
+                            <p>ทดสอบ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 @endsection
 @section('script')
     <script>
+        $('#paymentQrModal').modal('show');
         sessionStorage.clear();
         $('.show-cart').html('');
         $('.total-cart').html(0);
