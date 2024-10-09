@@ -39,3 +39,10 @@ Route::get('stat/line-chart', 'API\StatController@lineChart');
 
 Route::post('payments/kbank/bill-payment/inquiry', '\App\Http\Controllers\Services\Payments\KbankService@BillLookup');
 Route::post('payments/kbank/bill-payment/payment', '\App\Http\Controllers\Services\Payments\KbankService@BillPayment');
+Route::get('payments/kbank/qr/callback', '\App\Http\Controllers\Services\Payments\KbankService@QrCallback');
+Route::post('payments/kbank/qr/callback', [\App\Http\Controllers\Payment\KbankController::class,'callBack']);
+
+Route::group(['name' => 'api.', 'prefix' => 'v1', 'middleware' => \App\Http\Middleware\PartnerApi::class], function () {
+    Route::post('payments/kbank/bill', [\App\Http\Controllers\Payment\KbankController::class, 'createQR']);
+    Route::post('payments/kbank/cancel', [\App\Http\Controllers\Payment\KbankController::class, 'cancelBill']);
+});
