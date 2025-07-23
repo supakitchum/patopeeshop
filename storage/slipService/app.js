@@ -303,6 +303,10 @@ app.post('/slip2', async (req, res) => {
     }
 });
 
+app.get('/', async (req, res) => {
+    res.json({status: "ready"});
+});
+
 async function readQRCodeFromBase64(base64String) {
     // Decode the base64 string to a buffer
     const buffer = Buffer.from(base64String, 'base64');
