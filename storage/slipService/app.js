@@ -4,6 +4,8 @@ const jsQR = require('jsqr');
 const fs = require('fs');
 const multer = require('multer');
 const {S3Client, PutObjectCommand} = require('@aws-sdk/client-s3');
+const Jimp = require('jimp');
+const QrCode = require('qrcode-reader');
 
 const app = express();
 const port = 3000;
@@ -124,15 +126,15 @@ async function sendApi(data) {
             if (error) {
                 reject(error);
             } else {
-                console.log(JSON.parse(response.body))
+                // console.log(JSON.parse(response.body))
                 resolve(JSON.parse(response.body));
             }
         });
     });
 }
 
-async function checkAccessToken(){
-    if (OauthExp < new Date()){
+async function checkAccessToken() {
+    if (OauthExp < new Date()) {
         return await getAccessToken();
     }
 
@@ -161,7 +163,7 @@ async function getAccessToken() {
                 reject(error);
             } else {
                 let json = JSON.parse(response.body)
-                if (json.access_token){
+                if (json.access_token) {
                     Oauth = json;
                     OauthExp = new Date(Date.now() + 10 * 60 * 1000);
                 }
@@ -201,9 +203,9 @@ async function insertSlip(qr_text, agent, detail, slip_name, amount) {
     try {
         const sql = 'INSERT INTO kbank_slips (qr_text,agent,detail,slip_name,amount) VALUES (?,?,?,?,?)';
         const [result] = await pool.execute(sql, [qr_text, agent, detail, slip_name, amount]);
-        console.log('Inserted ID:', result.insertId);
+        // console.log('Inserted ID:', result.insertId);
     } catch (err) {
-        console.error('Insert error:', err);
+        // console.error('Insert error:', err);
     }
 }
 
@@ -228,99 +230,57 @@ app.post('/slip', upload.single('image'), async (req, res) => {
         return res.status(403).json({message: 'Access denied'});
     }
 
-    // return res.send({
-    //     "qr_text": "0041000600000101030040220015181182201CPP073235102TH91046E58",
-    //     "decode": {
-    //         "sendingBank": "004",
-    //         "transRef": "015181182201CPP07323"
-    //     },
-    //     "verify": {
-    //         "rqUID": "KSS1751356828531",
-    //         "kbankTxnId": "rrt-6686910664553705-c-gae2-50558-11710-1",
-    //         "statusCode": "0000",
-    //         "statusMessage": "SUCCESS",
-    //         "data": {
-    //             "language": "TH",
-    //             "transRef": "015181182201CPP07323",
-    //             "sendingBank": "004",
-    //             "receivingBank": "",
-    //             "transDate": "20250630",
-    //             "transTime": "18:22:01",
-    //             "sender": {
-    //                 "displayName": "นาย ศุภกิจ ช",
-    //                 "name": "MR. Supakit C",
-    //                 "proxy": {
-    //                     "type": null,
-    //                     "value": null
-    //                 },
-    //                 "account": {
-    //                     "type": "BANKAC",
-    //                     "value": "xxx-x-x6800-x"
-    //                 }
-    //             },
-    //             "receiver": {
-    //                 "displayName": "นาย ศุภกิจ ช",
-    //                 "name": "SUPAKIT C",
-    //                 "proxy": {
-    //                     "type": "MSISDN",
-    //                     "value": "xxx-xxx-9050"
-    //                 },
-    //                 "account": {
-    //                     "type": "",
-    //                     "value": ""
-    //                 }
-    //             },
-    //             "amount": 200,
-    //             "paidLocalAmount": 200,
-    //             "paidLocalCurrency": "764",
-    //             "countryCode": "TH",
-    //             "transFeeAmount": 0,
-    //             "ref1": "",
-    //             "ref2": "",
-    //             "ref3": "",
-    //             "toMerchantId": ""
-    //         }
-    //     },
-    //     "slip": "https://ksslips.s3.ap-southeast-1.amazonaws.com/0041000600000101030040220015172231926CPP005055102TH91044661.webp"
-    // });
-
     // Access the file buffer directly
     const fileBuffer = req.file.buffer;
 
     // Encode to base64
     const base64Image = fileBuffer.toString('base64');
 
+    let qrText;
+
     try {
-        const qrText = await readQRCodeFromBase64(base64Image);
-        const dup = await checkDuplicate(qrText);
-        if (dup) {
-            return res.status(400).json({message: 'สลิปซ้ำ'});
+        qrText = await readQRCodeFromBase64(base64Image);
+    } catch (error) {
+        try {
+            qrText = await readQRFromBase64(base64Image);
+        } catch (e) {
+            qrText = false;
         }
+    }
 
-        const decode = parseTransactionData(qrText);
-        const verify = await sendApi(decode);
-        const up = await uploadImage(req.file, qrText);
-        if (isNotEmpty(verify.statusCode) && verify.statusCode === "0000" && verify.data.receiver.name === "K.S. INTERNATIONAL M") {
-            await insertSlip(qrText, auth.id, JSON.stringify(verify), up.url, verify.data.amount);
-            return res.json({
-                qr: qrText,
-                decode: decode,
-                verify: verify,
-                slip: up.url
-            });
-        }
-
+    if (!qrText) {
+        const up = await uploadImage(req.file, Math.floor(Date.now() / 1000));
         return res.status(400).json({
-            message: "ไม่สามารถตรวจสอบสลิปนี้ได้",
+            message: 'Cant get QR from image',
+            slip: up.url
+        });
+    }
+
+    const dup = await checkDuplicate(qrText);
+    if (dup) {
+        return res.status(400).json({message: 'สลิปซ้ำ'});
+    }
+
+    const decode = parseTransactionData(qrText);
+    const verify = await sendApi(decode);
+    const up = await uploadImage(req.file, qrText);
+    if (isNotEmpty(verify.statusCode) && verify.statusCode === "0000" && verify.data.receiver.name === "K.S. INTERNATIONAL M") {
+        await insertSlip(qrText, auth.id, JSON.stringify(verify), up.url, verify.data.amount);
+        return res.json({
+            qr: qrText,
             decode: decode,
-            qrText: qrText,
             verify: verify,
             slip: up.url
         });
-    } catch (error) {
-        console.log(error);
-        return res.status(400).json({message: "สลิปไม่ถูกต้อง",slip: "Cant upload"});
     }
+
+    return res.status(400).json({
+        message: "ไม่สามารถตรวจสอบสลิปนี้ได้",
+        decode: decode,
+        qrText: qrText,
+        verify: verify,
+        slip: up.url
+    });
 });
 
 app.post('/read-qr-code', async (req, res) => {
@@ -388,6 +348,25 @@ async function readQRCodeFromBase64(base64String) {
     } else {
         throw new Error('No QR code found in the image.');
     }
+}
+
+
+async function readQRFromBase64(base64Data) {
+    return new Promise((resolve, reject) => {
+        const buffer = Buffer.from(base64Data, 'base64');
+
+        Jimp.read(buffer, (err, image) => {
+            if (err) return reject('Error reading image: ' + err);
+
+            const qr = new QrCode();
+            qr.callback = (err, value) => {
+                if (err || !value) return reject('Error decoding QR code: ' + err);
+                resolve(value.result);
+            };
+
+            qr.decode(image.bitmap);
+        });
+    });
 }
 
 app.listen(port, () => {
