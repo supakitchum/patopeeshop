@@ -290,16 +290,17 @@ app.post('/slip', upload.single('image'), async (req, res) => {
     // Encode to base64
     const base64Image = fileBuffer.toString('base64');
 
+    const up = await uploadImage(req.file, qrText);
+
     try {
         const qrText = await readQRCodeFromBase64(base64Image);
-        const dup = await checkDuplicate(qrText);
-        if (dup) {
-            return res.status(400).json({message: 'สลิปซ้ำ'});
-        }
+        // const dup = await checkDuplicate(qrText);
+        // if (dup) {
+        //     return res.status(400).json({message: 'สลิปซ้ำ'});
+        // }
 
         const decode = parseTransactionData(qrText);
         const verify = await sendApi(decode);
-        const up = await uploadImage(req.file, qrText);
         if (isNotEmpty(verify.statusCode) && verify.statusCode === "0000" && verify.data.receiver.name === "K.S. INTERNATIONAL M") {
             await insertSlip(qrText, auth.id, JSON.stringify(verify), up.url, verify.data.amount);
             return res.json({
@@ -319,7 +320,10 @@ app.post('/slip', upload.single('image'), async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        return res.status(400).json({message: "สลิปไม่ถูกต้อง",error: error});
+        return res.status(400).json({
+            message: "สลิปไม่ถูกต้อง",
+            slip: up.url
+        });
     }
 });
 
