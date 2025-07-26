@@ -11,6 +11,22 @@ var request = require('request');
 const storage = multer.memoryStorage();
 const upload = multer({storage: storage});
 const mysql = require('mysql2/promise');
+const config = require('./config.json');
+let Oauth = {
+    "token_type": "Bearer",
+    "client_id": "",
+    "access_token": "",
+    "scope": "",
+    "expires_in": "",
+    "status": "approved"
+};
+
+let OauthExp = new Date();
+
+
+const pool = mysql.createPool(config.mysql);
+
+const s3 = new S3Client(config.s3);
 
 async function uploadImage(file, qrText) {
     try {
@@ -86,7 +102,7 @@ function getFormattedTimestamp() {
 }
 
 async function sendApi(data) {
-    let token = JSON.parse(fs.readFileSync('../app/public/auth.json', 'utf8'));
+    let token = await checkAccessToken();
     return new Promise((resolve, reject) => {
         var options = {
             'method': 'POST',
@@ -109,6 +125,46 @@ async function sendApi(data) {
                 reject(error);
             } else {
                 console.log(JSON.parse(response.body))
+                resolve(JSON.parse(response.body));
+            }
+        });
+    });
+}
+
+async function checkAccessToken(){
+    if (OauthExp < new Date()){
+        return await getAccessToken();
+    }
+
+    return Oauth;
+}
+
+async function getAccessToken() {
+    let key = Buffer.from(`${config.kbank.consumer_id}:${config.kbank.consumer_secret}`).toString('base64');
+    return new Promise((resolve, reject) => {
+        var options = {
+            'method': 'POST',
+            'url': 'https://openapi.kasikornbank.com/v2/oauth/token',
+            'headers': {
+                'Authorization': 'Basic ' + key,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            form: {
+                'grant_type': 'client_credentials'
+            },
+            cert: fs.readFileSync('../certs/ks-intershop.cert'), // Path to client certificate
+            key: fs.readFileSync('../certs/ks-intershop.key'),   // Path to client private key
+        };
+
+        request(options, function (error, response) {
+            if (error) {
+                reject(error);
+            } else {
+                let json = JSON.parse(response.body)
+                if (json.access_token){
+                    Oauth = json;
+                    OauthExp = new Date(Date.now() + 10 * 60 * 1000);
+                }
                 resolve(JSON.parse(response.body));
             }
         });
@@ -262,7 +318,8 @@ app.post('/slip', upload.single('image'), async (req, res) => {
             slip: up.url
         });
     } catch (error) {
-        return res.status(400).json({message: "สลิปไม่ถูกต้อง"});
+        console.log(error);
+        return res.status(400).json({message: "สลิปไม่ถูกต้อง",error: error});
     }
 });
 
