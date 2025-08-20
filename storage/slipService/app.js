@@ -264,7 +264,7 @@ app.post('/slip', upload.single('image'), async (req, res) => {
     const decode = parseTransactionData(qrText);
     const verify = await sendApi(decode);
     const up = await uploadImage(req.file, qrText);
-    if (isNotEmpty(verify.statusCode) && verify.statusCode === "0000" && verify.data.receiver.name === "K.S. INTERNATIONAL M") {
+    if (isNotEmpty(verify.statusCode) && verify.statusCode === "0000") {
         await insertSlip(qrText, auth.id, JSON.stringify(verify), up.url, verify.data.amount);
         return res.json({
             qr: qrText,
